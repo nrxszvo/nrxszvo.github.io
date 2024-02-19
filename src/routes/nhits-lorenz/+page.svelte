@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import Link from '$lib/Link.svelte';
 	import NhitsArch from '$lib/NhitsArch.svelte';
 	import { refIndices } from '$lib/refs.svelte';
