@@ -20,21 +20,27 @@
 \\beta & = 28 \\\\
 \\end{align}`;
 
+	const lyapunovExp = `
+\\begin{align}
+\dt & \\approx 0.015 \\mathrm{s} \\\\
+\\lambda_{max}^{-1} & \\approx 1.121 \\mathrm{s} \\\\
+\H = 100 \\text{ points} & \\approx 1.34\\lambda_{max}^{-1} \\\\
+\\end{align}`;
+
 	onMount(() => {
 		let script = document.createElement('script');
-		script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js';
+		script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js';
+		script.async = true;
 		document.head.append(script);
 
-		script.onload = () => {
-			MathJax = {
-				tex: {
-					inlineMath: [
-						['$', '$'],
-						['\\(', '\\)']
-					]
-				},
-				svg: { fontCache: 'global' }
-			};
+		window.MathJax = {
+			tex: {
+				inlineMath: [
+					['$', '$'],
+					['\\(', '\\)']
+				]
+			},
+			processEscapes: true
 		};
 	});
 </script>
@@ -50,9 +56,10 @@
 		as reservoir computers and neural ODEs.
 	</P>
 	<P>
-		My goal is to probe deeper into Gilpin's findings and test the limits of a neural network to
-		model a chaotic system, subject to the computational constraints imposed by my limited
-		budget*. I started by focusing on what is probably the most well known chaotic system, the
+		My goal is to probe deeper into Gilpin's findings and test the limits of a neural network's
+		ability to model a chaotic system (within the computational constraints imposed by my
+		limited budget*). I'll start by focusing on what is probably the most well known chaotic
+		system, the
 		<Link href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Attractor</Link>, developed
 		by Edward Lorenz et. al. in 1963 as a simplified model of atmospheric convection.
 	</P>
@@ -82,7 +89,7 @@
 	<div class="flex justify-center"><p>{equParams}</p></div>
 	<P>
 		I used Gilpin's <Link href={'https://github.com/williamgilpin/dysts'}>dysts</Link> python module
-		for generating the training data for this solution.
+		to generate the training data for this solution.
 	</P>
 	<div class="text-xl text-center mt-4 mb-2">Neural Architecture: N-HiTS</div>
 	<P>
@@ -115,10 +122,40 @@
 		>The novel ideas from N-HiTS enable the possiblity of modeling increasingly long time
 		horizons while keeping computational complexity low. They include the use of pooling layers
 		that downsample the inputs to each block and upsampling layers that project a compressed
-		representation of the forecast to the output sample rate. These additions allow N-HiTS to
-		exceed the performance of competing long-horizon forecasting models with an order of
-		magnitude lower computational complexity [{refIndices['challu']}].
+		representation of the forecast to the output sample rate. In addition to the complexity
+		savings, the compressed representations may induce a bias towards a temporal hierarchical
+		modeling of the time series across the blocks that allows N-HiTS to exceed the performance
+		of competing long-horizon forecasting models while requiring an order of magnitude lower
+		computational complexity [{refIndices['challu']}].
 	</P>
+	<div class="text-xl text-center mt-4 mb-2">Experiments</div>
+	<P>
+		While Gilpin's experiments focus on testing more than 24 different time-series prediction
+		models on over 130 different chaotic systems using a relatively narrow range of hyper
+		parameters for tuning [{refIndices['gilpin']}], my experiments aim to tune a single model,
+		N-HiTS, on a single system, the Lorenz Attractor, to maximize its accuracy for a given,
+		relatively "long" fixed horizon (aka prediction window size). And more specifically, I aim
+		not only to achieve a low average error on the test set, but also to limit the worst-case
+		error such that the model may be said to avoid "catastrophic failure" almost everywhere.
+	</P><P
+		>I begin with a horizon of 100 points, using a dt of approximately {`$0.015$`} seconds per point.
+		The maximum <Link href="https://en.wikipedia.org/wiki/Lyapunov_exponent"
+			>Lyapunov exponent</Link
+		>, as reported in Gilpin's
+		<Link href="https://github.com/williamgilpin/dysts">dysts</Link> repo, is approx. {`$0.8917$`},
+		and so the <Link href="https://en.wikipedia.org/wiki/Lyapunov_time">Lyapunov time</Link> is approx.
+		{`$1.121$`}. Therefore, a horizon of 100 points covers a time period of about {`$\\frac{4}{3}$`}
+		of the Lyapunov time.
+	</P>
+	<div>{lyapunovExp}</div>
+	<P
+		>From this, I conclude that if the neural model's predictions have, on average, a
+		mean-squared error much less than a factor of {`$\e$`} times the difference in initial conditions
+		between the train set and test set, then this indicates with high confidence that the model is
+		accurately predicting the chaotic region of the Lorenz system. In reality, the train and test
+		sets are comprised of many sequences with uniformly randomized initial conditions, with a multiplicative
+		perturbation for each initial condition being sampled from the interval {`$[0.99-1.01]$`}</P
+	>
 </div>
 <p class="text-sm mt-4 pl-2">
 	* all of my experiments are run on a Paperspace VM using a single RTX 4000 with 8 GB of RAM for
@@ -126,7 +163,7 @@
 </p>
 <References />
 <div
-	class="fixed z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-50 text-[20rem] text-red-600 font-mono"
+	class="fixed pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25 text-[20rem] text-red-600 font-mono"
 >
 	WIP
 </div>
