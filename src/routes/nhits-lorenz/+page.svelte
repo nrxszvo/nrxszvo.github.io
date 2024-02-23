@@ -209,6 +209,11 @@
 		<HP text="batch size" val="512" />
 		<HP text="# training steps" val="10,000" />
 		<HP text="learning rate" val={`$1\\mathrm{e}{-3}$`} />
+		<li>
+			learning rate decay schedule: halve the learning rate every <span
+				class="rounded px-1 bg-gray-300">3,333</span
+			> steps
+		</li>
 	</ul>
 	<P indent="indent-0"
 		>The model is optimized with MAE loss, consistent with the default loss from [{refIndices[
@@ -219,7 +224,8 @@
 	<div>{sMAPE}</div>
 	<P
 		>In this formulation, sMAPE is bound to the interval [0, 200]. The distribution of average
-		window errors on the test set is shown below. Note that the y axis is log-scaled.</P
+		window errors and its CDF on the test set are shown below. Note that the left y axis is
+		log-scaled.</P
 	>
 	<div class="self-center"><Model1ErrDist /></div>
 	<P
@@ -252,9 +258,9 @@
 		error grows quickly. In the first graph, this point is about in the middle of the
 		prediction, in the second it is maybe one third of the way into the prediction, and in the
 		third it is near the beginning. If we look at the predictions of adjacent windows, we see
-		that this behavior at this point is consisent across the windows, indicating that there is
-		something about the system's distribution in this region that is difficult for our model to
-		fit</P
+		that the behavior at this point is consisent across the windows, indicating that there is
+		something about the system's distribution in this region that is very difficult for our
+		model to fit</P
 	>
 
 	<figure>
@@ -271,6 +277,39 @@
 			distribution abruptly shifts towards maximum uncertainty.
 		</figcaption>
 	</figure>
+	<P
+		>Possibly, our model simply didn't get enough examples of these conditions in its training
+		set, so the obvious and easiest first step to try is increasing the size of the training
+		set, and, specifically, increasing the number of series with unique initial conditions. For
+		the next model, we increase the number of initial conditions from 25 to 1000, and hold out
+		25 for validation and 25 for testing, leaving 950 unique initial conditions, each of length
+		10,000, in the training set. We also expand the range of hyperparameters for tuning to
+		include significantly larger models that may also aid in capturing the challenging regions
+		of the distribution. After tuning, we arrive at the following settings:</P
+	>
+	<p class="mt-2">
+		<b>Model 2</b> new hyperparameters:
+	</p>
+	<ul class="text-left ms-16 list-disc">
+		<HP text="number of stacks" val="4" />
+		<HP text="mlp layer size" val="4096" />
+		<HP text="max pooling factors" val="10, 4, 2, 1" />
+		<HP text="frequency downsampling factors" val="60, 25, 6, 1" />
+		<HP text="batch size" val="256" />
+		<HP text="# training steps" val="200,000" />
+		<HP text="learning rate" val={`$1\\mathrm{e}{-4}$`} />
+		<li>
+			learning rate decay schedule: halve the learning rate every <span
+				class="rounded px-1 bg-gray-300">16,667</span
+			> steps
+		</li>
+	</ul>
+	<p class="mt-2">
+		We've increased the depth (number of stacks) and width (mlp layer size) of the network, and
+		we've also significantly increased the amount of compression in the initial stacks. Halving
+		the batch size also turns out to reduce validation error, as well as training for many more
+		steps at a lower learning rate.
+	</p>
 </div>
 <p class="text-sm mt-4 pl-2">
 	* all of my experiments are run on a Paperspace VM using a single RTX 4000 with 8 GB of RAM for
