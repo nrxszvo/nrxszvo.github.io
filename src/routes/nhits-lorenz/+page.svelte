@@ -38,7 +38,7 @@
 \\operatorname{\\epsilon}(t) := \\frac{200}{t} \\sum_{t'=1}^t \\frac{|\\operatorname{\\boldsymbol{y}}(t')-\\operatorname{\\boldsymbol{\\hat{y}}}(t')|}{|\\operatorname{\\boldsymbol{y}}(t')| + |\\operatorname{\\boldsymbol{\\hat{y}}}(t')|} \\\\
 \\end{align}`;
 
-	const Model1POD = '/model-1-pod.gif';
+	const Model1POD = `${base}/model-1-pod.gif`;
 
 	onMount(() => {
 		let script = document.createElement('script');
