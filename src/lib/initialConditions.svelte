@@ -1,4 +1,5 @@
 <svg
+	class="m-auto"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	width="460.8pt"
 	height="345.6pt"

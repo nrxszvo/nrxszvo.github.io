@@ -1,7 +1,7 @@
 <svg
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	width="323"
-	height="300"
+	height="330"
 	viewBox="200 100 376 230"
 	xmlns="http://www.w3.org/2000/svg"
 	version="1.1"
