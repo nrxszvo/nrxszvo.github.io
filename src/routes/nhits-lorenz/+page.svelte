@@ -167,7 +167,6 @@
 		starting point for a network architecture.
 	</P>
 	<figure class="my-2 self-center">
-		<NhitsArch />
 		<FigCap>
 			The N-HiTS architecture. Image taken from [{refIndices['challu']}].
 		</FigCap>
