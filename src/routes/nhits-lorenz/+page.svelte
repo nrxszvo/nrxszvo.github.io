@@ -482,8 +482,8 @@
 	each with 16 GB of RAM.
 </p>
 <References />
-<!--div
+<div
 	class="fixed pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25 text-[20rem] text-red-600 font-mono"
 >
 	WIP
-</div-->
+</div>
