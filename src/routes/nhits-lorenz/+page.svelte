@@ -17,8 +17,6 @@
 	import Model1SmallError from '$lib/model_1_small_error.svelte';
 	import Model2ErrDist from '$lib/model_2_err_dist.svelte';
 	import Model2Err3d from '$lib/model_2_err_3d.svelte';
-	import Model2ErrVSpeed from '$lib/model_2_err_vs_speed.svelte';
-	import Model2Top10K from '$lib/model_2_top_10k.svelte';
 
 	const equLorenz = `
 \\begin{align}
@@ -45,12 +43,10 @@
 \\operatorname{\\epsilon}(t) := \\frac{200}{t} \\sum_{t'=1}^t \\frac{|\\operatorname{\\boldsymbol{y}}(t')-\\operatorname{\\boldsymbol{\\hat{y}}}(t')|}{|\\operatorname{\\boldsymbol{y}}(t')| + |\\operatorname{\\boldsymbol{\\hat{y}}}(t')|} \\\\
 \\end{align}`;
 
-	const ModelOnePoD = `${base}/model-1-pod.gif`;
-	const ModelTwoPoD = `${base}/model-2-pod.gif`;
-
 	const modelOneHPs = [
 		{ desc: 'number of stacks', val: 3 },
 		{ desc: 'blocks per stack', val: 1 },
+		{ desc: 'mlp layers per block', val: 4 },
 		{ desc: 'mlp layer size', val: 1024 },
 		{ desc: 'activation function', val: 'ReLU' },
 		{ desc: 'max pooling factors', val: '2, 2, 2' },
@@ -69,6 +65,18 @@
 		{ desc: '# training steps', val: 200000 },
 		{ desc: 'learning rate', val: '1e-4' },
 		{ desc: 'learning rate schedule', val: 'halve every 16667 steps' }
+	];
+	const modelThreeHPs = [
+		{ desc: 'number of stacks', val: 4 },
+		{ desc: 'blocks per stack', val: 8 },
+		{ desc: 'mlp layer size', val: 2048 },
+		{ desc: 'max pooling factors', val: '10, 4, 2, 1' },
+		{ desc: 'frequency downsampling factors', val: '25, 12, 6, 1' },
+		{ desc: 'batch size', val: 512 },
+		{ desc: '# training steps', val: 150000 },
+		{ desc: 'run validation every', val: '5000 steps' },
+		{ desc: 'learning rate', val: '1e-4' },
+		{ desc: 'learning rate schedule', val: 'halve whenever validation loss does not decrease' }
 	];
 
 	onMount(() => {
@@ -91,7 +99,7 @@
 
 <div class="mx-auto flex flex-col mx-4 w-[98%] lg:w-[75%] xl:w-[60%]">
 	<div class="text-2xl text-center">
-		Training a Neural Network to Predict the Lorenz Attractor
+		Exploring the Chaotic Properties of the Lorenz Attractor using Deep Learning
 	</div>
 	<br />
 	<P>
@@ -99,16 +107,28 @@
 		domain knowledge in statistical forecasting of chaotic systems [{refIndices['gilpin']}].
 		Gilpin found that, given enough training data, generic neural architectures can match or
 		exceed the performance of state-of-the-art domain-specific choatic forecasting models such
-		as reservoir computers and neural ODEs. My goal is to probe deeper into Gilpin's findings
-		and test the limits of a neural network's ability to model a chaotic system (within the
-		computational constraints imposed by my limited budget*).
+		as reservoir computers and neural ODEs. Although I have very little background in dynamic
+		systems and chaos theory, I find the prospect of applying deep learning to prediction tasks
+		involving chaotic systems very exciting. Along with Gilpin's paper, there have been several
+		recent publications on the subject that were especially interesting to me, namely the ones
+		applying deep learning to tokamak control in nuclear fusion reactors (see _).</P
+	><P
+		>My goal with this project is to get some hands-on experience with a chaotic system and
+		probe deeper into Gilpin's findings by testing the limits of a neural network's ability to
+		model a single chaotic system (within the computational constraints imposed by my limited
+		budget*). I'll start with what is probably the most well known chaotic system, the Lorenz
+		Attractor. As I do not have a background in dynamical systems, I will be discovering many of
+		the properties of the Lorenz System as I go, often using the results of my experiments to
+		guide my investigation. What exactly makes the Lorenz Attractor chaotic? And what
+		constraints will that impose on the ability of a deep neural network to model it? Let's find
+		out!
 	</P>
 	<H1>The Lorenz Attractor</H1>
 	<P>
-		I'll start by focusing on what is probably the most well known chaotic system, the
-		<Link href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Attractor</Link>, developed
-		by Edward Lorenz et. al. in 1963 as a simplified model of atmospheric convection.
-	</P>
+		The
+		<Link href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Attractor</Link> was developed
+		by Edward Lorenz et. al. in 1963 as a simplified model of atmospheric convection.</P
+	>
 	<div class="my-2 self-center">
 		<a
 			title="Dan Quinn, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons"
@@ -126,8 +146,8 @@
 	</div>
 	<P>
 		The Lorenz system is comprised of three ordinary differential equations representing the
-		properties of convection, horizontal temperature, and vertical temperature in a
-		two-dimensional fluid layer:
+		properties of convection and horizontal and vertical temperature in a two-dimensional fluid
+		layer:
 	</P>
 	<div class="self-center"><p>{equLorenz}</p></div>
 	<P
@@ -182,34 +202,45 @@
 		tuning [{refIndices['gilpin']}], my experiments aim to tune a single model, N-HiTS, on a
 		single system, the Lorenz Attractor, to maximize its accuracy for a given, relatively long,
 		fixed horizon (aka prediction window length). And more specifically, I aim not only to
-		achieve a low average error on the test set, but also to limit the worst-case error such
-		that the model may be said to avoid "catastrophic failure" almost everywhere.
+		achieve a low average error on the test set but also to limit the worst-case error as much
+		as possible, which will likely mean achieving a degree of predictive power over the most
+		chaotic regions of the system. Is this a completely naive aspiration given what is known
+		about chaotic systems? Maybe, but I'm not really sure yet, and either way this should be a
+		fun learning experience, so let's find out...
 	</P><P
-		>I begin with a horizon of 100 points, using a {`$dt$`} of approximately {`$0.015$`} seconds
-		per point. The maximum <Link href="https://en.wikipedia.org/wiki/Lyapunov_exponent"
-			>Lyapunov exponent</Link
-		>, as reported in Gilpin's
-		<Link href="https://github.com/williamgilpin/dysts">dysts</Link> repo, is approx. {`$0.8917$`},
-		and so the <Link href="https://en.wikipedia.org/wiki/Lyapunov_time">Lyapunov time</Link> is approx.
-		{`$1.121$`}. Therefore, a horizon of 100 points covers a time period of about {`$\\frac{4}{3}$`}
+		>I begin with a horizon (prediction window) of 100 points, using a {`$dt$`} of approximately
+		{`$0.015$`} seconds per point. At this stage, it may be worth mentioning one of the common metrics
+		for measuring the average chaoticity of a system, the maximum <Link
+			href="https://en.wikipedia.org/wiki/Lyapunov_exponent">Lyapunov exponent</Link
+		>. As reported in Gilpin's
+		<Link href="https://github.com/williamgilpin/dysts">dysts</Link> repo, the Lyapunov exponent
+		for the Lorenz Attractor is approx. {`$0.8917$`}, and so the <Link
+			href="https://en.wikipedia.org/wiki/Lyapunov_time">Lyapunov time</Link
+		> is approx.
+		{`$1.121s$`}. Therefore, a horizon of 100 points covers a time period of about {`$\\frac{4}{3}$`}
 		of the Lyapunov time.
 	</P>
 	<div class="self-center"><p>{lyapunovExp}</p></div>
+
 	<P indent="indent-0"
-		>From this, I conclude that if the neural model's predictions have, on average, a
-		mean-squared error much less than a factor of {`$\e$`} times the difference in initial conditions
-		between the train set and test set, then this indicates with high confidence that the model is
-		accurately predicting the chaotic region of the Lorenz system.
+		>This tells us that, <i>on average</i>, the distance between any two trajectories from the
+		Lorenz Attractor are expected to diverge by a factor of {`$e$`} after
+		{`$1.121$`} seconds.
 	</P><P
-		>In reality, the train and test sets are comprised of many series with uniformly randomized
-		initial conditions, with a multiplicative perturbation for each initial condition being
-		sampled from the interval {`$[0.99-1.01]$`}.</P
+		>The train and test sets are comprised of many trajectories with initial conditions all
+		centered at approx. {`$[-9.79, -15.04, 20.53]$`} and multiplied by a random perturbation uniformly
+		sampled from the interval {`$[0.99,1.01]$`}.</P
 	>
 	<figure class="-mt-2 mb-2 self-center">
-		<InitialConditions />
-		<FigCap>
-			10 different 100-point series from the dataset with initial conditions randomly
-			perturbed by {`$\\le 1\\%$`}
+		<img
+			class="m-auto"
+			src={`${base}/trajectories-minimal.png`}
+			alt="Training set trajectories"
+			width="450"
+			height="500"
+		/><FigCap>
+			The first 100 points from 10 different trajectories (series) from the dataset. The
+			initial conditions of each series are randomly perturbed by {`$\\le 1\\%$`}
 		</FigCap>
 	</figure>
 	<P indent="indent-0"
@@ -225,7 +256,7 @@
 		>I choose, somewhat arbitrarily, to generate 10,000 points per series, and in order to
 		increase data efficiency, I select each training sample by sliding the 600-point window
 		along the series with a one-point stride. Each series, therefore, contributes {`$10,000 - 600 +
-		1 = 8401$`} training samples. For the initial experiment, I generate 25 series with unique initial conditions,
+		1 = 9401$`} training samples. For the initial experiment, I generate 25 series with unique initial conditions,
 		and train on 19 of them, and hold out 3 series for validation and 3 series for testing.</P
 	>
 	<H2>Model 1</H2>
@@ -260,51 +291,78 @@
 		</FigCap>
 	</figure>
 	<P
-		>For the purposes of this project, I'll qualify the first graph with a sMAPE of 13 as a
-		"pretty good" prediction in that the model clearly matches the general contour of the
-		reference, with marginal noise that slowly increases in the latter half of the prediction
-		window. From the error distribution, we see that there is about a 90% chance that the sMAPE
-		error will be less than 10. And I'll also qualify the middle graph with a sMAPE of ~36 as
-		"poor but not terrible", while the last graph with a sMAPE of ~135 is what I would consider
-		a "catastrophic failure" because the prediction has virtually no resemblence to the
-		reference.</P
-	><P
-		>One interesting observation in all three graphs is that there appears to be what I will
-		call a "point of departure" on the prediction before which the average error is very low and
-		after which the error grows quickly. In the first graph, this point is about in the middle
-		of the prediction, in the second it is maybe one third of the way into the prediction, and
-		in the third it is near the beginning. If we look at the predictions of adjacent windows, we
-		see that the behavior at this point is consisent across the windows, indicating that there
-		is something about the system's distribution in this region that is very difficult for this
-		model to fit, regardless of its alignment within the prediction window.</P
+		>One interesting observation in all three graphs is that there appears to be a kind of
+		"point of departure" on the prediction before which the average error is very low and after
+		which the error grows quickly. In the first graph, this point is about in the middle of the
+		prediction, in the second it is maybe one third of the way into the prediction, and in the
+		third it is near the beginning. If we look at the predictions of adjacent windows, we see
+		that the behavior at this point is consisent across the windows, indicating that there is
+		something about the system's behavior in this region that is very difficult for this model
+		to fit, regardless of its alignment within the prediction window.</P
 	>
-
 	<figure>
 		<img
 			class="m-auto"
-			src={ModelOnePoD}
+			src={`${base}/model-1-pod.gif`}
 			alt="prediction point of departure"
 			width="450"
 			height="350"
 		/>
 		<FigCap>
-			Animation highlighting the 'point of departure' for a catastrophic failure case. The
-			point seems to act as a kind of 'wall' beyond which the model is unable to see, and
-			where its distribution abruptly shifts towards maximum uncertainty.
+			Animation highlighting the behavior of the model near the origin, which is a fixed point
+			of the system. In contrast to all other regions of the trajectory, the model seems
+			highly uncertain of how the trajectory will evolve shortly after passing near the
+			origin.
 		</FigCap>
 	</figure>
 	<P
-		>Possibly, the model simply didn't get enough examples of these conditions in its training
-		set, so the obvious and easiest next step is to try increasing the size of the training set,
-		and more specifically, increasing the number of series with unique initial conditions.</P
+		>For anyone familiar with dynamical systems theory, it won't be a surprise that this point
+		coincides with one of the three <Link
+			href="https://en.wikipedia.org/wiki/Critical_point_(mathematics)">critical</Link
+		> points of the Lorenz system--in this case, the origin. And in this parameterization, the origin
+		is known to be a saddle point, the intersection of a stable 2D manifold and an unstable 1D manifold.
+	</P><P
+		>We can calculate the <i>local</i> Lyapunov exponent at this saddle point to get an estimate
+		of just how chaotic the behavior of the system is in the neighborhood of the origin. The
+		local Lyapunov exponent is the largest eigenvalue of the Jacobian of the system at the
+		origin, which in this case is approximately {`$11.8$`}. Compare this with the estimate of
+		the global Lyapunov exponent of {`$\\sim 0.89$`}, and it is obvious that the origin is
+		highly chaotic relative to the average conditions on the Lorenz Attractor. In fact, when we
+		inspect the ground-truth trajectories from the dataset, we see that they all remain
+		relatively close to each until they get close to the origin, at which point they rapidly
+		diverge.
+	</P>
+	<figure>
+		<img
+			class="m-auto"
+			src={`${base}/trajectories.gif`}
+			alt="trajectories approaching origin"
+			width="350"
+			height="300"
+		/>
+		<FigCap>
+			The trajectories from the training set all begin at nearly the same point but quickly
+			diverge as they approach the critical point at the origin.
+		</FigCap>
+	</figure>
+	<P
+		>So, as you could have probably guessed, the model is struggling to predict the behavior of
+		the system near its most chaotic region. But also note that the model does quite well at
+		predicting basically every other region of the system. So if we can just figure out a way to
+		improve the predictions near the origin, we might really be getting somewhere. Is it
+		possible that the model simply didn't get enough examples of trajectories passing close to
+		the origin in its training set? Or is the chaotic behavior of the system actually
+		intractable for this and any model of similar capacity? I'm not sure yet, so for the next
+		step let's try increasing the size of the training set and increasing the model capacity to
+		see if the results improve.</P
 	>
 	<H2>Model 2</H2>
 	<P
-		>For the next model, I increase the number of unique initial conditions from 25 to 1000, and
-		hold out 25 for validation and 25 for testing, leaving 950 unique initial conditions, each
-		of length 10,000, in the training set. I also expand the range of hyperparameters for tuning
-		to include significantly larger models that may also aid in capturing the challenging
-		regions of the distribution. After tuning, I arrive at the following settings:</P
+		>For the next model, I increased the number of unique initial conditions from 25 to 1000,
+		and held out 25 for validation and 25 for testing, leaving 950 unique initial conditions,
+		each of length 10,000, in the training set. I also expanded the range of hyperparameters for
+		tuning to include significantly larger models that may also aid in capturing the challenging
+		regions of the distribution. After tuning, I arrived at the following settings:</P
 	>
 	<HP hps={modelTwoHPs} />
 	<p class="mt-2">
@@ -322,10 +380,9 @@
 		windows from Model 2 have a sMAPE less than 6, compared to only 74% for Model 1, and 99.9%
 		have a sMAPE less than 40, compared to 98% for Model 1.</P
 	><P
-		>There are, however, still a handful of windows in the 'catastrophic failure' region of the
-		error distribution. If we visualize the errors differently, we can see clearly that all of
-		the windows with a sMAPE greater than 100 are due to a single 'point of departure' from the
-		test set:</P
+		>There are, however, still a handful of windows with very large sMAPE errors. If we
+		visualize the errors differently, we can see clearly that all of the windows with a sMAPE
+		greater than 100 are due to a single region on a single trajectory from the test set:</P
 	>
 	<div class="self-center"><Model2Err3d /></div>
 	<P
@@ -335,48 +392,90 @@
 	<figure>
 		<img
 			class="m-auto"
-			src={ModelTwoPoD}
+			src={`${base}/model-2-pod.gif`}
 			alt="model 2 point of departure"
-			width="450"
-			height="350"
+			width="350"
+			height="300"
 		/>
 		<FigCap>
-			The 'point of departure' responsible for the only sMAPE errors greater than 100 from the
-			test set for Model 2. The dynamics in this region almost exactly match those from the
-			'point of departure' animation for Model 1.
+			The trajectory responsible for the only sMAPE errors greater than 100 from the test set
+			for Model 2. The behavior near the origin closely mirrors that of Model 1, suggesting
+			that although the accuracy of Model 2 is on average much higher than that of Model 1, it
+			has not yet managed to reduce the magnitude of the worst failures.
 		</FigCap>
 	</figure>
 	<P
-		>We immediately see how similar this failure case is to the one from Model 1. Despite the
-		average improvement across all error magnitudes, the worst-case error hasn't really improved
-		at all between Model 1 and Model 2.</P
+		>Not surprisingly, this trajectory passes very close to the origin, and we immediately see
+		how similar this failure case is to the one from Model 1. Despite the average improvement
+		across all error magnitudes, has the model's ability to predict the behavior near the
+		unstable origin actually improved signifcantly between Model 1 and Model 2? Let's check.</P
+	>
+	<figure class="-mt-2 mb-2 self-center">
+		<img
+			class="m-auto"
+			src={`${base}/model-2-dfo_vs_smape.png`}
+			alt="distance from origin vs. sMAPE"
+			width="600"
+			height="600"
+		/><FigCap>
+			Each local minimum distance from the origin on the ground truth trajectories is
+			calculated, and the corresponding maximum sMAPE error among the windows that included
+			the minimum in its target is shown. A local minimum is defined as a point at time {`$n$`}
+			that is closer to the origin than the points at {`$n-1$`} and {`$n+1$`}.
+		</FigCap>
+	</figure>
+	<P
+		>As we can clearly see from the plot, Model 2 is able to predict points that are closer to
+		the origin significantly more accurately than Model 1. So although Model 2 is not able to
+		avoid catastraphic failure for all points, it has indeed reduced the number of points for
+		which these failures occur. We also notice that the test set for Model 1 lacks points closer
+		to the origin than a Euclidean distance of about 4.75, whereas Model 2's test set contains
+		points as close as 2.7. Still, though, the density of points much closer than 5 is quite
+		low, so we should probably increase our dataset size again for the next round of training.</P
 	>
 	<P
-		>Another similarity between these two animations is that the "point of departure" (red dot)
-		seems to coincide with a reduction in the speed at which the system evolves. If we plot the
-		average window errors against the average speed for each window, we see a negative
-		correlation between the magnitude of the sMAPE error and the magnitude of the system's
-		velocity. (Note that the right axis is the <i>inverse normalized speed</i>, so a value of 1
-		indicates the minimum speed observed in the test set.) Not surprisingly, the Spearman
-		correlation coefficient between the sMAPE error and the <i>inverse</i> speed of the test set
-		is 0.61.</P
+		>Turning back to the animation of the catastrophic failure case, also notice how the
+		predicted trajectories tend to "split the difference" between the two general path
+		directions, toward one of the other two critical points, by remaining about equidistant
+		between each. This behavior is likely a consequence of optimizing the model by regressing
+		the mean absolute error, which means the model is trying to predict the median of the
+		training set distribution (contrast this with a generative model that might prefer a more
+		plausible looking trajectory with a higher error). The model is showing us that, given the
+		past 500 points of this trajectory, it is unable to determine whether one of the two general
+		path directions is more probable than the other. The model has the discovered the meaning of
+		chaos.</P
+	><P
+		>This suggests to me a couple of straightforward ideas that could improve performance. 1)
+		Increasing the lookback window size would give the model more information about the history
+		of the trajectory and might provide more clues about which direction the trajectory will
+		take after approaching the origin. And 2) increasing the floating point precision of the
+		inputs and the model weights from 32-bit to 64-bit might reveal exceptionally subtle details
+		in the trajectory that correlate with its future direction. For the next round of
+		experiments, let's explore each of these ideas. But before we begin, let's check the
+		composition of our dataset to see how much time the ground truth trajectories spend near the
+		origin:
+	</P>
+	<figure class="-mt-2 mb-2 self-center">
+		<img
+			class="m-auto"
+			src={`${base}/Lorenz_10Kx10K_points.png`}
+			alt="Training set distance from origin points distribution"
+			width="600"
+			height="300"
+		/><FigCap>
+			The distribution of points in the dataset with respect to their distance from the
+			origin.
+		</FigCap>
+	</figure>
+	<P indent={'indent-0'}
+		>The number of points that pass within a distance of {`$\\leq 5$`} from the origin make up about
+		0.1% of the total points in the dataset. As a third idea for improvement, we can also try increasing
+		the likelihood that windows that contain points very close to the origin will be sampled from
+		our dataset during training. That way, our model will get more expsure to the most challenging
+		prediction tasks during training, which may reduce error on these cases at the expense of increasing
+		the error on the other cases. Given how low the error is on the easier cases, this could likely
+		be a very desirable tradeoff.</P
 	>
-	<figure>
-		<Model2ErrVSpeed />
-		<FigCap
-			>Comparing average window error to the minimum speed within each window for one series
-			from the test set. The right axis (red dots) are the <i>inverse normalized speed</i> of the
-			window. Each dot represents the lowest average speed of 10 consective points within each
-			window. The large spike around window #300 corresponds with the above animation. In this
-			test set, low speeds are a necessary condition for the model to exhibit large errors.</FigCap
-		>
-	</figure>
-	<figure>
-		<Model2Top10K /><FigCap
-			>The windows with the top 10,000 largest sMAPE errors from the test set plotted with
-			their inverse normalized speeds.</FigCap
-		>
-	</figure>
 </div>
 <p class="text-sm mt-4 pl-2">
 	* My initial experiments were run on a Paperspace VM using a single RTX 4000 with 8 GB of RAM
@@ -384,8 +483,8 @@
 	each with 16 GB of RAM.
 </p>
 <References />
-<div
+<!--div
 	class="fixed pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25 text-[20rem] text-red-600 font-mono"
 >
 	WIP
-</div>
+</div-->
