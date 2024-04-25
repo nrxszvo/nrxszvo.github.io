@@ -9,69 +9,7 @@
 	import P from '$lib/P.svelte';
 	import HP from '$lib/hp.svelte';
 	import FigCap from '$lib/figcap.svelte';
-
-	const equLorenz = `
-\\begin{align}
-\\dot{x} & = \\sigma(y-x) \\\\
-\\dot{y} & = \\rho x - y - xz \\\\
-\\dot{z} & = -\\beta z + xy
-\\end{align}`;
-	const equParams = `
-\\begin{align}
-\\sigma & = 10 \\\\
-\\beta & = \\frac{8}{3} \\\\
-\\rho & = 28 \\\\
-\\end{align}`;
-
-	const lyapunovExp = `
-\\begin{align}
-\dt & \\approx 0.015 \\mathrm{s} \\\\
-\\lambda_{max}^{-1} & \\approx 1.121 \\mathrm{s} \\\\
-\H = 100 \\text{ points} & \\approx 1.34\\lambda_{max}^{-1} \\\\
-\\end{align}`;
-
-	const sMAPE = `
-\\begin{align} 
-\\operatorname{\\epsilon}(t) := \\frac{200}{t} \\sum_{t'=1}^t \\frac{|\\operatorname{\\boldsymbol{y}}(t')-\\operatorname{\\boldsymbol{\\hat{y}}}(t')|}{|\\operatorname{\\boldsymbol{y}}(t')| + |\\operatorname{\\boldsymbol{\\hat{y}}}(t')|} \\\\
-\\end{align}`;
-
-	const modelOneHPs = [
-		{ desc: 'horizon length', val: 100 },
-		{ desc: 'lookback window length', val: 500 },
-		{ desc: 'dt', val: 0.015008 },
-		{ desc: 'number of stacks', val: 3 },
-		{ desc: 'blocks per stack', val: 1 },
-		{ desc: 'mlp layers per block', val: 4 },
-		{ desc: 'mlp layer size', val: 1024 },
-		{ desc: 'activation function', val: 'ReLU' },
-		{ desc: 'max pooling factors', val: '2, 2, 2' },
-		{ desc: 'frequency downsampling factors', val: '24, 12, 1' },
-		{ desc: 'batch size', val: 512 },
-		{ desc: '# training steps', val: 10000 },
-		{ desc: 'learning rate', val: '1e-3' },
-		{ desc: 'learning rate schedule', val: 'halve every 3,333 steps' },
-		{ desc: 'total trainable parameters', val: '~20 million' }
-	];
-	const modelTwoHPs = [
-		{ desc: 'number of stacks', val: 4 },
-		{ desc: 'blocks per stack', val: 8 },
-		{ desc: 'mlp layer size', val: 2048 },
-		{ desc: 'max pooling factors', val: '10, 4, 2, 1' },
-		{ desc: 'frequency downsampling factors', val: '25, 12, 6, 1' },
-		{ desc: 'batch size', val: 512 },
-		{ desc: '# training steps', val: 150000 },
-		{ desc: 'run validation every', val: '5000 steps' },
-		{ desc: 'learning rate', val: '1e-4' },
-		{ desc: 'learning rate schedule', val: 'halve whenever validation loss does not decrease' },
-		{ desc: 'all other hyperparameters', val: 'same as Model 1' },
-		{ desc: 'total trainable parameters', val: '~645 million' }
-	];
-	const modelThreeHPs = [
-		{ desc: 'horizon', val: 500 },
-		{ desc: 'lookback', val: 2500 },
-		{ desc: 'dt', val: 0.0030016 },
-		{ desc: 'all other hyperparameters', val: 'same as Model 2' }
-	];
+	import * as Constants from '$lib/constants';
 
 	onMount(() => {
 		let script = document.createElement('script');
@@ -91,12 +29,17 @@
 	});
 </script>
 
-<div class="flex flex-col mx-4 sm:mx-16 lg:mx-32 xl:mx-64">
+<div class="flex flex-col mx-4 sm:mx-16">
 	<div class="mt-8 text-2xl text-center">
 		Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor
 	</div>
 	<div class="mt-2 text-sm text-center">Michael Horgan</div>
 	<br />
+	<div class="text-sm text-center font-serif mb-4">
+		(All code used in this project is available in the github repo: <Link
+			href="https://github.com/nrxszvo/mochaNN">mochaNN</Link
+		>)
+	</div>
 	<P>
 		This project is inspired by several recent publications involving the use of deep learning
 		to predict or control chaotic dynamical systems, in particular William Gilpin's paper, <i
@@ -105,46 +48,49 @@
 		<Ref id="gilpin" />. Gilpin found that, given enough training data, generic neural
 		architectures can match or exceed the performance of state-of-the-art domain-specific
 		choatic forecasting models such as reservoir computers and neural ODEs. Although I have
-		never studied dynamical systems in depth, I have recently become highly intrigued by the
-		prospect of applying deep learning to prediction tasks involving chaotic systems, as I
-		explore ways to contribute to the efforts to find technical solutions to climate change.
-		Along with Gilpin's paper, there have been several recent publications on the subject that
-		were especially exciting to me, particularly the ones applying deep learning to tokamak
-		control in nuclear fusion reactors (see e.g. <Ref id="seo" />, <Ref id="degrave" />).
+		never studied dynamical systems in depth, I have recently become intrigued by the prospect
+		of applying deep learning to prediction tasks involving chaotic systems, as I explore ways
+		to contribute to the efforts to find technical solutions to climate change. Along with
+		Gilpin's paper, there have been several recent publications on the subject that were
+		especially exciting to me, particularly the ones applying deep learning to tokamak control
+		in nuclear fusion reactors (see e.g. <Ref id="seo" />, <Ref id="degrave" />)<sup
+			><a href="#sabine">1</a></sup
+		>.
 	</P><P
 		>My goal with this project is to get some hands-on experience with a chaotic system and
 		probe deeper into Gilpin's findings by testing the limits of a neural network's ability to
 		model a single chaotic system (within the computational constraints imposed by my limited
-		budget*). I'll start with what is probably the most well known chaotic system, the Lorenz
-		Attractor. As my dynamical systems background is a bit rusty, I will be (re)discovering many
-		of the properties of the Lorenz System, and dynamical systems in general, as I go, often
-		using the results of my experiments to guide my investigation. What exactly makes the Lorenz
-		Attractor chaotic? And what constraints will that impose on the ability of a deep neural
-		network to model it? Let's find out!
+		budget<sup><a href="#paperspace">2</a></sup>). I'll start with what is probably the most
+		well known chaotic system, the Lorenz Attractor. As my dynamical systems background is a bit
+		rusty, I will be (re)discovering many of the properties of the Lorenz System, and dynamical
+		systems in general, as I go, often using the results of my experiments to guide my
+		investigation<sup><a href="brunton">3</a></sup>. What exactly makes the Lorenz Attractor
+		chaotic? And what constraints will that impose on the ability of a deep neural network to
+		model it? Let's find out!
 	</P>
-	<div class="my-4 mx-16 text-sm font-serif -indent-16">
+	<div class="my-4 ms-4 -indent-4 font-serif leading-4">
 		<p>
-			* All of my experiments were run on a Paperspace VM using two RTX 5000s, each with 16 GB
-			of RAM.
-		</p>
-
-		<p>
-			note: All code used in this project is available in my github repo: <Link
-				href="https://github.com/nrxszvo/mochaNN">mochaNN</Link
-			>
+			<sup id="sabine">
+				1. For a quick and entertaining way to stay informed of new developments in the
+				world of DL for dynamical systems modeling, I highly recommend Sabine Hossenfelder's <Link
+					href="https://www.youtube.com/@SabineHossenfelder">Youtube channel</Link
+				>
+			</sup>
 		</p>
 		<p>
-			note: For a quick and entertaining way to stay informed of new developments in the world
-			of DL for dynamical systems modeling, I highly recommend Sabine Hossenfelder's <Link
-				href="https://www.youtube.com/@SabineHossenfelder">Youtube channel</Link
-			>
+			<sup id="paperspace">
+				2. All of my experiments were run on a Paperspace VM using two RTX 5000s, each with
+				16 GB of RAM.
+			</sup>
 		</p>
 		<p>
-			note: If you would like to refresh your background on dynamical systems theory, I highly
-			recommend Steve Brunton's free <Link
-				href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNTYaOnVI3QpH7jgULnAmvPA"
-				>lecture series</Link
-			> on the subject
+			<sup id="brunton">
+				3. If you would like to refresh your background on dynamical systems theory, I
+				highly recommend Steve Brunton's free <Link
+					href="https://www.youtube.com/playlist?list=PLMrJAkhIeNNTYaOnVI3QpH7jgULnAmvPA"
+					>lecture series</Link
+				> on the subject
+			</sup>
 		</p>
 	</div>
 	<H1>The Lorenz Attractor</H1>
@@ -173,11 +119,11 @@
 		properties of convection and horizontal and vertical temperature in a two-dimensional fluid
 		layer:
 	</P>
-	<div class="self-center"><p>{equLorenz}</p></div>
+	<div class="self-center"><p>{Constants.equLorenz}</p></div>
 	<P
 		>The Lorenz <i>Attractor</i> refers to a set of chaotic solutions to the system, most commonly:</P
 	>
-	<div class="self-center"><p>{equParams}</p></div>
+	<div class="self-center"><p>{Constants.equParams}</p></div>
 	<P>
 		I used Gilpin's <Link href={'https://github.com/williamgilpin/dysts'}>dysts</Link> python module
 		to generate the training data for this solution.
@@ -237,7 +183,7 @@
 		it is generated by the IVP solver. The actual {`$dt$`} used internally by the IVP solver can
 		vary dynamically, but the initial target value used by <Link
 			href="https://github.com/williamgilpin/dysts">dysts</Link
-		> is {`$\\text{first_step} = 0.0001801$`}.
+		> is: {`$\\text{first_step} = 0.0001801$`}.
 	</P><P
 		>At this stage, it may also be worth mentioning one of the common metrics for measuring the
 		average chaoticity of a system, the maximum
@@ -249,7 +195,7 @@
 		> is approx.
 		{`$1.121s$`}.
 	</P>
-	<div class="self-center"><p>{lyapunovExp}</p></div>
+	<div class="self-center"><p>{Constants.lyapunovExp}</p></div>
 
 	<P indent="indent-0"
 		>This tells us that, <i>on average</i>, the distance between any two trajectories from the
@@ -279,15 +225,15 @@
 		and train on 19 of them, and hold out 3 series for validation and 3 series for testing.</P
 	>
 	<H2>Model 1</H2>
-	<p class="mt-2">The full set of N-HiTS hyperparameters for the first model configuration is:</p>
-	<HP hps={modelOneHPs} />
+	<P>The full set of N-HiTS hyperparameters for the first model configuration is:</P>
+	<HP hps={Constants.modelOneHPs} />
 	<P indent="indent-0"
 		>The model is optimized with MAE loss, consistent with the default loss from <Ref
 			id="challu"
 		/>. For evaluation, I use the symmetric mean absolute percentage error (sMAPE) as defined in
 		<Ref id="gilpin" />:</P
 	>
-	<div>{sMAPE}</div>
+	<div>{Constants.sMAPE}</div>
 	<P
 		>In this formulation, sMAPE is bound to the interval [0, 200]. The distribution of average
 		window errors and its CDF on the test set are shown below. Note that the left y axis is
@@ -304,29 +250,9 @@
 	>
 	<figure class="mt-6 mb-6 self-center">
 		<div class="flex flex-wrap justify-center">
-			<img
-				class="m-auto"
-				src={`${base}/Model1SmallErr.png`}
-				alt=""
-				width="400"
-				height="400"
-			/>
-
-			<img
-				class="m-auto"
-				src={`${base}/Model1MediumErr.png`}
-				alt=""
-				width="400"
-				height="400"
-			/>
-
-			<img
-				class="m-auto"
-				src={`${base}/Model1LargeErr.png`}
-				alt=""
-				width="400"
-				height="400"
-			/>
+			<img class="" src={`${base}/Model1SmallErr.png`} alt="" width="300" height="300" />
+			<img class="" src={`${base}/Model1MediumErr.png`} alt="" width="300" height="300" />
+			<img class="" src={`${base}/Model1LargeErr.png`} alt="" width="300" height="300" />
 		</div>
 		<FigCap>
 			Samples of three different 100-point predictions from Model 1 with small, medium, and
@@ -364,26 +290,28 @@
 			href="https://en.wikipedia.org/wiki/Critical_point_(mathematics)">critical points</Link
 		> of the Lorenz system--in this case, the origin. And in this parameterization, the origin is
 		known to be a saddle point comprised of the intersection of a stable 2D manifold and an unstable
-		1D manifold. "Stable" means that trajectories near the manifold tend to move towards it even
-		when they are perturbed slightly away from it by other forces, while "unstable" implies the opposite.
-		(See <Ref id="osinga" /> for some excellent visualizations of these manifolds.) Near the origin,
-		the unstable manifold is a line that is approximately perpendicular to the Z axis and parallel
-		to the lengthwise orientation of the Attractor, which is why the trajectories always diverge
-		at the near 90-degree angles that we see in the animations as they approach the origin. And the
-		(incredibly complex) topography of the stable 2D manifold determines towards which of the other
-		two critical points a trajectory will be deflected <Ref id="osinga" />. From this I conclude
-		that, technically, we can say that the primary goal of our neural network is to learn the
-		topography of the origin's stable 2D manifold. As the manifold defines a boundary across
-		which trajectories can never pass, we can confine the past and future trajectory of any
-		point to be within the boundary.
+		1D manifold. "Stable" here means that trajectories near the critical point tend to move towards
+		it even if they are perturbed slightly away from it by other forces, while "unstable" implies
+		the opposite. (See <Ref id="osinga" /> for some excellent visualizations of these manifolds.)
+		Near the origin, the unstable manifold is a line that is approximately perpendicular to the Z
+		axis and parallel to the lengthwise orientation of the Attractor, which is why the trajectories
+		always diverge at the near 90-degree angles that we see in the animations as they approach the
+		origin. And the (incredibly complex) topography of the stable 2D manifold determines towards
+		which of the other two critical points a trajectory will be deflected <Ref id="osinga" />.
+		From this I conclude that, technically, we can say that the primary goal of the neural
+		network is to learn the topography of the origin's stable 2D manifold. As the manifold
+		defines a boundary across which trajectories can never pass, we can confine the past and
+		future trajectory of any point to be within the boundaries of the manifold.
 	</P><P
 		>We can estimate how unstable the 1D manifold is by calculating the eigenvalues of the
 		Jacobian matrix of the system at the origin and assuming the dynamics are approximately
-		linear in this region. The eigenvalue with the largest real component dominates the
-		dynamics, and by definition, the real part of this eigenvalue for an unstable mainfold will
-		be positive, with the dynamics along the manifold being approximated by the expression {`$f(t) = \\exp(\\lambda t)$`},
-		where {`$\\lambda$`} equals the real part of the largest eigenvalue. For the Lorenz Attractor,
-		this value is {`$11.8$`}, so trajectories will be rapidly deflected away from the origin, as
+		linear in this region. When we do this, we get three eigenvalues, two of which have negative
+		real components and are associated with the stable 2D manifold, and the third which has
+		positive real component and is associated with the unstable 1D manifold. The dynamics along
+		the manifolds near the origin can be approximated by the expression {`$f(t) = \\exp(\\lambda t)x_0$`},
+		where {`$\\lambda$`} equals the eigenvalue and {`$x_0$`} is the starting point. For the Lorenz
+		Attractor, the eigenvalue associated with the unstable manifold is {`$11.8$`}, so
+		trajectories will be rapidly deflected away from the origin along the unstable manifold, as
 		we see in the below animation:</P
 	>
 	<!--P
@@ -428,7 +356,7 @@
 		range of hyperparameters for tuning to include significantly larger models, both in depth
 		and width. After tuning, I arrived at the following settings:</P
 	>
-	<HP hps={modelTwoHPs} />
+	<HP hps={Constants.modelTwoHPs} />
 	<p class="mt-2">
 		Note that Model 2 has roughly 32x the number of trainable parameters as Model 1. I've
 		increased the depth (number of stacks, blocks per stack) and width (mlp layer size) of the
@@ -524,8 +452,9 @@
 		3.</P
 	>
 	<H2>Model 3</H2>
-	<HP hps={modelThreeHPs} />
-	<P style="my-4 text-sm font-serif" indent="indent-0"
+	<P>The new hyperparmeters for Model 3 are:</P>
+	<HP hps={Constants.modelThreeHPs} />
+	<P style="my-4 text-xs font-serif"
 		>A sidenote on the practicality of training this model: <p class="ms-8">
 			Although we have not increased the number of parameters relative to Model 2, by
 			increasing the input size and horizon length by a factor of 5, we have significantly
@@ -533,17 +462,17 @@
 			on two GPUs with 16 GB of RAM each, I have to use Lightning's <Link
 				href="https://lightning.ai/docs/pytorch/stable/advanced/model_parallel/fsdp.html"
 				>FSDP Strategy</Link
-			> to distribute the model across both GPUs and get the per-GPU memory requirement to be just
-			a hair under 16 GB. This also means that the model trains significantly more slowly, taking
-			about 40 hours to converge, compared to about 16 hours for Model 2.
+			> to distribute the model across both GPUs in order to get the per-GPU memory requirement
+			to be just a hair under 16 GB. This also means that the model trains significantly more slowly,
+			taking about 40 hours to converge, compared to about 16 hours for Model 2.
 		</p></P
 	>
-	<P
-		>After retraining Model 2 with a new dataset that samples the Lorenz Attractor trajectories
+	<p class="mt-4">
+		After retraining Model 2 with a new dataset that samples the Lorenz Attractor trajectories
 		with {`$dt \\approx 0.003$`}, we see that we are now able to predict all regions of the test
 		set with sMAPE error {`$\\lt80$`}:
-	</P>
-	<figure class="mb-2 self-center">
+	</p>
+	<figure class="mb-8 self-center">
 		<img
 			class="m-auto"
 			src={`${base}/Model2vModel3.png`}
@@ -552,11 +481,11 @@
 			height="600"
 		/><FigCap>Model 3 vs. Model 2 - sMAPE error distribution.</FigCap>
 	</figure>
-	<P
-		>The most challenging trajectories from the test set are significantly improved, although
-		still far from perfect:</P
-	>
-	<figure>
+	<p>
+		The most challenging trajectories from the test set are significantly improved, although
+		still far from perfect:
+	</p>
+	<figure class="my-8 self-center">
 		<img
 			class="m-auto"
 			src={`${base}/model-3-low-dfo.gif`}
@@ -589,12 +518,13 @@
 	</P><P
 		>When we do this, we find that Model 3 is, on average, able to predict the first {`$\\approx7.2$`}
 		seconds of the trajectory before it begins to diverge significantly from the reference (I arrived
-		at this by calculating the mean time at which the L2 distance between the trajectories exceeds
-		3). But we also note that, although there are clearly visible differences between the reference
-		and the prediction, the full 10,000-point trajectories that Model 3 predicts are, to the naked
-		eye at least, more or less indistinguishable from the typical trajectories of the Lorenz Attractor.
-		In other words, they look like entirely plausible trajectories even if they eventually diverge
-		significantly from the ones produced by the IVP solver for the same initial conditions.</P
+		at this by calculating the mean time at which the maximum L2 distance between corresponding points
+		on the trajectories exceeds 3). But we also note that, although there are clearly visible differences
+		between the reference and the prediction, the full 10,000-point trajectories that Model 3 predicts
+		are, to the naked eye at least, more or less indistinguishable from the typical trajectories
+		of the Lorenz Attractor. In other words, they look like entirely plausible trajectories even
+		if they eventually diverge significantly from the ones produced by the IVP solver for the same
+		initial conditions.</P
 	>
 	<figure class="mb-2 self-center">
 		<img
@@ -619,7 +549,7 @@
 		close to real trajectories from the ODE even if they do not exactly represent the ones that would
 		be produced by the given initial conditions.
 	</P><P
-		>In light of this, another way to evaluate the autoregressive output of our model is to
+		>In light of this, another way to evaluate the autoregressive output of the model is to
 		compare it with the output from a different IVP solver with similar error constraints. <Link
 			href={'https://github.com/williamgilpin/dysts'}>dysts</Link
 		> uses the <Link
@@ -628,7 +558,7 @@
 		> solver by default, and this is what I used to generate the dataset. <Link
 			href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.RK45.html#scipy.integrate.RK45"
 			>RK45</Link
-		> has similar error constraints to Radau, so let's compare our autoregressive output against
+		> has similar error constraints to Radau, so let's compare the autoregressive output against
 		Radau relative to RK45's output against Radau:</P
 	>
 	<figure class="mb-2 self-center">
@@ -649,12 +579,12 @@
 		</FigCap>
 	</figure>
 	<P
-		>So we can say that our model is approximating the output of Radau more closely than another
+		>So we can say that the model is approximating the output of Radau more closely than another
 		high-quality IVP solver. Ultimately, all three solvers diverge chaotically from each other,
 		but in the short term, Model 3 remains closer to Radau than RK45. From this I tenatively
-		conclude that our model is an effective IVP solver of the Lorenz Attractor.</P
+		conclude that the model is an effective IVP solver of the Lorenz Attractor.</P
 	>
-	<H2>Conclusion</H2>
+	<H1>Discussion</H1>
 	<P
 		>Inspired by recent research (<Ref id="gilpin" />) that supports the potential for generic
 		neural architectures to match or exceed the performance of domain-specific models at the
@@ -684,20 +614,20 @@
 		that, it must also be noted that maximizing data and model efficiency was not a focus of
 		this project, and so the potential for optimization is an open question.</P
 	><P
-		>My other, and possibly more critical, open question is, given that this model (and all IVP
-		solvers) cannot actually predict the true solution but instead can only predict 'shadows' of
-		true solutions (see <Link href="https://en.wikipedia.org/wiki/Shadowing_lemma"
+		>Another, and possibly more critical, open question I have is, given that this model (and
+		all IVP solvers) cannot actually predict the true solutions but instead can only predict
+		'shadows' of true solutions (see <Link href="https://en.wikipedia.org/wiki/Shadowing_lemma"
 			>shadowing lemma</Link
 		>), how useful can these predictions actually be in real-world applications? Is there any
 		practical use for such a system, or are projects like this merely academic exercises? Is the
 		true potential of deep neural networks as applied to chaotic systems more in their ability
 		to prevent systems from entering chaotic regimes, as is explored in <Ref id="seo" />
 		and <Ref id="degrave" />, rather than to actually predict how chaotic dynamics will unfold?
-		I suspect the answer is 'yes', although again I am far from certain. In either case, these
+		I suspect the answer is 'yes', although I am again far from certain. In either case, these
 		results show a definite ability of generic deep neural networks to mimic the dynamics of a
 		chaotic system, which may not amount to predicting future states but may still be enough to
 		enable control systems to effectively manage those future states.</P
 	>
-	<H2>References</H2>
+	<H1>References</H1>
 	<References />
 </div>

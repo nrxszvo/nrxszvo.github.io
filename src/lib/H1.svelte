@@ -1,1 +1,1 @@
-<div class="text-2xl text-center mt-4 mb-2"><slot /></div>
+<div class="text-2xl font-bold text-center my-8"><slot /></div>
