@@ -96,7 +96,7 @@
 	});
 </script>
 
-<div class="mx-auto flex flex-col mx-4 w-[98%] lg:w-[75%] xl:w-[60%]">
+<div class="flex flex-col mx-4 sm:mx-16 lg:mx-32 xl:mx-64">
 	<div class="mt-8 text-2xl text-center">
 		Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor
 	</div>
@@ -308,7 +308,7 @@
 		individual window predictions against the references:</P
 	>
 	<figure class="mt-6 mb-6 self-center">
-		<div class="flex justify-between">
+		<div class="flex flex-wrap justify-center">
 			<Model1SmallError />
 			<Model1MedError />
 			<Model1LargeError />
