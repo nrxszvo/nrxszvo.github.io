@@ -2,6 +2,11 @@
 	import { base } from '$app/paths';
 </script>
 
-<a class="font-medium text-blue-600 hover:underline" href="{base}/nhits-lorenz"
-	>Predicting Chaotic Attractors with Neural Forecasting</a
->
+<div class="ms-4">Michael's Random Musings</div>
+<ul class="ms-8 list-disc">
+	<li>
+		<a class="font-medium text-blue-600 hover:underline" href="{base}/nhits-lorenz"
+			>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</a
+		>
+	</li>
+</ul>
