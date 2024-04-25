@@ -2,8 +2,6 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import Link from '$lib/Link.svelte';
-	import NhitsArch from '$lib/NhitsArch.svelte';
-	import InitialConditions from '$lib/initialConditions.svelte';
 	import Ref from '$lib/ref.svelte';
 	import References from '$lib/refs.svelte';
 	import H1 from '$lib/H1.svelte';
@@ -11,9 +9,6 @@
 	import P from '$lib/P.svelte';
 	import HP from '$lib/hp.svelte';
 	import FigCap from '$lib/figcap.svelte';
-	import Model1LargeError from '$lib/model_1_large_error.svelte';
-	import Model1MedError from '$lib/model_1_med_error.svelte';
-	import Model1SmallError from '$lib/model_1_small_error.svelte';
 
 	const equLorenz = `
 \\begin{align}
@@ -309,9 +304,29 @@
 	>
 	<figure class="mt-6 mb-6 self-center">
 		<div class="flex flex-wrap justify-center">
-			<Model1SmallError />
-			<Model1MedError />
-			<Model1LargeError />
+			<img
+				class="m-auto"
+				src={`${base}/Model1SmallErr.png`}
+				alt=""
+				width="400"
+				height="400"
+			/>
+
+			<img
+				class="m-auto"
+				src={`${base}/Model1MediumErr.png`}
+				alt=""
+				width="400"
+				height="400"
+			/>
+
+			<img
+				class="m-auto"
+				src={`${base}/Model1LargeErr.png`}
+				alt=""
+				width="400"
+				height="400"
+			/>
 		</div>
 		<FigCap>
 			Samples of three different 100-point predictions from Model 1 with small, medium, and
