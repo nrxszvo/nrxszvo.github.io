@@ -88,6 +88,12 @@
 		name="description"
 		content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"
 	/>
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz" />
+	<meta
+		property="og:description"
+		content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"
+	/>
 	<meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png" />
 	<meta
 		property="og:title"
