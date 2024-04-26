@@ -368,10 +368,10 @@
 			after which the error grows quickly. In the first graph, this point is about in the
 			middle of the prediction, in the second it is maybe one third of the way into the
 			prediction, and in the third it is near the beginning. If we look at the predictions of
-			adjacent windows, we see that the behavior at this point is consisent across the
-			windows, indicating that there is something about the system's behavior in this region
-			that is very difficult for this model to fit, regardless of its alignment within the
-			prediction window.</P
+			adjacent windows (see below animation), we see that the behavior at this point is
+			consisent across the windows, indicating that there is something about the system's
+			behavior in this region that is very difficult for this model to fit, regardless of its
+			alignment within the prediction window.</P
 		>
 		<figure class="mt-6 mb-6 self-center">
 			<img
@@ -400,12 +400,12 @@
 			"unstable" implies the opposite. (See <Ref id="osinga" /> for some excellent visualizations
 			of these manifolds.) Near the origin, the unstable manifold is a line that is approximately
 			perpendicular to the Z axis and parallel to the lengthwise orientation of the Attractor,
-			which is why the trajectories always diverge at the near 90-degree angles that we see in
+			which is why the trajectories always diverge at the near-90-degree angles that we see in
 			the animations as they approach the origin. And the (incredibly complex) topography of the
 			stable 2D manifold determines towards which of the other two critical points a trajectory
 			will be deflected <Ref id="osinga" />. In fact, I would tenatively conclude that the
 			primary goal of the neural network is to learn the topography of the origin's stable 2D
-			manifold. Since this manifold defines a boundary across which trajectories can never
+			manifold; since this manifold defines a boundary across which trajectories can never
 			pass, we can confine the past and future path of any trajectory based on the boundaries
 			of this manifold.
 		</P><P
@@ -451,7 +451,7 @@
 			have to figure out a way to improve the predictions near the origin, and then we should
 			have a model with an overall very robust representation of the Lorenz Attractor. As this
 			model and its training set are relatively modest in size, the next most obvious step to
-			try is to signifcantly increase both the amount of training data and the model's
+			try is to significantly increase both the amount of training data and the model's
 			capacity, and see if those changes alone are enough to resolve the weaknesses of Model
 			1.</P
 		>
@@ -545,9 +545,9 @@
 		</figure>
 		<P
 			>As we can clearly see from the plot, Model 2 is able to predict points that are closer
-			to the origin significantly more accurately than Model 1. So although Model 2 is not
-			able to avoid catastraphic failure for all points, it has indeed reduced the number of
-			points for which these failures occur.
+			to the origin more accurately than Model 1. So although Model 2 is not able to avoid
+			catastraphic failure for all points, it has indeed reduced the number of points for
+			which these failures occur.
 		</P>
 		<P
 			>So we've drastically increased both model capacity and dataset size, and we have only
@@ -561,7 +561,7 @@
 			seconds. We'll call this Model 3.</P
 		>
 		<H2 id="model-3">Model 3</H2>
-		<P>The new hyperparmeters for Model 3 are:</P>
+		<P>The new hyperparameters for Model 3 are:</P>
 		<HP hps={Constants.modelThreeHPs} />
 		<P style="my-4 text-xs font-serif"
 			>A sidenote on the practicality of training this model: <p class="ms-8">
@@ -726,9 +726,9 @@
 			and model efficiency was not a focus of this project, and so the potential for
 			optimization is an open question.</P
 		><P
-			>Another, and possibly more critical, open question I have is, given that this model
-			(and all IVP solvers) cannot actually predict the true solutions but instead can only
-			predict 'shadows' of true solutions (see <Link
+			>Another, possibly more critical, open question I have is given that this model (and all
+			IVP solvers) cannot actually predict the true solutions but instead can only predict
+			'shadows' of true solutions (see <Link
 				href="https://en.wikipedia.org/wiki/Shadowing_lemma">shadowing lemma</Link
 			>), how useful can these predictions actually be in real-world applications? Is there
 			any practical use for such a system, or are projects like this merely academic
