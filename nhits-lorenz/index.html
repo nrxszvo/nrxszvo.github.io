@@ -6,17 +6,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.BR67jB6n.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DcJwHq2t.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.arMJvg6_.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CIOFMD5T.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.t8-KKsyv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.DiFRZ3zc.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BW8dYqcC.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.B0aoZ8eY.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DQpQ-GgY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BFxZNdMt.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.CNqkSMqm.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.D2LjlhCn.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.D5tXntej.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">  <meta property="og:image" content="https://nrxszvo.githubio.com/thumbnail.png"> <meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor">  <div class="grid grid-flow-col auto-cols-auto"><aside data-svelte-h="svelte-1jc65ah"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center" data-svelte-h="svelte-g7eo4d">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-sm text-center" data-svelte-h="svelte-hve5fy">Michael Horgan</div> <br> <div class="text-sm text-center font-serif mb-4">(All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a>)</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
+		<div style="display: contents">  <meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"> <meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor">  <div class="grid grid-flow-col auto-cols-auto"><aside data-svelte-h="svelte-1jc65ah"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center" data-svelte-h="svelte-g7eo4d">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-sm text-center" data-svelte-h="svelte-hve5fy">Michael Horgan</div> <br> <div class="text-sm text-center font-serif mb-4">(All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a>)</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
 			learning to predict or control chaotic dynamical systems, in particular William Gilpin&#39;s
 			paper, <i data-svelte-h="svelte-oq8z8z">Model scale versus domain knowledge in statistical forecasting of chaotic systems</i> [<a href="https://link.aps.org/doi/10.1103/PhysRevResearch.5.043252" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">1</a>]. Gilpin found that, given enough training data, generic neural
 			architectures can match or exceed the performance of state-of-the-art domain-specific
@@ -308,7 +308,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_2m9nsh = {
+					__sveltekit_tsyzg5 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -318,8 +318,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DcJwHq2t.js"),
-						import("../_app/immutable/entry/app.BW8dYqcC.js")
+						import("../_app/immutable/entry/start.CIOFMD5T.js"),
+						import("../_app/immutable/entry/app.DQpQ-GgY.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
