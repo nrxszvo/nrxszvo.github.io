@@ -81,11 +81,20 @@
 	});
 </script>
 
-<meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png" />
-<meta
-	property="og:title"
-	content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"
-/>
+<svelte:head>
+	<title>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</title
+	>
+	<meta
+		name="description"
+		content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"
+	/>
+	<meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png" />
+	<meta
+		property="og:title"
+		content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"
+	/>
+</svelte:head>
+
 <svelte:window on:scroll={handleScroll} />
 
 <div class="grid grid-flow-col auto-cols-auto">
