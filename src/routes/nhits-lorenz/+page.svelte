@@ -81,6 +81,11 @@
 	});
 </script>
 
+<meta property="og:image" content="https://nrxszvo.githubio.com/thumbnail.png" />
+<meta
+	property="og:title"
+	content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"
+/>
 <svelte:window on:scroll={handleScroll} />
 
 <div class="grid grid-flow-col auto-cols-auto">
