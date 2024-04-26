@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.BR67jB6n.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BT0CV-ol.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.GAf2YqPa.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CtHs_1jZ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.fwcO0sjK.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.CB8oXsq9.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BCENIV78.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.DPzQ3N3X.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.kl-VcKCD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.D8_ZxPLa.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.BmDuvZp-.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.C6P1YA0a.js"><title>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-1w17oz4_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-1w17oz4_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.Bl5m8TP8.js"><title>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-1w17oz4_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-1w17oz4_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"><aside data-svelte-h="svelte-1jc65ah"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center" data-svelte-h="svelte-g7eo4d">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-sm text-center" data-svelte-h="svelte-hve5fy">Michael Horgan</div> <br> <div class="text-sm text-center font-serif mb-4">(All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a>)</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
@@ -129,10 +129,10 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			after which the error grows quickly. In the first graph, this point is about in the
 			middle of the prediction, in the second it is maybe one third of the way into the
 			prediction, and in the third it is near the beginning. If we look at the predictions of
-			adjacent windows, we see that the behavior at this point is consisent across the
-			windows, indicating that there is something about the system&#39;s behavior in this region
-			that is very difficult for this model to fit, regardless of its alignment within the
-			prediction window.</p> <figure class="mt-6 mb-6 self-center"><img class="m-auto" src="../model-1-pod.gif" alt="prediction point of divergence" width="450" height="350"> <figcaption class="text-center text-xs mt-2 mx-0 sm:mx-36">The behavior of the model near the origin, which is a critical point of the system,
+			adjacent windows (see below animation), we see that the behavior at this point is
+			consisent across the windows, indicating that there is something about the system&#39;s
+			behavior in this region that is very difficult for this model to fit, regardless of its
+			alignment within the prediction window.</p> <figure class="mt-6 mb-6 self-center"><img class="m-auto" src="../model-1-pod.gif" alt="prediction point of divergence" width="450" height="350"> <figcaption class="text-center text-xs mt-2 mx-0 sm:mx-36">The behavior of the model near the origin, which is a critical point of the system,
 				for an especially challenging case. In contrast to all other regions of this
 				trajectory, the model seems highly uncertain of how the trajectory will evolve
 				shortly after passing near the origin.</figcaption></figure> <p class="my-2 indent-8 ">For anyone familiar with dynamical systems theory, it won&#39;t be a surprise that this
@@ -143,12 +143,12 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			&quot;unstable&quot; implies the opposite. (See [<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">6</a>] for some excellent visualizations
 			of these manifolds.) Near the origin, the unstable manifold is a line that is approximately
 			perpendicular to the Z axis and parallel to the lengthwise orientation of the Attractor,
-			which is why the trajectories always diverge at the near 90-degree angles that we see in
+			which is why the trajectories always diverge at the near-90-degree angles that we see in
 			the animations as they approach the origin. And the (incredibly complex) topography of the
 			stable 2D manifold determines towards which of the other two critical points a trajectory
 			will be deflected [<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">6</a>]. In fact, I would tenatively conclude that the
 			primary goal of the neural network is to learn the topography of the origin&#39;s stable 2D
-			manifold. Since this manifold defines a boundary across which trajectories can never
+			manifold; since this manifold defines a boundary across which trajectories can never
 			pass, we can confine the past and future path of any trajectory based on the boundaries
 			of this manifold.</p><p class="my-2 indent-8 ">We can estimate how unstable the 1D manifold is by calculating the eigenvalues of the
 			Jacobian matrix of the system at the origin and assuming the dynamics are approximately
@@ -166,7 +166,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			have to figure out a way to improve the predictions near the origin, and then we should
 			have a model with an overall very robust representation of the Lorenz Attractor. As this
 			model and its training set are relatively modest in size, the next most obvious step to
-			try is to signifcantly increase both the amount of training data and the model&#39;s
+			try is to significantly increase both the amount of training data and the model&#39;s
 			capacity, and see if those changes alone are enough to resolve the weaknesses of Model
 			1.</p> <div id="model-2" class="text-xl font-medium text-left mt-8 mb-4">Model 2</div> <p class="my-2 indent-8 ">For the next model, I increased the number of unique initial conditions from 25 to
 			10000, and held out 100 for validation and 200 for testing, leaving 9700 unique initial
@@ -197,9 +197,9 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 				included the minimum in its target is shown. A local minimum is defined as a point
 				at time $n$
 				that is closer to the origin than the points at $n-1$ and $n+1$.</figcaption></figure> <p class="my-2 indent-8 ">As we can clearly see from the plot, Model 2 is able to predict points that are closer
-			to the origin significantly more accurately than Model 1. So although Model 2 is not
-			able to avoid catastraphic failure for all points, it has indeed reduced the number of
-			points for which these failures occur.</p> <p class="my-2 indent-8 ">So we&#39;ve drastically increased both model capacity and dataset size, and we have only
+			to the origin more accurately than Model 1. So although Model 2 is not able to avoid
+			catastraphic failure for all points, it has indeed reduced the number of points for
+			which these failures occur.</p> <p class="my-2 indent-8 ">So we&#39;ve drastically increased both model capacity and dataset size, and we have only
 			achieved marginal improvement on the most chaotic trajectories. To continue to make
 			progress, we probably need to try a different approach. One idea is to increase the
 			temporal resolution of the model by using a smaller $dt$ to generate our data points.
@@ -207,7 +207,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			of 5 to $\approx0.003$, and in order to keep the prediction task equally difficult,
 			we&#39;ll also increase the horizon window, and lookback window, by a factor of 5 to 500 and
 			2500 respectively, so that the total amount of time being predicted is still $\approx1.5$
-			seconds. We&#39;ll call this Model 3.</p> <div id="model-3" class="text-xl font-medium text-left mt-8 mb-4">Model 3</div> <p class="my-2 indent-8 ">The new hyperparmeters for Model 3 are:</p> <section class="relative block my-4"><ul class="flex flex-col m-auto ps-2 rounded gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">horizon</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">lookback</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">2500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">dt</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">0.0030016</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">all other hyperparameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">same as Model 2</span></div> </li></ul></section> <p class="my-2 indent-8 my-4 text-xs font-serif">A sidenote on the practicality of training this model: <p class="ms-8">Although we have not increased the number of parameters relative to Model 2, by
+			seconds. We&#39;ll call this Model 3.</p> <div id="model-3" class="text-xl font-medium text-left mt-8 mb-4">Model 3</div> <p class="my-2 indent-8 ">The new hyperparameters for Model 3 are:</p> <section class="relative block my-4"><ul class="flex flex-col m-auto ps-2 rounded gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">horizon</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">lookback</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">2500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">dt</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">0.0030016</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">all other hyperparameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">same as Model 2</span></div> </li></ul></section> <p class="my-2 indent-8 my-4 text-xs font-serif">A sidenote on the practicality of training this model: <p class="ms-8">Although we have not increased the number of parameters relative to Model 2, by
 				increasing the input size and horizon length by a factor of 5, we have significantly
 				increased the memory requirement for training this model. Now in order to fit the
 				model on two GPUs with 16 GB of RAM each, I have to use Lightning&#39;s <a href="https://lightning.ai/docs/pytorch/stable/advanced/model_parallel/fsdp.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">FSDP Strategy</a> to distribute the model across both GPUs in order to get the per-GPU memory requirement
@@ -275,9 +275,9 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			seems plausible that such requirements could pose a significant barrier in many
 			real-world cases. Having said all of that, it must also be noted that maximizing data
 			and model efficiency was not a focus of this project, and so the potential for
-			optimization is an open question.</p><p class="my-2 indent-8 ">Another, and possibly more critical, open question I have is, given that this model
-			(and all IVP solvers) cannot actually predict the true solutions but instead can only
-			predict &#39;shadows&#39; of true solutions (see <a href="https://en.wikipedia.org/wiki/Shadowing_lemma" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">shadowing lemma</a>), how useful can these predictions actually be in real-world applications? Is there
+			optimization is an open question.</p><p class="my-2 indent-8 ">Another, possibly more critical, open question I have is given that this model (and all
+			IVP solvers) cannot actually predict the true solutions but instead can only predict
+			&#39;shadows&#39; of true solutions (see <a href="https://en.wikipedia.org/wiki/Shadowing_lemma" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">shadowing lemma</a>), how useful can these predictions actually be in real-world applications? Is there
 			any practical use for such a system, or are projects like this merely academic
 			exercises? Is the true potential of deep neural networks as applied to chaotic systems
 			more in their ability to prevent systems from entering chaotic regimes, as is explored
@@ -308,7 +308,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_mwxmnx = {
+					__sveltekit_vv88tz = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -318,8 +318,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BT0CV-ol.js"),
-						import("../_app/immutable/entry/app.BCENIV78.js")
+						import("../_app/immutable/entry/start.CtHs_1jZ.js"),
+						import("../_app/immutable/entry/app.kl-VcKCD.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
