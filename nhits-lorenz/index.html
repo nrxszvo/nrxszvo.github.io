@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.BR67jB6n.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CtHs_1jZ.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.fwcO0sjK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.B7zHmKMO.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.B8Des-Ql.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.DPzQ3N3X.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.kl-VcKCD.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.CtxLBKmW.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CIo2-XGU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.D8_ZxPLa.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.BmDuvZp-.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.Bl5m8TP8.js"><title>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-1w17oz4_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-1w17oz4_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.D8W4a8So.js"><title>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-1w17oz4_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-1w17oz4_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"><aside data-svelte-h="svelte-1jc65ah"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center" data-svelte-h="svelte-g7eo4d">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-sm text-center" data-svelte-h="svelte-hve5fy">Michael Horgan</div> <br> <div class="text-sm text-center font-serif mb-4">(All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a>)</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
@@ -215,7 +215,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 				slowly, taking about 40 hours to converge, compared to about 16 hours for Model 2.</p></p> <p class="mt-4">After retraining Model 2 with a new dataset that samples the Lorenz Attractor
 			trajectories with $dt \approx 0.003$, we see that we are now able to predict all
 			regions of the test set with sMAPE error $\lt80$:</p> <figure class="mb-8 self-center"><img class="m-auto" src="../Model2vModel3.png" alt="" width="600" height="600"><figcaption class="text-center text-xs mt-2 mx-0 sm:mx-36">Model 3 vs. Model 2 - sMAPE error distribution.</figcaption></figure> <p data-svelte-h="svelte-8g9ay2">The most challenging trajectories from the test set are significantly improved, although
-			still far from perfect:</p> <figure class="my-8 self-center"><img class="m-auto" src="../model-3-low-dfo.gif" alt="Model 3 trajectory example" width="800" height="800"> <figcaption class="text-center text-xs mt-2 mx-0 sm:mx-36">The maximum-error trajectory from the test set for Model 3. Although there is still
+			still far from perfect:</p> <figure class="my-8 self-center"><img class="m-auto" src="../model-3-low-dfo.gif" alt="Model 3 trajectory example" width="500" height="500"> <figcaption class="text-center text-xs mt-2 mx-0 sm:mx-36">The maximum-error trajectory from the test set for Model 3. Although there is still
 				lots of room for improvement, the predictions now at least roughly track the general
 				contour of the ground truth.</figcaption></figure> <p class="my-2 indent-8 ">Based on the results of Model 3, we can conclude that a primary limiting factor with
 			previous models was the temporal resolution of the trajectory&#39;s history; the information
@@ -308,7 +308,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_vv88tz = {
+					__sveltekit_11wo78a = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -318,8 +318,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CtHs_1jZ.js"),
-						import("../_app/immutable/entry/app.kl-VcKCD.js")
+						import("../_app/immutable/entry/start.B7zHmKMO.js"),
+						import("../_app/immutable/entry/app.CIo2-XGU.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
