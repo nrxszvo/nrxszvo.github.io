@@ -599,8 +599,8 @@
 				class="m-auto"
 				src={`${base}/model-3-low-dfo.gif`}
 				alt="Model 3 trajectory example"
-				width="800"
-				height="800"
+				width="500"
+				height="500"
 			/>
 			<FigCap>
 				The maximum-error trajectory from the test set for Model 3. Although there is still
