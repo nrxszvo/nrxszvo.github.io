@@ -744,4 +744,9 @@
 		<H1 id="references">References</H1>
 		<References />
 	</div>
+	<div
+		class="fixed text-[200px] top-[50%] left-[50%] -translate-x-1/4 -translate-y-1/2 text-opacity-50 text-rose-300"
+	>
+		WIP
+	</div>
 </div>
