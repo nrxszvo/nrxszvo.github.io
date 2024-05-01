@@ -33,6 +33,14 @@
 			link: 'https://doi.org/10.1038/s41586-021-04301-9'
 		},
 		{
+			id: 'oestreicher',
+			author: 'Oestreicher C.',
+			title: 'A history of chaos theory',
+			publisher: 'Dialogues Clin Neurosci.',
+			year: '2007',
+			link: 'https://doi.org/10.31887/DCNS.2007.9.3/coestreicher'
+		},
+		{
 			id: 'challu',
 			author: 'Cristian Challu, Kin G. Olivares, Boris N. Oreshkin, Federico Garza, Max Mergenthaler-Canseco, Artur Dubrawski',
 			title: 'N-HiTS: Neural Hierarchical Interpolation for Time Series Forecasting',

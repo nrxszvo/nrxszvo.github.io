@@ -6,6 +6,7 @@
 	import References from '$lib/refs.svelte';
 	import H1 from '$lib/H1.svelte';
 	import H2 from '$lib/H2.svelte';
+	import H3 from '$lib/H3.svelte';
 	import P from '$lib/P.svelte';
 	import HP from '$lib/hp.svelte';
 	import FigCap from '$lib/figcap.svelte';
@@ -43,11 +44,8 @@
 
 	const handleScroll = () => {
 		let newActive;
-		const wHeight = window.outerHeight;
-		console.log('wHeight', wHeight, 'scrollY', window.scrollY);
 		sections.forEach((id) => {
 			const el = document.getElementById(id);
-			console.log(id, el.offsetTop);
 			if (window.scrollY >= el.offsetTop - 1) {
 				newActive = id;
 			}
@@ -58,8 +56,6 @@
 			addActive(active);
 		}
 	};
-
-	const handleClick = (id) => {};
 
 	onMount(() => {
 		addActive(active);
@@ -196,9 +192,16 @@
 		</div>
 		<H1 id="lorenz">The Lorenz Attractor</H1>
 		<P>
-			The
-			<Link href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Attractor</Link> was developed
-			by Edward Lorenz et. al. in 1963 as a simplified model of atmospheric convection.</P
+			Although the phenomon of <Link href="https://en.wikipedia.org/wiki/Butterfly_effect"
+				>sensitivity to initial conditions</Link
+			> was first discovered by Henri Poincaré around the beginning of the 20th century in his
+			research on the <Link href="https://en.wikipedia.org/wiki/N-body_problem"
+				>n-body problem</Link
+			>, the birth of modern chaos theory is generally associated with the discovery of the <Link
+				href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Attractor</Link
+			>
+			by Edward Lorenz et. al. in 1963 <Ref id="oestreicher" />. Lorenz developed the system
+			as a simplified model of atmospheric convection while working on weather prediction.</P
 		>
 		<div class="my-2 self-center">
 			<a
@@ -216,18 +219,32 @@
 			</a>
 		</div>
 		<P>
-			The Lorenz system is comprised of three ordinary differential equations representing the
-			properties of convection and horizontal and vertical temperature in a two-dimensional
-			fluid layer:
+			The Lorenz system is comprised of three first-order ordinary differential equations
+			representing the properties of convection and horizontal and vertical temperature in a
+			two-dimensional fluid layer:
 		</P>
 		<div class="self-center"><p>{Constants.equLorenz}</p></div>
 		<P
-			>The Lorenz <i>Attractor</i> refers to a set of chaotic solutions to the system, most commonly:</P
+			>The Lorenz <i>Attractor</i> refers to a set of chaotic solutions to the system that
+			constitute a <Link href="https://en.wikipedia.org/wiki/Attractor#Strange_attractor"
+				>strange attractor</Link
+			>, that is, a system having a subspace towards which all trajectories tend to evolve
+			(the attractor) and in which any given trajectory is so dense that its <Link
+				href="https://en.wikipedia.org/wiki/Hausdorff_dimension">Hausdorff dimension</Link
+			> exceeds its topological dimension (the strange part). The canonical parameterization of
+			the Lorenz Attractor, which I will be using, is:</P
 		>
 		<div class="self-center"><p>{Constants.equParams}</p></div>
 		<P>
-			I used Gilpin's <Link href={'https://github.com/williamgilpin/dysts'}>dysts</Link> python
-			module to generate the training data for this solution.
+			Other commonly studied parameterizations generally involve varying the {`$\\rho$`} parameter,
+			for example, {`$\\rho \\lt 1$`} in which the system is stable, and {`$\\rho \\approx 24.7$`},
+			at which a <Link href="https://en.wikipedia.org/wiki/Hopf_bifurcation"
+				>Hopf bifurcation</Link
+			> occurs.</P
+		><P
+			>For all trajectories in this project, I used Gilpin's <Link
+				href={'https://github.com/williamgilpin/dysts'}>dysts</Link
+			> python module to generate the training data for this solution.
 		</P>
 		<H1 id="nhits">Neural Architecture: N-HiTS</H1>
 		<P>
@@ -273,7 +290,8 @@
 			aspiration given what is known about chaotic systems? Maybe, but I'm not really sure
 			yet, and either way this should be a fun learning experience...
 		</P><H2 id="datagen">Data Generation</H2><P
-			>I begin with a horizon (prediction window) of 100 points, using a {`$dt$`} of approximately
+			>I begin with a horizon (prediction window), {`$H$`}, of 100 points, using a {`$dt$`} of
+			approximately
 			{`$0.015$`} seconds per point (the default from <Link
 				href="https://github.com/williamgilpin/dysts">dysts</Link
 			>) to sample the solution produced by the <Link
@@ -290,7 +308,7 @@
 			the average chaoticity of a system, the maximum
 			<Link href="https://en.wikipedia.org/wiki/Lyapunov_exponent">Lyapunov exponent</Link>.
 			As reported in
-			<Link href="https://github.com/williamgilpin/dysts">dysts</Link>, the Lyapunov exponent
+			<Link href="https://github.com/williamgilpin/dysts">dysts</Link>, the Lyapunov exponent, {`$\\lambda_{max}$`},
 			for the Lorenz Attractor is approx. {`$0.8917$`}, and so the <Link
 				href="https://en.wikipedia.org/wiki/Lyapunov_time">Lyapunov time</Link
 			> is approx.
@@ -304,11 +322,15 @@
 			{`$1.121$`} seconds. Note that with these parameters, the horizon covers a time period of
 			about
 			{`$\\frac{4}{3}$`}
-			of the Lyapunov time.
-		</P><P
-			>The train and test sets are comprised of many trajectories with initial conditions all
-			centered at approx. {`$[-9.79, -15.04, 20.53]$`} and multiplied by a random perturbation
-			uniformly sampled from the interval {`$[0.99,1.01]$`}.</P
+			of the Lyapunov time. I can't say too much about the significance of this yet, other than
+			to point out that because the Lyapunov exponent is positive, the distance between any two
+			trajectories grows exponentially with time <sup><a href="#lyapunov">1</a></sup>, a
+			defining feature of all chaotic systems.
+		</P>
+		<P
+			>The initial train and test sets are comprised of many trajectories with initial
+			conditions all centered at approx. {`$[-9.79, -15.04, 20.53]$`} and multiplied by a random
+			perturbation uniformly sampled from the interval {`$[0.99,1.01]$`}.</P
 		>
 		<P indent="indent-0"
 			>The input to the N-HiTs model is a lookback window of the previous series values whose
@@ -324,8 +346,29 @@
 			increase data efficiency, I select each training sample by sliding the 600-point window
 			along the series with a one-point stride. Each series, therefore, contributes {`$10,000 - 600 +
 		1 = 9401$`} training samples. For the initial experiment, I generate 25 series with unique initial conditions,
-			and train on 19 of them, and hold out 3 series for validation and 3 series for testing.</P
+			and train on 19 of them, and hold out 3 series for validation and 3 series for testing<sup
+				><a href="initial-conditions">2</a></sup
+			>.</P
 		>
+		<div class="my-4 ms-4 -indent-4 font-serif leading-4">
+			<p>
+				<sup id="lyapunov">
+					1. Although initially the distance will grow exponentially, the maximum
+					separation between trajectories is also bounded by the fact that all
+					trajectories remain on the attractor.
+				</sup>
+			</p>
+			<p>
+				<sup id="initial-conditions"
+					>2. In the course of this project, I experimented with several different methods
+					for generating trajectories, but I still have some open questions about the best
+					way to generate a dataset that effectively samples the phase space, <i>e.g.</i> how
+					to choose the initial conditions, how to choose the number of unique initial conditions
+					vs. to the total trajectory length, etc.
+				</sup>
+			</p>
+		</div>
+
 		<H2 id="model-1">Model 1</H2>
 		<P>The full set of N-HiTS hyperparameters for the first model configuration is:</P>
 		<HP hps={Constants.modelOneHPs} />
@@ -378,14 +421,14 @@
 				class="m-auto"
 				src={`${base}/model-1-pod.gif`}
 				alt="prediction point of divergence"
-				width="450"
-				height="350"
+				width="500"
+				height="500"
 			/>
 			<FigCap>
-				The behavior of the model near the origin, which is a critical point of the system,
-				for an especially challenging case. In contrast to all other regions of this
-				trajectory, the model seems highly uncertain of how the trajectory will evolve
-				shortly after passing near the origin.
+				The behavior of the model at a Euclidean distance of 4.7 from the origin, which is a
+				critical point of the system, for an especially challenging case. In contrast to all
+				other regions of this trajectory, the model seems highly uncertain of how the
+				trajectory will evolve shortly after passing near the origin.
 			</FigCap>
 		</figure>
 		<P
@@ -436,8 +479,8 @@
 				class="m-auto"
 				src={`${base}/trajectories.gif`}
 				alt="trajectories approaching origin"
-				width="350"
-				height="300"
+				width="500"
+				height="500"
 			/>
 			<FigCap>
 				The trajectories from the training set all begin at nearly the same point but
@@ -447,21 +490,21 @@
 		<P
 			>Given all of this background, it is now unsurprising that the model is struggling to
 			predict the behavior of the system near the origin. But we should also note that the
-			model does quite well at predicting basically every other region of the system. We just
-			have to figure out a way to improve the predictions near the origin, and then we should
-			have a model with an overall very robust representation of the Lorenz Attractor. As this
-			model and its training set are relatively modest in size, the next most obvious step to
-			try is to significantly increase both the amount of training data and the model's
-			capacity, and see if those changes alone are enough to resolve the weaknesses of Model
-			1.</P
+			model does quite well at predicting basically every other region of the system. If we
+			can figure out a way to improve the predictions near the origin, then we should have a
+			model with an overall very robust representation of the Lorenz Attractor. As this model
+			and its training set are relatively modest in size, the next most obvious step to try is
+			to significantly increase both the amount of training data and the model's capacity, and
+			see if those changes alone are enough to resolve the weaknesses of Model 1.</P
 		>
 		<H2 id="model-2">Model 2</H2>
 		<P
 			>For the next model, I increased the number of unique initial conditions from 25 to
-			10000, and held out 100 for validation and 200 for testing, leaving 9700 unique initial
-			conditions, each of length 10,000 points, or about 150 seconds, in the training set. I
-			also expanded the range of hyperparameters for tuning to include significantly larger
-			models, both in depth and width. After tuning, I arrived at the following settings:</P
+			10,000, and held out 100 for validation and 200 for testing, leaving 9,700 unique
+			initial conditions, each of length 10,000 points, or about 150 seconds, in the training
+			set. I also expanded the range of hyperparameters for tuning to include significantly
+			larger models, both in depth and width. After tuning, I arrived at the following
+			settings:</P
 		>
 		<HP hps={Constants.modelTwoHPs} />
 		<p class="mt-2">
@@ -513,8 +556,8 @@
 				class="m-auto"
 				src={`${base}/model-2-pod.gif`}
 				alt="model 2 point of divergence"
-				width="400"
-				height="340"
+				width="500"
+				height="500"
 			/>
 			<FigCap>
 				Model 2 - a trajectory with one of the largest sMAPE errors from the test set. DFO =
@@ -525,8 +568,7 @@
 			>Not surprisingly, this trajectory passes very close to the origin, and we immediately
 			see how similar this failure case is to the one from Model 1. Despite the average
 			improvement across all error magnitudes, has the model's ability to predict the behavior
-			near the unstable origin actually improved significantly relative to Model 1? Let's
-			check:</P
+			near the unstable origin actually improved relative to Model 1? Let's check:</P
 		>
 		<figure class="-mt-2 mb-2 self-center">
 			<img
@@ -545,30 +587,76 @@
 		</figure>
 		<P
 			>As we can clearly see from the plot, Model 2 is able to predict points that are closer
-			to the origin more accurately than Model 1. So although Model 2 is not able to avoid
-			catastraphic failure for all points, it has indeed reduced the number of points for
-			which these failures occur.
+			to the origin more accurately than Model 1, so we have made some progressive here.
+			However, there is still a clear trend of an asymptotic increase in error as distance
+			from the origin decreases. Is this a fundamental property of the system, wherein the
+			predictability of trajectories decreases exponentially as the trajectories approach the
+			origin? Or can we continue to make progress with some new model or training strategy?
 		</P>
-		<P
-			>So we've drastically increased both model capacity and dataset size, and we have only
-			achieved marginal improvement on the most chaotic trajectories. To continue to make
-			progress, we probably need to try a different approach. One idea is to increase the
-			temporal resolution of the model by using a smaller {`$dt$`} to generate our data points.
-			So far we've used a {`$dt$`} of {`$\\approx0.015$`}. Let's try reducing that by a factor
-			of 5 to {`$\\approx0.003$`}, and in order to keep the prediction task equally difficult,
-			we'll also increase the horizon window, and lookback window, by a factor of 5 to 500 and
-			2500 respectively, so that the total amount of time being predicted is still {`$\\approx1.5$`}
-			seconds. We'll call this Model 3.</P
-		>
 		<H2 id="model-3">Model 3</H2>
-		<P>The new hyperparameters for Model 3 are:</P>
+		<P>
+			With Model 2, we drastically increased both model capacity and dataset size, and we only
+			achieved a marginal improvement on the most difficult trajectories. In this round of
+			experiments, I will try a couple of new ideas that more specifically target these weak
+			areas.
+		</P>
+		<H3>3.1: Biased Dataset Distribution</H3>
+		<P
+			>The first idea is to increase the percentage of trajectories in the dataset that pass
+			very close to the origin so that the model sees more examples of these very tough cases
+			during training. To do this, I first generate a very large number of trajectories (many
+			more than I intend to use during training) using the same method as before for choosing
+			the initial conditions. Then I sort these trajectories according to their minimum
+			L2-magnitude point and select the first N trajectories for inclusion in the dataset. I
+			also take care to ensure that the distribution of trajectories across train, validation,
+			and test sets is uniform with respect to these minimum points. When we plot the
+			histogram of the windows from the dataset, grouping the windows based on their minimum
+			points, we see that we've increased the number of windows in each of the groups with a
+			distance from the origin {`$\\lt{4}$`} by a factor of about 10, while the total number of
+			windows is the same as before:
+		</P>
+		<figure class="mb-8 self-center">
+			<img class="m-auto" src={`${base}/dataset-dist.png`} alt="" width="500" /><FigCap
+				>Distribution of windows in the dataset based on minimum distance from the origin
+				for Model 2 and Model 3.</FigCap
+			>
+		</figure>
+		<p>
+			However, when we retrain the model using this dataset, we see no discernable improvement
+			on the toughest cases. The error curve still increases asymptotically as the trajectory
+			minima approach the origin:
+		</p>
+		<figure class="mt-2 mb-2 self-center">
+			<img
+				class="m-auto"
+				src={`${base}/Model3.1DFO.png`}
+				alt="Model 3.1 - distance from origin vs. sMAPE"
+				width="800"
+			/><FigCap>
+				Despite having 10x more examples of the most difficult trajectories in its training
+				set, Model 3.1 shows no improvements over Model 2.
+			</FigCap>
+		</figure>
+
+		<H3>3.2: Reduced {`$dt$`}</H3>
+		<P
+			>The next idea is to increase the temporal resolution of the model by using a smaller {`$dt$`}
+			to generate our data points. So far we've used a {`$dt$`} of {`$\\approx0.015$`}. Here
+			I'll try reducing that by a factor of 5 to {`$\\approx0.003$`}, and in order to keep the
+			prediction task equally difficult, I'll also increase the horizon window, and lookback
+			window, by a factor of 5 to 500 and 2500 respectively, so that the total amount of time
+			being predicted is still {`$\\approx1.5$`}
+			seconds. I'll also use the same method as with 3.1 for generating a biased dataset, this
+			time with 50,000 points per trajectory.</P
+		>
+		<P>The new hyperparameters for Model 3.2 are:</P>
 		<HP hps={Constants.modelThreeHPs} />
 		<P style="my-4 text-xs font-serif"
 			>A sidenote on the practicality of training this model: <p class="ms-8">
-				Although we have not increased the number of parameters relative to Model 2, by
-				increasing the input size and horizon length by a factor of 5, we have significantly
-				increased the memory requirement for training this model. Now in order to fit the
-				model on two GPUs with 16 GB of RAM each, I have to use Lightning's <Link
+				By increasing the input size and horizon length by a factor of 5, we have
+				significantly increased the memory requirement for training this model. Now in order
+				to fit the model onto two GPUs with 16 GB of RAM each, I not only have to reduce the
+				number of blocks per stack from 8 to 4, but I also have to use Lightning's <Link
 					href="https://lightning.ai/docs/pytorch/stable/advanced/model_parallel/fsdp.html"
 					>FSDP Strategy</Link
 				> to distribute the model across both GPUs in order to get the per-GPU memory requirement
@@ -577,63 +665,41 @@
 			</p></P
 		>
 		<p class="mt-4">
-			After retraining Model 2 with a new dataset that samples the Lorenz Attractor
-			trajectories with {`$dt \\approx 0.003$`}, we see that we are now able to predict all
-			regions of the test set with sMAPE error {`$\\lt80$`}:
+			After retraining with {`$dt \\approx 0.003$`}, we again do not see any discernable
+			improvement:
 		</p>
 		<figure class="mb-8 self-center">
-			<img
-				class="m-auto"
-				src={`${base}/Model2vModel3.png`}
-				alt=""
-				width="600"
-				height="600"
-			/><FigCap>Model 3 vs. Model 2 - sMAPE error distribution.</FigCap>
+			<img class="m-auto" src={`${base}/Model3.2DFO.png`} alt="" width="800" /><FigCap
+				>Despite having 5x the temporal resolution of Model 2, Model 3.2 still does not
+				achieve any improvement of the asymptotic error curve.</FigCap
+			>
 		</figure>
-		<p>
-			The most challenging trajectories from the test set are significantly improved, although
-			still far from perfect:
-		</p>
-		<figure class="my-8 self-center">
-			<img
-				class="m-auto"
-				src={`${base}/model-3-low-dfo.gif`}
-				alt="Model 3 trajectory example"
-				width="500"
-				height="500"
-			/>
-			<FigCap>
-				The maximum-error trajectory from the test set for Model 3. Although there is still
-				lots of room for improvement, the predictions now at least roughly track the general
-				contour of the ground truth.
-			</FigCap>
-		</figure>
-		<P
-			>Based on the results of Model 3, we can conclude that a primary limiting factor with
-			previous models was the temporal resolution of the trajectory's history; the information
-			required to make an accurate prediction for the most challenging trajectories is
-			apparently not contained in trajectories with a sample period of {`$dt \\approx 0.015$`},
-			but much more of it is contained in trajectories with a sample period of {`$dt \\approx 0.003$`}.</P
-		>
 		<H2 id="arpred">Autoregressive Prediction</H2>
 		<P>
-			Now that we have a model that adequately approximates the ODE given the last {`$\\approx 7.5$`}
-			seconds of the IVP solver's output, the next test is to measure how well the model continues
-			to predict the trajectory given its own past predictions. To do this, for each trajectory
-			in the test set, we will begin by using the first 2500 points to produce the model's prediction
-			for points 2501-3000. Then we'll feed those 500 points back into the input to predict points
-			3001-3500, and continue in this way for all 10,000 points in each trajectory. Then we can
-			compare how closely the predicted trajectories match the ones produced by the IVP solver.
+			For the last experiment, I'll investigate the performance of the model when it is being
+			used auto-regressively to predict a trajectory of arbitrary length. This test can give
+			us an idea of the stability of the model, <i>i.e.</i> if there are small errors in its input,
+			will these errors lead to larger errors in the output that compound over time and produce
+			trajectories that either leave the attractor entirely or otherwise do not resemble trajectories
+			on the attractor? Or will the errors be small enough that the inputs remain within the stable
+			region of the model's domain?
 		</P><P
-			>When we do this, we find that Model 3 is, on average, able to predict the first {`$\\approx7.2$`}
+			>To do this, for each trajectory in the test set, we will begin by using the first 2500
+			points to produce the model's prediction for points 2501-3000. Then we'll feed those 500
+			points back into the input to predict points 3001-3500, and continue in this way for all
+			10,000 points in each trajectory. Then we can compare how closely the predicted
+			trajectories match the ones produced by the IVP solver.
+		</P><P
+			>When we do this, we find that Models 2, 3.1, and 3.2 are, on average, able to predict
+			the first {`$\\approx7.2$`}
 			seconds of the trajectory before it begins to diverge significantly from the reference (I
 			arrived at this by calculating the mean time at which the maximum L2 distance between corresponding
-			points on the trajectories exceeds 3). But we also note that, although there are clearly
-			visible differences between the reference and the prediction, the full 10,000-point trajectories
-			that Model 3 predicts are, to the naked eye at least, more or less indistinguishable from
-			the typical trajectories of the Lorenz Attractor. In other words, they look like entirely
-			plausible trajectories even if they eventually diverge significantly from the ones produced
-			by the IVP solver for the same initial conditions.</P
+			points on the trajectories exceeds {`$3$`}). But we also note that, although there are
+			clearly visible differences between the reference and the prediction, the full
+			10,000-point trajectories that Model 3 predicts are, to the naked eye at least, more or
+			less indistinguishable from the typical trajectories of the Lorenz Attractor. In other
+			words, they look like entirely plausible trajectories even if they eventually diverge
+			significantly from the ones produced by the IVP solver for the same initial conditions.</P
 		>
 		<figure class="mb-2 self-center">
 			<img
@@ -698,19 +764,23 @@
 		<P
 			>Inspired by recent research (<Ref id="gilpin" />) that supports the potential for
 			generic neural architectures to match or exceed the performance of domain-specific
-			models at the task of predicting chaotic systems, this project demonstrated the strong
-			potential of at least one generic neural architecture (<Ref id="challu" />) to
-			qualitatively match the performance of state-of-the-art IVP solvers, such as Radau, at
-			integrating the ODE for at least one specific system--Lorenz--using only examples of
-			solutions, with no explicit representation of the underlying ODE, to build up a model of
-			the entire dynamics of the system. Given {`$5H$`} points of an initial trajectory and at
-			a high enough temporal resolution, the neural model demonstrated the ability to predict the
-			subsequent {`$H$`} outputs of the Radau solver with, in most cases, high accuracy, and in
-			the worst case, marginal accuracy, for all trajectories in a test set that uniformly sampled
-			the phase space of the system. When used autoregressively, the model demonstrated the potential
-			to generate arbitrarily long trajectories that are visually indistinguishable from typical
-			trajectories of the system and that match the output of the Radau solver at least as well
-			as other state-of-the-art IVP solvers such as RK45.
+			models at the task of predicting chaotic systems, this project has probed the potential
+			of one generic neural architecture (<Ref id="challu" />) to match the performance of
+			higher-accuracy IVP solvers, such as Radau, at integrating the ODE for one specific
+			system--Lorenz--using only examples of solutions, with no explicit representation of the
+			underlying ODE, to build up a model of the entire dynamics of the system. Given {`$5H$`}
+			points of an initial trajectory, the neural model demonstrated the ability to predict the
+			subsequent
+			{`$H$`} outputs of the Radau solver with high accuracy in nearly all regions of the attractor's
+			phase space. However, the dynamics of the system at the saddle point at the origin proved
+			to be too complex for the models tested here to capture. As trajectories approach the origin
+			along their outward spiraling orbits of one of the other two critical points, the models'
+			prediction error increases asymptotically.</P
+		><P
+			>When used autoregressively, the model demonstrated the potential to generate
+			arbitrarily long trajectories that are visually indistinguishable from typical
+			trajectories of the system and that match the output of the Radau solver at least as
+			well as other state-of-the-art IVP solvers such as RK45.
 		</P>
 		<P
 			>It must be noted, however, that the amount of data and model capacity used to achieve

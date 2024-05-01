@@ -52,11 +52,13 @@ export const modelTwoHPs = [
 	{ desc: 'learning rate', val: '1e-4' },
 	{ desc: 'learning rate schedule', val: 'halve whenever validation loss does not decrease' },
 	{ desc: 'all other hyperparameters', val: 'same as Model 1' },
-	{ desc: 'total trainable parameters', val: '~645 million' }
+	{ desc: 'total trainable parameters', val: '~687 million' }
 ];
 export const modelThreeHPs = [
 	{ desc: 'horizon', val: 500 },
 	{ desc: 'lookback', val: 2500 },
+	{ desc: 'blocks per stack', val: 4 },
 	{ desc: 'dt', val: 0.0030016 },
-	{ desc: 'all other hyperparameters', val: 'same as Model 2' }
+	{ desc: 'all other hyperparameters', val: 'same as Model 2' },
+	{ desc: 'total trainable parameters', val: '~644 million' }
 ];
