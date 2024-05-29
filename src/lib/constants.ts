@@ -23,6 +23,11 @@ export const sMAPE = `
 \\operatorname{\\epsilon}(t) := \\frac{200}{t} \\sum_{t'=1}^t \\frac{|\\operatorname{\\boldsymbol{y}}(t')-\\operatorname{\\boldsymbol{\\hat{y}}}(t')|}{|\\operatorname{\\boldsymbol{y}}(t')| + |\\operatorname{\\boldsymbol{\\hat{y}}}(t')|} \\\\
 \\end{align}`;
 
+export const zStatistic = `
+\\begin{align}
+\\operatorname{J}(z) := exp(-\\frac{z^2}{2}) \\\\
+\\end{align}`;
+
 export const modelOneHPs = [
 	{ desc: 'horizon length', val: 100 },
 	{ desc: 'lookback window length', val: 500 },
@@ -52,11 +57,12 @@ export const modelTwoHPs = [
 	{ desc: 'learning rate', val: '1e-4' },
 	{ desc: 'learning rate schedule', val: 'halve whenever validation loss does not decrease' },
 	{ desc: 'all other hyperparameters', val: 'same as Model 1' },
-	{ desc: 'total trainable parameters', val: '~645 million' }
+	{ desc: 'total trainable parameters', val: '~687 million' }
 ];
 export const modelThreeHPs = [
 	{ desc: 'horizon', val: 500 },
-	{ desc: 'lookback', val: 2500 },
+	{ desc: 'lookback', val: 1000 },
 	{ desc: 'dt', val: 0.0030016 },
-	{ desc: 'all other hyperparameters', val: 'same as Model 2' }
+	{ desc: 'all other hyperparameters', val: 'same as Model 2' },
+	{ desc: 'total trainable parameters', val: '~857 million' }
 ];

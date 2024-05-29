@@ -33,6 +33,14 @@
 			link: 'https://doi.org/10.1038/s41586-021-04301-9'
 		},
 		{
+			id: 'oestreicher',
+			author: 'Oestreicher C.',
+			title: 'A history of chaos theory',
+			publisher: 'Dialogues Clin Neurosci.',
+			year: '2007',
+			link: 'https://doi.org/10.31887/DCNS.2007.9.3/coestreicher'
+		},
+		{
 			id: 'challu',
 			author: 'Cristian Challu, Kin G. Olivares, Boris N. Oreshkin, Federico Garza, Max Mergenthaler-Canseco, Artur Dubrawski',
 			title: 'N-HiTS: Neural Hierarchical Interpolation for Time Series Forecasting',
@@ -55,6 +63,14 @@
 			publisher: 'Journal of the Royal Society of New Zealand',
 			year: '2018',
 			link: 'https://doi.org/10.1080/03036758.2018.1434802'
+		},
+		{
+			id: 'chandramoorthy',
+			author: 'Nisha Chandramoorthy, QiQi Wang',
+			title: 'On the probability of finding nonphysical solutions through shadowing',
+			publisher: 'Journal of Computational Physics',
+			year: '1 September 2021',
+			link: 'https://doi.org/10.1016/j.jcp.2021.110389'
 		}
 	];
 </script>
