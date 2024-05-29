@@ -2,7 +2,7 @@
 	export const title =
 		'Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor';
 	export const description =
-		'Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor';
+		'Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5';
 </script>
 
 <svelte:head>

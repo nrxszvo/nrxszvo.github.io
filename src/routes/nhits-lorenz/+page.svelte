@@ -286,8 +286,12 @@
 			average window errors and its CDF on the test set are shown below. Note that the left y
 			axis is log-scaled.</P
 		>
-		<figure class="mb-6 self-center">
-			<img class="m-auto" src={`${base}/Model1ErrDist.png`} alt="" width="600" height="600" />
+		<figure class="mb-6 self-center max-w-xl">
+			<img
+				class="object-contain"
+				src={`${base}/Model1ErrDist.png`}
+				alt="Model 1 - error distribution"
+			/>
 			<FigCap>Model 1 - sMAPE error distribution on the test set</FigCap>
 		</figure>
 
@@ -297,9 +301,21 @@
 		>
 		<figure class="mt-6 mb-6 self-center">
 			<div class="flex flex-wrap justify-center">
-				<img class="" src={`${base}/Model1SmallErr.png`} alt="" width="300" height="300" />
-				<img class="" src={`${base}/Model1MediumErr.png`} alt="" width="300" height="300" />
-				<img class="" src={`${base}/Model1LargeErr.png`} alt="" width="300" height="300" />
+				<img
+					class="object-contain max-w-80"
+					src={`${base}/Model1SmallErr.png`}
+					alt="Model 1 - small error example"
+				/>
+				<img
+					class="object-contain max-w-80"
+					src={`${base}/Model1MediumErr.png`}
+					alt="Model 1 - medium error example"
+				/>
+				<img
+					class="object-contain max-w-80"
+					src={`${base}/Model1LargeErr.png`}
+					alt="Model 1 - large error example"
+				/>
 			</div>
 			<FigCap>
 				Samples of three different 100-point predictions from Model 1 with small, medium,
@@ -317,19 +333,17 @@
 			behavior in this region that is very difficult for this model to fit, regardless of its
 			alignment within the prediction window.</P
 		>
-		<figure class="mt-6 mb-6 self-center">
+		<figure class="mt-6 mb-6 self-center max-w-lg">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/model-1-pod.gif`}
 				alt="prediction point of divergence"
-				width="500"
-				height="500"
 			/>
 			<FigCap>
-				The behavior of the model at a Euclidean distance of 4.7 from the origin, which is a
-				critical point of the system, for an especially challenging case. In contrast to all
-				other regions of this trajectory, the model seems highly uncertain of how the
-				trajectory will evolve shortly after passing near the origin.
+				The behavior of Model 1 for an especially challenging case at a minimum Euclidean
+				distance of 4.7 from the origin, which is a critical point of the system. In
+				contrast to all other regions of this trajectory, the model seems highly uncertain
+				of how the trajectory will evolve shortly after passing near the origin.
 			</FigCap>
 		</figure>
 		<P
@@ -367,20 +381,9 @@
 			so trajectories will be rapidly deflected away from the origin along the unstable
 			manifold, as we see in the below animation:</P
 		>
-		<!--P
-		>We can calculate the <i>local</i> Lyapunov exponent at this saddle point to get an estimate
-		of just how chaotic the behavior of the system is in the neighborhood of the origin. The
-		local Lyapunov exponent is the largest eigenvalue of the Jacobian of the system at the
-		origin, which for the Lorenz Attractor is approximately {`$11.8$`}. Compare this with the
-		estimate of the global Lyapunov exponent of {`$\\approx 0.89$`}, and it is clear that the
-		origin is highly unstable relative to the average conditions on the Lorenz Attractor. In
-		fact, when we inspect the ground-truth trajectories from the dataset, we see that they all
-		remain very close to each other until they approach the origin, at which point they rapidly
-		diverge.
-	</P-->
-		<figure class="mt-6 mb-6 self-center">
+		<figure class="mt-6 mb-6 self-center max-w-md">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/trajectories.gif`}
 				alt="trajectories approaching origin"
 				width="500"
@@ -421,14 +424,10 @@
 			modified the learning rate schedule to reduce by half whenever the validation loss does
 			not decrease from the previous validation step.
 		</p>
-		<figure class="mb-2 self-center">
-			<img
-				class="m-auto"
-				src={`${base}/Model2ErrDist.png`}
-				alt=""
-				width="600"
-				height="600"
-			/><FigCap>Model 2 vs Model 1 - sMAPE error distribution.</FigCap>
+		<figure class="mb-2 self-center max-w-xl">
+			<img class="object-contain" src={`${base}/Model2ErrDist.png`} alt="" /><FigCap
+				>Model 2 vs Model 1 - sMAPE error distribution.</FigCap
+			>
 		</figure>
 		<P
 			>From the plot, we see a significant increase in the first bin and a reduction in every
@@ -443,11 +442,9 @@
 		>
 		<figure class="-mt-2 mb-2 self-center">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/Model2Err3d.png`}
-				alt=""
-				width="600"
-				height="600"
+				alt="Model 2 - error distribution by series and window"
 			/><FigCap>Model 2 - sMAPE errors per series per window in the test set.</FigCap>
 		</figure>
 		<P
@@ -455,13 +452,11 @@
 			spending most of the time near the ground truth. Let's check the animation for one of
 			the large spikes with a sMAPE greater than 100:</P
 		>
-		<figure>
+		<figure class="self-center max-w-lg">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/model-2-pod.gif`}
 				alt="model 2 point of divergence"
-				width="500"
-				height="500"
 			/>
 			<FigCap>
 				Model 2 - a trajectory with one of the largest sMAPE errors from the test set. DFO =
@@ -474,13 +469,11 @@
 			improvement across all error magnitudes, has the model's ability to predict the behavior
 			near the unstable origin actually improved relative to Model 1? Let's check:</P
 		>
-		<figure class="-mt-2 mb-2 self-center">
+		<figure class="-mt-2 mb-2 self-center max-w-3xl">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/Model2DFO.png`}
 				alt="distance from origin vs. sMAPE"
-				width="800"
-				height="600"
 			/><FigCap>
 				Each local minimum distance from the origin on the ground truth trajectories is
 				calculated, and the corresponding maximum sMAPE error among the windows that
@@ -554,12 +547,11 @@
 			distance from the origin {`$\\lt{3}$`}
 			by a factor of about 10, while the total number of windows is the same as before:
 		</P>
-		<figure class="mb-8 self-center">
+		<figure class="mb-8 self-center max-w-lg">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/datahist_model_2_v_3.1.png`}
-				alt=""
-				width="700"
+				alt="Dataset distribution for Model 2 vs. 3"
 			/><FigCap
 				>Distribution of windows in the dataset based on minimum distance from the origin
 				for Model 2 and Model 3.1.</FigCap
@@ -576,12 +568,11 @@
 			toughest cases. The error curve still increases asymptotically as the trajectory minima
 			approach the origin, but it's also shifted slightly to the left:
 		</P>
-		<figure class="mt-2 mb-2 self-center">
+		<figure class="mt-2 mb-2 self-center max-w-3xl">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/Model2v3.1-DFO.png`}
 				alt="Model 2 vs. 3.1 - distance from origin vs. sMAPE"
-				width="800"
 			/><FigCap>
 				With 10x more samples of the most difficult trajectories in its dataset, Model 3.1
 				makes very marginal improvements over Model 2.
@@ -627,8 +618,12 @@
 			After retraining with {`$dt \\approx 0.003$`}, we again see a very slight improvement
 			over the previous models:
 		</p>
-		<figure class="mb-8 self-center">
-			<img class="m-auto" src={`${base}/Model3.2-DFO.png`} alt="" width="1000" /><FigCap
+		<figure class="mb-8 self-center max-w-3xl">
+			<img
+				class="object-contain"
+				src={`${base}/Model3.2-DFO.png`}
+				alt="Model 3.2 - distance-from-origin error distribution"
+			/><FigCap
 				>With 10x more samples of the most difficult trajectories and 5x the temporal
 				resolution of Model 2, Model 3.2 achieves marginal improvements but still has an
 				asymptotic error curve.</FigCap
@@ -680,12 +675,11 @@
 				>Radau</Link
 			> solver's outputs:
 		</p>
-		<figure class="mb-2 self-center">
+		<figure class="mb-2 self-center max-w-3xl">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/ar_z_stat.png`}
 				alt="Z Statistic for Reference vs. Autoregressive Trajectories"
-				width="800"
 			/><FigCap>
 				Comparing the distribution of an expential function of the z coordinate for the
 				trajectories generated by Model 3.2 and by the Radau solver.
@@ -703,12 +697,11 @@
 			the model look entirely plausible, possibily even indistinguishable, to the human eye,
 			from the typical solver outputs:</P
 		>
-		<figure class="mb-2 self-center">
+		<figure class="mb-2 self-center max-w-4xl">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/ref_v_ar.png`}
 				alt="Reference vs. Autoregressive Trajectories"
-				width="1000"
 			/><FigCap>
 				Comparison of trajectories generated by the IVP solver (top) and auto-regressively
 				generated by Model 3.2 (bottom). Each column uses the same initial conditions.
@@ -718,12 +711,11 @@
 			However, if we search for the model trajectories that pass closest to the origin, we
 			find examples where the model output breaks down badly:
 		</p>
-		<figure class="mb-2 self-center">
+		<figure class="mb-2 self-center max-w-lg">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/ar_breakdown_1.png`}
 				alt="Autoregressive Trajectory - Bad Example"
-				width="600"
 			/><FigCap>
 				An autoregressive trajectory that fails to pass the eye test for being a plausible
 				solution to the Lorenz Attractor
@@ -743,12 +735,11 @@
 			> has similar error constraints to Radau, so let's compare the autoregressive output against
 			Radau relative to RK45's output against Radau:</P
 		>
-		<figure class="mb-2 self-center">
+		<figure class="mb-2 self-center max-w-2xl">
 			<img
-				class="m-auto"
+				class="object-contain"
 				src={`${base}/solvers_vs_model.png`}
 				alt="Comparison of RK45 and predictions to Radau's solutions"
-				width="1000"
 			/>
 			<FigCap>
 				Comparing the mean squared error per timestep between Radau and Model 3 (blue) and
@@ -815,8 +806,16 @@
 		</P>
 		<figure class="mb-6 self-center">
 			<div class="flex flex-wrap justify-center">
-				<img class="" src={`${base}/max_z.png`} alt="" width="450" />
-				<img class="" src={`${base}/max_z_zoomed.png`} alt="" width="450" />
+				<img
+					class="object-contain max-w-xl"
+					src={`${base}/max_z.png`}
+					alt="Model 3 - maxium Z coordinate error distribution"
+				/>
+				<img
+					class="object-contain max-w-xl"
+					src={`${base}/max_z_zoomed.png`}
+					alt="maximum Z coordinate error distribution zoomed"
+				/>
 			</div>
 			<FigCap
 				>The local maximum Z coordinate of trajectories and their maximum sMAPE error in the
