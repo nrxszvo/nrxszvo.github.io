@@ -252,7 +252,7 @@
 			along the series with a one-point stride. Each series, therefore, contributes {`$10,000 - 600 +
 		1 = 9401$`} training samples. For the initial experiment, I generate 25 series with unique initial conditions,
 			and train on 19 of them, and hold out 3 series for validation and 3 series for testing<sup
-				><a href="initial-conditions">2</a></sup
+				><a href="#initial-conditions">2</a></sup
 			>.</P
 		>
 		<div class="my-4 ms-4 -indent-4 font-serif leading-4">
@@ -813,12 +813,12 @@
 		<figure class="mb-6 self-center">
 			<div class="flex flex-wrap justify-center">
 				<img
-					class="object-contain max-w-xl"
+					class="object-contain w-full max-w-xl"
 					src={`${base}/max_z.png`}
 					alt="Model 3 - maxium Z coordinate error distribution"
 				/>
 				<img
-					class="object-contain max-w-xl"
+					class="object-contain w-full max-w-xl"
 					src={`${base}/max_z_zoomed.png`}
 					alt="maximum Z coordinate error distribution zoomed"
 				/>
