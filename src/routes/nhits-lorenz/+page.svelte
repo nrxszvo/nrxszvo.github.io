@@ -26,12 +26,13 @@
 		<div id="intro" class="mt-8 text-2xl text-center">
 			{title}
 		</div>
-		<div class="mt-2 text-sm text-center">Michael Horgan</div>
+		<div class="mt-2 text-md text-center">Michael Horgan</div>
+		<div class="mt-2 text-xs text-center font-serif">michaelghorgan at gmail</div>
 		<br />
 		<div class="text-sm text-center font-serif mb-4">
-			(All code used in this project is available in the github repo: <Link
+			All code used in this project is available in the github repo: <Link
 				href="https://github.com/nrxszvo/mochaNN">mochaNN</Link
-			>)
+			>
 		</div>
 		<P>
 			This project is inspired by several recent publications involving the use of deep
