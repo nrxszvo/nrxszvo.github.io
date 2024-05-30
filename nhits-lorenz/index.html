@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.Dow8q58c.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.D8J9HgCp.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.B0B0xVSK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.2KXM2QCK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.D6OAE3C5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.B6i7-q-k.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.s2r3Mklr.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.950UHjlK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Cn2qDDO_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BmRq3wWf.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.DvaVJfI1.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.Be195Ktq.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.DLrHSX1V.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"> <aside class="max-sm:hidden" data-svelte-h="svelte-u7i093"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center">Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-sm text-center" data-svelte-h="svelte-hve5fy">Michael Horgan</div> <br> <div class="text-sm text-center font-serif mb-4">(All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a>)</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
@@ -163,11 +163,11 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			which is why the trajectories always diverge at the near-90-degree angles that we see in
 			the animations as they approach the origin. And the (incredibly complex) topography of the
 			stable 2D manifold determines towards which of the other two critical points a trajectory
-			will be deflected [<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">7</a>]. In fact, I would tenatively conclude that the
+			will be deflected [<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">7</a>]. In fact, we might technically say that the
 			primary goal of the neural network is to learn the topography of the origin&#39;s stable 2D
-			manifold; since this manifold defines a boundary across which trajectories can never
-			pass, we can confine the past and future path of any trajectory based on the boundaries
-			of this manifold.</p><p class="my-2 indent-8 ">We can estimate how unstable the 1D manifold is by calculating the eigenvalues of the
+			manifold; according to [<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">7</a>], this manifold defines a boundary across
+			which trajectories can never pass, so we can confine the past and future path of any
+			trajectory based on the boundaries of this manifold.</p><p class="my-2 indent-8 ">We can estimate how unstable the 1D manifold is by calculating the eigenvalues of the
 			Jacobian matrix of the system at the origin and assuming the dynamics are approximately
 			linear in this region (see <a href="https://en.wikipedia.org/wiki/Hartman%E2%80%93Grobman_theorem" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Hartman-Grobman Theorem</a>). When we do this, we get three eigenvalues, two of which have negative real
 			components and are associated with the stable 2D manifold, and the third which has
@@ -204,8 +204,9 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			visualize these errors slightly differently to get a better sense of how they are
 			distributed within and across the test series:</p> <figure class="-mt-2 mb-2 self-center"><img class="object-contain" src="../Model2Err3d.png" alt="Model 2 - error distribution by series and window"><figcaption class="text-center text-xs mt-2">Model 2 - sMAPE errors per series per window in the test set.</figcaption></figure> <p class="my-2 indent-8 ">We see that very large errors occur quite rarely and briefly, with the predictions
 			spending most of the time near the ground truth. Let&#39;s check the animation for one of
-			the large spikes with a sMAPE greater than 100:</p> <figure class="self-center max-w-lg"><img class="object-contain" src="../model-2-pod.gif" alt="model 2 point of divergence"> <figcaption class="text-center text-xs mt-2">Model 2 - a trajectory with one of the largest sMAPE errors from the test set. DFO =
-				&#39;distance from origin&#39;</figcaption></figure> <p class="my-2 indent-8 ">Not surprisingly, this trajectory passes very close to the origin, and we immediately
+			the large spikes with a sMAPE greater than 100:</p> <figure class="self-center max-w-lg"><img class="object-contain" src="../model-2-pod.gif" alt="model 2 point of divergence"> <figcaption class="text-center text-xs mt-2">Model 2 - a trajectory with one of the largest sMAPE errors from the test set. &#39;DFO&#39;
+				indicates the minimum distance from the origin of the points in the prediction
+				window.</figcaption></figure> <p class="my-2 indent-8 ">Not surprisingly, this trajectory passes very close to the origin, and we immediately
 			see how similar this failure case is to the one from Model 1. Despite the average
 			improvement across all error magnitudes, has the model&#39;s ability to predict the behavior
 			near the unstable origin actually improved relative to Model 1? Let&#39;s check:</p> <figure class="-mt-2 mb-2 self-center max-w-3xl"><img class="object-contain" src="../Model2DFO.png" alt="distance from origin vs. sMAPE"><figcaption class="text-center text-xs mt-2">Each local minimum distance from the origin on the ground truth trajectories is
@@ -233,7 +234,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			solution with adequate time points before and after it approaches the origin. Sounds
 			simple enough, except that when I attempted to produce the backwards solution, I
 			inevitably ended up with a trajectory whose X coordinate grows in magnitude
-			exponentially. For example, in all of my attempts using the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau solver</a> with error tolerances approaching the limits of double precision, the X coordinate grew
+			exponentially. In all of my attempts using the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau solver</a> with error tolerances approaching the limits of double precision, the X coordinate grew
 			to the order of about $1\mathrm{e}{30}$
 			after about 0.5 seconds.</p><p class="my-2 indent-8 ">What&#39;s going on here? One possible explanation has to do with the finite volume that
 			the attractor occupies. When we generate a forward solution starting with a point that
@@ -244,21 +245,21 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			from the set of all trajectories in the phase space, including the ones that begin very
 			far away from the attractor volume. The probability of randomly selecting a point that
 			corresponds with a trajectory that has already been on the attractor for a sufficiently
-			long period of time could be very low. However, this theory doesn&#39;t explain why the X
-			coordinate specifically would explode, while Y and Z remain in the vicinity of the
+			long period of time <i data-svelte-h="svelte-ah22qx">might</i> be very low. However, this theory doesn&#39;t seem to
+			explain why the X coordinate specifically would explode, while Y and Z remain on the
 			attractor. And there are plenty of research papers that analyze backwards time solutions
 			to the Lorenz Attractor (<i data-svelte-h="svelte-1yxphdm">e.g.</i>[<a href="https://doi.org/10.1080/03036758.2018.1434802" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">7</a>]), so clearly it is possible to
 			generate backwards time solutions, I just have not been able to determine how. Possibly
 			there is some issue with the numerical stability of the approaches I tried.</p><p class="my-2 indent-8 ">Failing to employ the backwards-time method, I will resort to cruder methods for
 			generating a biased dataset. First I generate a very large number of trajectories (many
 			more than I intend to use during training) using the same method as before for choosing
-			the initial conditions. Then I sort these trajectories according to their minimum
-			L2-magnitude point and select the first N trajectories for inclusion in the dataset. I
-			also take care to ensure that the distribution of trajectories across train, validation,
-			and test sets is uniform with respect to these minimum points. When we plot the
-			histogram of the windows from the dataset, grouping the windows based on their minimum
-			points, we see that we&#39;ve increased the number of windows in each of the groups with a
-			distance from the origin $\lt{3}$
+			the initial conditions. Then I sort these trajectories according to their minimum-L2
+			point and select the first N trajectories for inclusion in the dataset. I also take care
+			to ensure that the distribution of trajectories across train, validation, and test sets
+			is uniform with respect to these minimum points. When we plot the histogram of the
+			windows from the dataset, grouping the windows based on their minimum points, we see
+			that we&#39;ve increased the number of windows in each of the groups with a distance from
+			the origin $\lt{3}$
 			by a factor of about 10, while the total number of windows is the same as before:</p> <figure class="my-8 self-center max-w-lg"><img class="object-contain" src="../datahist_model_2_v_3.1.png" alt="Dataset distribution for Model 2 vs. 3"><figcaption class="text-center text-xs mt-2">Distribution of windows in the dataset based on minimum distance from the origin
 				for Model 2 and Model 3.1.</figcaption></figure> <p>Still, with these 10x increases, the trajectories that pass within an L2 distance $\le{5}$
 			from the origin only comprise about 1.5% of the dataset (compared to 0.5% for the previous
@@ -273,7 +274,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			attractor where data is sparse. For many real-world use cases, this behavior could be
 			cost prohibitive; for example, in a nuclear fusion reactor, data collection is currently
 			relatively expensive, and a severe failure can badly damage the reactor, leading to
-			massive costs for repairs. Therefore, we should explore strategies other than increasing
+			massive repair costs. Therefore, we should explore strategies other than increasing
 			dataset size to address this problem first.</p> <div class="text-lg font-medium text-left ms-4 mt-4 mb-4">3.2: Reduced $dt$</div> <p class="my-2 indent-8 ">The next idea is to increase the temporal resolution of the model by using a smaller $dt$
 			to generate the data points. So far I&#39;ve used a $dt$ of $\approx0.015$. Here
 			I&#39;ll try reducing that by a factor of 5 to $\approx0.003$, and in order to keep the
@@ -282,11 +283,12 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			seconds. From tuning, I found that an input size of $2H$ performs just as well as an
 			input size of $5H$, so I&#39;ll only increase the input size to 1000. I&#39;ll also use the
 			same method as with 3.1 for generating a biased dataset, this time with 50,000 points
-			per trajectory.</p> <p class="my-2 indent-8 ">The new hyperparameters for Model 3.2 are:</p> <section class="relative block my-4"><ul class="flex flex-col m-auto ps-2 rounded gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">horizon</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">lookback</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">1000</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">dt</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">0.0030016</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">all other hyperparameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">same as Model 2</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">total trainable parameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">~857 million</span></div> </li></ul></section> <p class="my-2 indent-8 my-4 text-xs font-serif">A sidenote on the practicality of training this model: <p class="ms-8">By increasing the input size and horizon length, we have significantly increased the
-				memory requirement for training this model. Now in order to fit the model onto two
-				GPUs with 16 GB of RAM each, I have to use Lightning&#39;s <a href="https://lightning.ai/docs/pytorch/stable/advanced/model_parallel/fsdp.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">FSDP Strategy</a> to distribute the model across both GPUs in order to get the per-GPU memory requirement
-				to be just a hair under 16 GB. This also means that the model trains significantly more
-				slowly, taking about 36 hours to converge, compared to about 16 hours for Model 2.</p></p> <p class="mt-4">After retraining with $dt \approx 0.003$, we again see a very slight improvement
+			per trajectory.</p> <p class="my-2 indent-8 ">The new hyperparameters for Model 3.2 are:</p> <section class="relative block my-4"><ul class="flex flex-col m-auto ps-2 rounded gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">horizon</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">500</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">lookback</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">1000</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">dt</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">0.0030016</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">all other hyperparameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">same as Model 2</span></div> </li><li class="flex items-center justify-left"><div class="flex-none w-32 sm:w-64">total trainable parameters</div> <div class="w-fit flex-wrap"><span class="rounded-0.5 p-1 font-mono">~857 million</span></div> </li></ul></section> <p class="my-2 indent-8 my-4 text-sm font-serif"><b data-svelte-h="svelte-1vhs7sz">A sidenote on the practicality of training this model:</b>
+			By increasing the input size and horizon length, we have significantly increased the memory
+			requirement for training this model. Now in order to fit the model onto two GPUs with 16
+			GB of RAM each, I have to use Lightning&#39;s <a href="https://lightning.ai/docs/pytorch/stable/advanced/model_parallel/fsdp.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">FSDP Strategy</a> to distribute the model across both GPUs in order to get the per-GPU memory requirement
+			to be just a hair under 16 GB. This also means that the model trains significantly more slowly,
+			taking about 36 hours to converge, compared to about 16 hours for Model 2.</p> <p class="mt-4">After retraining with $dt \approx 0.003$, we again see a very slight improvement
 			over the previous models:</p> <figure class="mb-8 self-center max-w-3xl"><img class="object-contain" src="../Model3.2-DFO.png" alt="Model 3.2 - distance-from-origin error distribution"><figcaption class="text-center text-xs mt-2">With 10x more samples of the most difficult trajectories and 5x the temporal
 				resolution of Model 2, Model 3.2 achieves marginal improvements but still has an
 				asymptotic error curve.</figcaption></figure> <p data-svelte-h="svelte-iuzfox">Here again we see a very marginal improvement but no clear evidence that this approach
@@ -299,23 +301,23 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			can measure another aspect of the stability of the model: if the model produces small errors
 			in its output that are then fed back to its input, do these errors compound in the feedback
 			loop, leading to larger and larger errors in the output over time? Or does the model remain
-			robust to these small input errors and continue to produce plausible trajectories indefinitely?</p><p class="my-2 indent-8 ">The term &quot;plausible trajectory&quot; requires some explanation, given that, in principle,
-			the Lorenz Attractor is fully deterministic, so every trajectory is either a solution of
-			the system or it isn&#39;t, <i data-svelte-h="svelte-1xx6z5c">i.e.</i> there is no notion of the likelihood of a trajectory
+			robust to these small input errors and continue to produce plausible trajectories indefinitely?</p><p class="my-2 indent-8 ">The term &quot;plausible trajectory&quot; needs some explanation, given that, in principle, the
+			Lorenz Attractor is fully deterministic, so every trajectory is either a solution of the
+			system or it isn&#39;t, <i data-svelte-h="svelte-1xx6z5c">i.e.</i> there is no notion of the likelihood of a trajectory
 			having been produced by the system or not. In practice, however, due to the finite
 			precision of numerical computation, IVP solvers also make mistakes, injecting an element
 			of stochasticity into the solutions they produce. The <a href="https://en.wikipedia.org/wiki/Shadowing_lemma" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">shadowing lemma</a> tells us that, in spite of these errors, these &quot;pseudo orbits&quot; remain arbitrarily close
 			to real trajectories so that the final solution can be said to faithfully represent the real
-			trajectories of the system. However, some studies, <i data-svelte-h="svelte-1yxphdm">e.g.</i> [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>], challenge this notion, contending that in certain cases the
-			statistics of the solver outputs are distinct from those of true solutions of the
+			trajectories of the system. However, some studies, <i data-svelte-h="svelte-1yxphdm">e.g.</i> [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>], challenge this notion, demonstrating that in certain cases
+			the statistics of the solver&#39;s outputs are distinct from those of true solutions of the
 			system, and they can even imply a different parameterization of the underlying system.
 			These are quite troubling implications for real-world applications, but I will delay
-			further examination of this topic until the Discussion section.</p><p class="my-2 indent-8 ">In light of this, rather than evaluating the error between the solver output and the
-			model output, a more meaningful criterion may be measure the similarity between certain
-			statistics of the model&#39;s and the solver&#39;s outputs. In [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>], the
-			following statistic of the Z coordinate is used to distinguish between what the authors
-			refer to as &quot;non-physical&quot; solutions of the Lorenz Attractor from those that are
-			typical, true solutions:</p>
+			further examination of this topic until the Discussion section.</p><p class="my-2 indent-8 ">In light of this, rather than evaluating the difference between the solver output and
+			the model output, a more meaningful criterion may be to measure the similarity between
+			certain statistics of their outputs. In [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>], the following
+			statistic of the Z coordinate is used to distinguish between what the authors refer to
+			as &quot;non-physical&quot; solutions of the Lorenz Attractor and those that are typical true
+			solutions:</p>
 \begin{align}
 \operatorname{J}(z) := exp(-\frac{z^2}{2}) \\
 \end{align} <p>Here&#39;s the distribution of this statistic for Model 3.2&#39;s autoregressive outputs and the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau</a> solver&#39;s outputs:</p> <figure class="mb-2 self-center max-w-3xl"><img class="object-contain" src="../ar_z_stat.png" alt="Z Statistic for Reference vs. Autoregressive Trajectories"><figcaption class="text-center text-xs mt-2">Comparing the distribution of an expential function of the z coordinate for the
@@ -324,12 +326,12 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			the origin (minimum coordinate of $z \approx 0.4$ for the solver compared to $z \approx 1.35$
 			for the model). It&#39;s worth noting that the distributions of this metric for the other two
 			coordinates, X and Y, match almost perfectly between the model and the solver.</p> <p class="my-2 indent-8 ">In we inspect them visually, we find that the vast majority of trajectories produced by
-			the model look entirely plausible, possibily even indistinguishable, to the human eye,
+			the model look entirely plausible, possibily even indistinguishable to the human eye
 			from the typical solver outputs:</p> <figure class="mb-2 self-center max-w-4xl"><img class="object-contain" src="../ref_v_ar.png" alt="Reference vs. Autoregressive Trajectories"><figcaption class="text-center text-xs mt-2">Comparison of 5 randomly selected trajectories generated by the IVP solver (top) and
 				auto-regressively generated by Model 3.2 (bottom). Each column uses the same initial
 				conditions.</figcaption></figure> <p data-svelte-h="svelte-8ial96">However, if we search for the model trajectories that pass closest to the origin, we
-			find examples where the model output breaks down badly:</p> <figure class="mb-2 self-center max-w-lg"><img class="object-contain" src="../ar_breakdown_1.png" alt="Autoregressive Trajectory - Bad Example"><figcaption class="text-center text-xs mt-2">An autoregressive trajectory that fails to pass the eye test for being a plausible
-				solution to the Lorenz Attractor</figcaption></figure> <p class="my-2 indent-8 ">Another way to evaluate the autoregressive output of the model is to compare it with
+			find examples where the model output breaks down badly:</p> <figure class="mb-2 self-center max-w-lg"><img class="object-contain" src="../ar_breakdown_1.png" alt="Autoregressive Trajectory - Bad Example"><figcaption class="text-center text-xs mt-2">An autoregressive trajectory that passes very close to the origin and fails to
+				remain a plausible solution to the Lorenz Attractor</figcaption></figure> <p class="my-2 indent-8 ">Another way to evaluate the autoregressive output of the model is to compare it with
 			the output from a different IVP solver with similar error constraints. <a href="https://github.com/williamgilpin/dysts" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">dysts</a> uses the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau</a> solver by default, and this is what I used to generate the dataset. <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.RK45.html#scipy.integrate.RK45" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">RK45</a> has similar error constraints to Radau, so let&#39;s compare the autoregressive output against
 			Radau relative to RK45&#39;s output against Radau:</p> <figure class="mb-2 self-center max-w-2xl"><img class="object-contain" src="../solvers_vs_model.png" alt="Comparison of RK45 and predictions to Radau's solutions"> <figcaption class="text-center text-xs mt-2">Comparing the mean squared error per timestep between Radau and Model 3 (blue) and
 				Radau and RK45 (orange). The error is averaged across 200 different trajectories.
@@ -344,54 +346,55 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			for the models tested here to capture. In all experiments, as trajectories approach the origin
 			along the Z axis, the model&#39;s prediction error increases asymptotically. Significant efforts
 			to augment the training data distribution in order to over-represent trajectories in this
-			region imparted little or no improvement to the model&#39;s forecasting ability for this region.</p><p class="my-2 indent-8 ">Similarly, when used autoregressively, the model demonstrated the potential to generate
+			region imparted little or no improvement to the model&#39;s forecasting ability.</p><p class="my-2 indent-8 ">Similarly, when used autoregressively, the model demonstrated the potential to generate
 			arbitrarily long trajectories that visually and statistically match the typical
 			trajectories produced by the Radau solver for nearly all regions. But when the
 			trajectories approach too close to the origin, the autoregressive output also breaks
 			down, leading to solutions that visibly diverge from typical trajectories in obvious
-			ways.</p><p class="my-2 indent-8 ">From dynamical systems theory, it is well understood that the saddle point at the
-			origin of the Lorenz Attractor consists of a stable 2-d manifold and a highly unstable
-			1-d manifold. What this study suggests, and what is possibly not as well established, is
-			that the predictability of the Lorenz Attractor largely depends on the trajectory&#39;s
-			proximity to the origin. Trajectories on the attractor that remain sufficiently far from
-			the origin are easily forecast by the model with high accuracy—including the
-			transitions between the orbits around each of the two non-origin fixed points. But as
-			trajectories approach the origin, and their velocities approach zero, they become
-			asymptotically less predictable in the time period immediately before and after their
-			transit past the origin (as the minimum distance to the origin decreases, this time
-			period also increases). Fortunately, such trajectories appear to occur quite rarely on
-			the attractor; in my experiments, when initial conditions are selected randomly from a
-			point within the attractor volume, the trajectory has about a 1% chance of passing
-			within a Euclidean distance of 3 or less from the origin within its first 150 seconds.</p><p class="my-2 indent-8 ">Trajectories that manage to pass so closely to the origin share other characteristics
+			ways.</p><p class="my-2 indent-8 ">As already mentioned, it is well understood from dynamical systems theory that the
+			saddle point at the origin of the Lorenz Attractor consists of a stable 2-d manifold and
+			a highly unstable 1-d manifold. What this study suggests, and what is possibly not as
+			well established, is that the predictability of the Lorenz Attractor largely depends on
+			the trajectory&#39;s proximity to the origin. Trajectories on the attractor that remain
+			sufficiently far from the origin are easily forecast by the model with high
+			accuracy—including the transitions between the orbits around each of the two
+			non-origin fixed points. But as trajectories approach the origin, and their velocities
+			approach zero, they become asymptotically less predictable in the time period
+			immediately before and after their transit past the origin (as the minimum distance to
+			the origin decreases, this time period also increases). Fortunately, such trajectories
+			appear to occur quite rarely on the attractor; in my experiments, when initial
+			conditions are selected randomly from a point within the attractor volume, the
+			trajectory has about a 1% chance of passing within a Euclidean distance of 3 or less
+			from the origin within its first 150 seconds.</p><p class="my-2 indent-8 ">Trajectories that manage to pass so closely to the origin share other characteristics
 			in common; for example, they are always nearly aligned with the Z axis as they approach
 			the origin, and their velocities are dominated by the component in the negative Z
-			direction. If we trace their paths back a bit farther, we notice a startlingly
-			consistent commonality among all trajectories with non-trivial sMAPE errors: the local
-			maximum of the Z coordinate in the region of the trajectory just prior to approaching
-			the origin converges to a value of approximately 38.55. As the model&#39;s temporal
-			resolution is increased, the bounds on this value become tighter. Remarkably, for Models
-			2 and 3, a trajectory having a local maximum Z coordinate in the range of 38.45 to 38.6
-			is a necessary condition for the model&#39;s sMAPE error to exceed 5 in the time period
-			immediately following its transit past the origin<sup data-svelte-h="svelte-1m8nv3a"><a href="#outliers">1</a></sup>.</p> <figure class="mb-6 self-center"><div class="flex flex-wrap justify-center" data-svelte-h="svelte-lbdos2"><img class="object-contain w-full max-w-xl" src="../max_z.png" alt="Model 3 - maxium Z coordinate error distribution"> <img class="object-contain w-full max-w-xl" src="../max_z_zoomed.png" alt="maximum Z coordinate error distribution zoomed"></div> <figcaption class="text-center text-xs mt-2">The local maximum Z coordinate of trajectories and their maximum sMAPE error in the
+			direction. If we trace their paths back a bit farther, we notice a startling consistency
+			among all trajectories with non-trivial sMAPE errors: the local maximum of the Z
+			coordinate in the region of the trajectory just prior to approaching the origin
+			converges to a value of approximately 38.55. As the model&#39;s temporal resolution is
+			increased, the bounds on this value become tighter. Remarkably, for Models 2 and 3, <i data-svelte-h="svelte-71x0js">a trajectory having a local maximum Z coordinate in the range of 38.45 to 38.6 is a
+				necessary condition for the model&#39;s sMAPE error to exceed 5</i>
+			in the time period immediately following its transit past the origin<sup data-svelte-h="svelte-o9bswn"><a href="#outliers">1</a></sup>.</p> <figure class="mb-6 self-center"><div class="flex flex-wrap justify-center" data-svelte-h="svelte-lbdos2"><img class="object-contain w-full max-w-xl" src="../max_z.png" alt="Model 3 - maxium Z coordinate error distribution"> <img class="object-contain w-full max-w-xl" src="../max_z_zoomed.png" alt="maximum Z coordinate error distribution zoomed"></div> <figcaption class="text-center text-xs mt-2">The local maximum Z coordinate of trajectories and their maximum sMAPE error in the
 				region shortly after passing through the Z coordinate. A local maximum coordinate is
 				defined as a coordinate that is larger than both of its immediate neighbors. The
 				search region for the largest sMAPE error associated with the local maximum Z
 				coordinate is all of the prediction windows that include the local <i data-svelte-h="svelte-1c66z6u">minimum</i>
-				point that immediately follows the local maximum Z coordinate. The first graph shows
-				the entire range of local maximum Z coordinates for Models 2, 3.1, and 3.2. The second
-				graph zooms in on the bounds of 38.45 to 38.6.</figcaption></figure> <p class="my-2 indent-8 ">What can we say about this? It would seem in one sense that the entire predictive
+				point, as defined previously, that immediately follows the local maximum Z coordinate.
+				The first graph shows the entire range of local maximum Z coordinates for Models 2, 3.1,
+				and 3.2. The second graph zooms in on the bounds of 38.45 to 38.6.</figcaption></figure> <p class="my-2 indent-8 ">What can we say about this? It would seem in one sense that the entire predictive
 			complexity of the Lorenz Attractor is somehow associated with a single scalar value on
 			the Z axis, near 38.55. As long as the local maximum Z coordinate of a trajectory in
 			orbit around one of the two non-origin fixed points does not pass through a narrow
 			interval around this value, we can be certain (according to the statistics of all of the
 			test sets in this study) that the model will forecast the trajectory with a sMAPE error
-			less than 5 indefinitely. If a trajectory&#39;s peak Z coordinate does pass through this
-			interval, then the model has a roughly 60% chance of exhibiting a sMAPE error greater
-			than 5 in the period immediately following the peak, until the next peak Z coordinate is
-			reached. An obvious next question to ask is, how do we exploit this observation to
-			improve predictability? If the system were augmented with a control input of some sort,
-			then the goal could be to perturb the trajectories so that they avoid passing through
-			this critical region around Z $\approx$ 38.55.</p> <p class="my-2 indent-8 ">The fact that over-representing such trajectories in the training set by a factor of 10
+			less than 5 <i data-svelte-h="svelte-wq20c">indefinitely</i>. If a trajectory&#39;s peak Z coordinate does pass through
+			this interval, then the model has a roughly 60% chance of exhibiting a sMAPE error
+			greater than 5 in the period immediately following the peak, until the next peak Z
+			coordinate is reached. An obvious next question to ask is, how do we exploit this
+			observation to improve predictability? If the system were augmented with a control input
+			of some sort, then the target for that control could be to perturb the trajectories so
+			that they avoid passing through this critical region around Z $\approx$ 38.55. The results
+			of this study suggest that this alone might make the Lorenz Attractor dynamics entirely predictable.</p> <p class="my-2 indent-8 ">The fact that over-representing such trajectories in the training set by a factor of 10
 			did not significantly improve the model&#39;s performance on these predictions suggests to
 			me that their difficulty stems not from their low occurence in the training set but from
 			an asymptotic increase in the sensitivity of the system near the origin. Consider an
@@ -400,20 +403,14 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			appear to coalesce so densely that the model lacks the resolution to distinguish among
 			them. As the marble proceeds down one groove, it is easily bumped over to another groove
 			by the numerical rounding error of the IVP solver, adding an element of pseudo-randomn
-			noise to the trajectory.</p> <p class="my-2 indent-8 ">Additionally, it should be noted that the amount of data and model capacity needed to
-			achieve these results was substantial. Roughly 100 million data points from the Lorenz
-			Attractor were used to train a model with over half a billion parameters. Although these
-			numbers are modest compared to many of the successful deep learning applications today,
-			they are likely still far from trivial. For how many real-world chaotic systems is it
-			feasible to gather 100 million low-noise data points? And could such a large model be
-			optimized to run predictions in real-time for systems that require it to?</p> <p class="my-2 indent-8 ">I&#39;ll close with a reflection on the implications of the <a href="https://en.wikipedia.org/wiki/Shadowing_lemma" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">shadowing lemma</a> and research such as [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>] for the feasibility of training models
+			noise to the trajectory.</p> <p class="my-2 indent-8 ">In closing, I will return to the implications of the <a href="https://en.wikipedia.org/wiki/Shadowing_lemma" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">shadowing lemma</a> and research such as [<a href="https://doi.org/10.1016/j.jcp.2021.110389" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">8</a>] for the feasibility of training models
 			like these to predict real-world chaotic systems. It is well understood, and has been clearly
 			demonstrated in this project, that IVP solvers produce imperfect solutions due to numerical
-			rounding error. The models trained here, therefore, are more accurately described as approximations
+			rounding error. The models trained here, therefore, may be more accurately described as approximations
 			of the
 			<i data-svelte-h="svelte-17gf2g4">IVP solver</i>
-			rather than the true, mathematical idealization of the Lorenz Attractor represented by the
-			ordinary differential equation introduced at the beginning of this study. Although technically
+			rather than of the true, mathematical idealization of the Lorenz Attractor represented by
+			the ordinary differential equation introduced at the beginning of this study. Although technically
 			deterministic, this rounding error introduces a kind of noise in the measurements of the
 			system; similarly, any real-world dataset that is collected through environmental sensors
 			will undoubtedly contain some amount of noise. While the shadowing lemma suggests that such
@@ -461,7 +458,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_9sysx = {
+					__sveltekit_r87gym = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -471,8 +468,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.D8J9HgCp.js"),
-						import("../_app/immutable/entry/app.s2r3Mklr.js")
+						import("../_app/immutable/entry/start.2KXM2QCK.js"),
+						import("../_app/immutable/entry/app.Cn2qDDO_.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
