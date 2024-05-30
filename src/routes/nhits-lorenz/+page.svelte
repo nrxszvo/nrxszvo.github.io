@@ -45,20 +45,19 @@
 			<li>
 				The best performing models are able to predict trajectories in all areas of the
 				attractor's subspace with high accuracy, except for trajectories that pass close to
-				(L2 distance approx. {`$\\lt 5$`}) the saddle point at the origin. Trajectories in
-				this region exhibit very high <Link
-					href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error"
-					>sMAPE</Link
-				>
-				prediction error in the segments immediately following transit past the origin, with
-				the error increasing rapidly as the distance from the origin decreases.
+				the saddle point at the origin (L2 distance {`$\\lt \\approx 5$`}). Trajectories in
+				this region exhibit very high prediction error in the segments immediately following
+				their transit past the origin, with the error increasing rapidly as the distance
+				from the origin decreases.
 			</li>
 			<li>
 				In 100% of test cases, trajectories that exhibit high prediction errors also have a
-				local maximum Z coordinate in the range of 38.45 to 38.6. Trajectories that meet
-				this criteria have a {`$\\approx$`} 60% chance of exhibiting a sMAPE prediction error
-				greater than 5; otherwise the sMAPE error is guaranteed to remain below 5 at all times
-				and in all other regions of the attractor subspace.
+				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}. Trajectories
+				that meet this criteria have a roughly 60% chance of exhibiting a <Link
+					href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error"
+					>sMAPE</Link
+				> prediction error greater than 5; otherwise the sMAPE error is guaranteed to remain
+				below 5 at all times and in all other regions of the attractor subspace.
 			</li>
 		</ul>
 		<H1 id="intro">Introduction</H1>
