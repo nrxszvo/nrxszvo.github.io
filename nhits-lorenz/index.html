@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.BlEjRN9A.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Db-Hgg4q.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Bh4V4bAe.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DA9hWxyE.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BuqsUkHr.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.HI5Vy5uQ.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.mFPnnsyb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.lMy9yQnm.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BKQEk3Il.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BmRq3wWf.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.C6CGVn8W.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.Bt7_kDnU.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.9Cf-AxAx.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"> <aside class="max-sm:hidden" data-svelte-h="svelte-u7i093"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center">Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-md text-center" data-svelte-h="svelte-1tlj87z">Michael Horgan</div> <div class="mt-2 text-xs text-center font-serif" data-svelte-h="svelte-xnmp4g">michaelghorgan at gmail</div> <br> <div class="text-sm text-center font-serif mb-4">All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a></div> <div id="tldr" class="text-xl font-medium text-left mt-8 mb-4"><i class="font-serif" data-svelte-h="svelte-ixj9gt">tl;dr</i></div> <ul class="list-disc ms-16 text-sm"><li>This project explores the use of the NHiTS [<a href="https://arxiv.org/abs/2201.12886" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">5</a>] neural network to forecast
@@ -21,14 +21,13 @@
 				to predict the next $H$ points of the trajectory, where $H$ is usually 100 and
 				$dt \approx 0.015$.</li> <li>The best performing models are able to predict trajectories in all areas of the
 				attractor&#39;s subspace with high accuracy, except for trajectories that pass close to
-				(L2 distance approx. $\lt 5$) the saddle point at the origin. Trajectories in
-				this region exhibit very high <a href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">sMAPE</a>
-				prediction error in the segments immediately following transit past the origin, with
-				the error increasing rapidly as the distance from the origin decreases.</li> <li>In 100% of test cases, trajectories that exhibit high prediction errors also have a
-				local maximum Z coordinate in the range of 38.45 to 38.6. Trajectories that meet
-				this criteria have a $\approx$ 60% chance of exhibiting a sMAPE prediction error
-				greater than 5; otherwise the sMAPE error is guaranteed to remain below 5 at all times
-				and in all other regions of the attractor subspace.</li></ul> <div id="intro" class="text-2xl font-bold text-center my-8">Introduction</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
+				the saddle point at the origin (L2 distance $\lt \approx 5$). Trajectories in
+				this region exhibit very high prediction error in the segments immediately following
+				their transit past the origin, with the error increasing rapidly as the distance
+				from the origin decreases.</li> <li>In 100% of test cases, trajectories that exhibit high prediction errors also have a
+				local maximum Z coordinate in the range of $38.45$ to $38.6$. Trajectories
+				that meet this criteria have a roughly 60% chance of exhibiting a <a href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">sMAPE</a> prediction error greater than 5; otherwise the sMAPE error is guaranteed to remain
+				below 5 at all times and in all other regions of the attractor subspace.</li></ul> <div id="intro" class="text-2xl font-bold text-center my-8">Introduction</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
 			learning to predict or control chaotic dynamical systems, in particular William Gilpin&#39;s
 			paper, <i data-svelte-h="svelte-oq8z8z">Model scale versus domain knowledge in statistical forecasting of chaotic systems</i> [<a href="https://link.aps.org/doi/10.1103/PhysRevResearch.5.043252" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">1</a>]. Gilpin found that, given enough training data, generic neural
 			architectures can match or exceed the performance of state-of-the-art domain-specific
@@ -470,7 +469,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_1t9doxr = {
+					__sveltekit_8itmtw = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -480,8 +479,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Db-Hgg4q.js"),
-						import("../_app/immutable/entry/app.mFPnnsyb.js")
+						import("../_app/immutable/entry/start.DA9hWxyE.js"),
+						import("../_app/immutable/entry/app.BKQEk3Il.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
