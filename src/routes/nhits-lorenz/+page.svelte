@@ -53,7 +53,7 @@
 			<li>
 				In 100% of test cases, trajectories that exhibit high prediction errors also have a
 				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}, corresponding
-				with the approxiamte value of x coordinate of the maximum point on the <Link
+				with the approximate value of the x coordinate of the maximum point on the <Link
 					href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
 					>Lorenz Map</Link
 				>. Trajectories that meet this criteria have a roughly 60% chance of exhibiting a <Link
@@ -836,10 +836,11 @@
 			direction. If we trace their paths back a bit farther, we notice a startling consistency
 			among all trajectories with non-trivial sMAPE errors: the local maximum of the Z
 			coordinate in the region of the trajectory just prior to approaching the origin
-			converges to a value of approximately 38.55. As the model's temporal resolution is
-			increased, the bounds on this value become tighter. Remarkably, for Models 2 and 3, <i
-				>a trajectory having a local maximum Z coordinate in the range of 38.45 to 38.6 is a
-				necessary condition for the model's sMAPE error to exceed 5</i
+			converges to a value of approximately {`$38.55$`}. As the model's temporal resolution is
+			increased, the bounds on this value become tighter. Remarkably, for Models 2 and 3,
+			<i
+				>a trajectory having a local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}
+				is a necessary condition for the model's sMAPE error to exceed 5</i
 			>
 			in the time period immediately following its transit past the origin<sup
 				><a href="#outliers">1</a></sup
@@ -866,7 +867,7 @@
 				coordinate is all of the prediction windows that include the local <i>minimum</i>
 				point, as defined previously, that immediately follows the local maximum Z coordinate.
 				The first graph shows the entire range of local maximum Z coordinates for Models 2, 3.1,
-				and 3.2. The second graph zooms in on the bounds of 38.45 to 38.6.
+				and 3.2. The second graph zooms in on the bounds of {`$38.45$`} to {`$38.6$`}.
 			</FigCap>
 		</figure>
 		<P
@@ -877,14 +878,14 @@
 			> to study the patterns; among other things, it helps to identify the local Z maximum that
 			corresponds with an unstable periodic orbit on the attractor (when {`$Z_{n} = Z_{n+1}$`}).
 			In the map (shown below for Model 3.2's test set), the x coordinate at the transition
-			point, <i>i.e.</i> the peak of the tent, corresponds almost perfectly with the limit suggested
-			by the above "Z vs. sMAPE" error plots, around 38.55. And the y coordinate that approximately
-			separates the "no transition" dots (blue) from the "lobe transition" dots (orange), also
-			corresponds almost perfectly with this value. In other words, the most difficult trajectories
-			for our models to predict are the ones that a) achieve the near-maximum possible Z coordinate
-			(approximately 48) after passing by the origin, and b) straddle the line between transitioning
-			from one lobe to the other or remaining on the current lobe for at least another orbital
-			cycle.
+			point, <i>i.e.</i> the peak of the tent, corresponds almost perfectly with the limit
+			suggested by the above "Z vs. sMAPE" error plots, around {`$38.55$`}. And the y
+			coordinate that approximately separates the "no transition" dots (blue) from the "lobe
+			transition" dots (orange), also corresponds almost perfectly with this value. In other
+			words, the most difficult trajectories for our models to predict are the ones that a)
+			achieve the near-maximum possible Z coordinate (approximately 48) after passing by the
+			origin, and b) straddle the line between transitioning from one lobe to the other or
+			remaining on the current lobe for at least another orbital cycle.
 		</P>
 		<figure class="my-2 self-center max-w-2xl">
 			<img class="object-contain" src={`${base}/Lorenz_map.png`} alt="Lorenz Map" />
@@ -896,8 +897,8 @@
 		</figure>
 		<P
 			>What can we say about this? It would seem in one sense that the entire predictive
-			complexity of the Lorenz Attractor is converging towards this Z value around 38.55. As
-			long as the local maximum Z coordinate of a trajectory in orbit around one of the two
+			complexity of the Lorenz Attractor is converging towards this Z value around {`$38.55$`}.
+			As long as the local maximum Z coordinate of a trajectory in orbit around one of the two
 			non-origin fixed points does not pass through a narrow interval around this value, we
 			can be certain (according to the statistics of all of the test sets in this study) that
 			the model will forecast the trajectory with a sMAPE error less than 5. If a trajectory's
@@ -907,8 +908,8 @@
 			is, how do we exploit this observation to improve predictability? If the system were
 			augmented with a control input of some sort, then the target for that control could be
 			to perturb the trajectories so that they avoid passing through this critical region
-			around Z {`$\\approx$`} 38.55. The results of this study suggest that this alone might make
-			the Lorenz Attractor dynamics entirely predictable.
+			around Z {`$\\approx 38.55$`}. The results of this study suggest that this alone might
+			make the Lorenz Attractor dynamics entirely predictable.
 		</P>
 		<P
 			>The fact that over-representing such trajectories in the training set by a factor of 10
@@ -952,12 +953,12 @@
 					sMAPE errors exceed the average for their coordinate region. These appear to be
 					counter-examples, however, upon closer inspection, they are revealed to be part
 					of a trajectory whose <i>second-to-last</i>
-					local maximum Z coordinate passes through the 38.55 boundary region, and whose associated
-					local minimum point is so small&mdash;0.49, the smallest encountered in all of the
-					training sets that were generated for this study&mdash;that the highly unstable conditions
-					in the region adversely affect not only the prediction accuracy when the local minimum
-					is within the horizon window, but also when it is within the input window of the
-					model.
+					local maximum Z coordinate passes through the {`$38.55$`} boundary region, and whose
+					associated local minimum point is so small&mdash;0.49, the smallest encountered in
+					all of the training sets that were generated for this study&mdash;that the highly
+					unstable conditions in the region adversely affect not only the prediction accuracy
+					when the local minimum is within the horizon window, but also when it is within the
+					input window of the model.
 				</sup>
 			</p>
 		</div>
