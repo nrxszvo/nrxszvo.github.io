@@ -5,15 +5,15 @@
 		<link rel="icon" href="../favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="../_app/immutable/assets/0.BlEjRN9A.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DA9hWxyE.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BuqsUkHr.js">
+		<link href="../_app/immutable/assets/0.D0BLlM4h.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DMH2lXzn.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Cu4FF4V_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.lMy9yQnm.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BKQEk3Il.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.BC_s-rNz.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.MODmbJob.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BmRq3wWf.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.C6CGVn8W.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.9Cf-AxAx.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.C03uPQKE.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.cbHCpyMA.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"> <aside class="max-sm:hidden" data-svelte-h="svelte-u7i093"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center">Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-md text-center" data-svelte-h="svelte-1tlj87z">Michael Horgan</div> <div class="mt-2 text-xs text-center font-serif" data-svelte-h="svelte-xnmp4g">michaelghorgan at gmail</div> <br> <div class="text-sm text-center font-serif mb-4">All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a></div> <div id="tldr" class="text-xl font-medium text-left mt-8 mb-4"><i class="font-serif" data-svelte-h="svelte-ixj9gt">tl;dr</i></div> <ul class="list-disc ms-16 text-sm"><li>This project explores the use of the NHiTS [<a href="https://arxiv.org/abs/2201.12886" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">5</a>] neural network to forecast
@@ -25,8 +25,8 @@
 				this region exhibit very high prediction error in the segments immediately following
 				their transit past the origin, with the error increasing rapidly as the distance
 				from the origin decreases.</li> <li>In 100% of test cases, trajectories that exhibit high prediction errors also have a
-				local maximum Z coordinate in the range of $38.45$ to $38.6$. Trajectories
-				that meet this criteria have a roughly 60% chance of exhibiting a <a href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">sMAPE</a> prediction error greater than 5; otherwise the sMAPE error is guaranteed to remain
+				local maximum Z coordinate in the range of $38.45$ to $38.6$, corresponding
+				with the approxiamte value of x coordinate of the maximum point on the <a href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Lorenz Map</a>. Trajectories that meet this criteria have a roughly 60% chance of exhibiting a <a href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">sMAPE</a> prediction error greater than 5; otherwise the sMAPE error is guaranteed to remain
 				below 5 at all times and in all other regions of the attractor subspace.</li></ul> <div id="intro" class="text-2xl font-bold text-center my-8">Introduction</div> <p class="my-2 indent-8 ">This project is inspired by several recent publications involving the use of deep
 			learning to predict or control chaotic dynamical systems, in particular William Gilpin&#39;s
 			paper, <i data-svelte-h="svelte-oq8z8z">Model scale versus domain knowledge in statistical forecasting of chaotic systems</i> [<a href="https://link.aps.org/doi/10.1103/PhysRevResearch.5.043252" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">1</a>]. Gilpin found that, given enough training data, generic neural
@@ -392,20 +392,33 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 				coordinate is all of the prediction windows that include the local <i data-svelte-h="svelte-1c66z6u">minimum</i>
 				point, as defined previously, that immediately follows the local maximum Z coordinate.
 				The first graph shows the entire range of local maximum Z coordinates for Models 2, 3.1,
-				and 3.2. The second graph zooms in on the bounds of 38.45 to 38.6.</figcaption></figure> <p class="my-2 indent-8 ">What can we say about this? It would seem in one sense that the entire predictive
-			complexity of the Lorenz Attractor is somehow associated with a single scalar value on
-			the Z axis, near 38.55. As long as the local maximum Z coordinate of a trajectory in
-			orbit around one of the two non-origin fixed points does not pass through a narrow
-			interval around this value, we can be certain (according to the statistics of all of the
-			test sets in this study) that the model will forecast the trajectory with a sMAPE error
-			less than 5 <i data-svelte-h="svelte-wq20c">indefinitely</i>. If a trajectory&#39;s peak Z coordinate does pass through
-			this interval, then the model has a roughly 60% chance of exhibiting a sMAPE error
-			greater than 5 in the period immediately following the peak, until the next peak Z
-			coordinate is reached. An obvious next question to ask is, how do we exploit this
-			observation to improve predictability? If the system were augmented with a control input
-			of some sort, then the target for that control could be to perturb the trajectories so
-			that they avoid passing through this critical region around Z $\approx$ 38.55. The results
-			of this study suggest that this alone might make the Lorenz Attractor dynamics entirely predictable.</p> <p class="my-2 indent-8 ">The fact that over-representing such trajectories in the training set by a factor of 10
+				and 3.2. The second graph zooms in on the bounds of 38.45 to 38.6.</figcaption></figure> <p class="my-2 indent-8 ">Lorenz himself also noticed peculiar patterns involving to the local maximum Z
+			coordinate. He used the <a href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Lorenz Map</a> to study the patterns; among other things, it helps to identify the local Z maximum that
+			corresponds with an unstable periodic orbit on the attractor (when $Z_{n} = Z_{n+1}$).
+			In the map (shown below for Model 3.2&#39;s test set), the x coordinate at the transition
+			point, <i data-svelte-h="svelte-1xx6z5c">i.e.</i> the peak of the tent, corresponds almost perfectly with the limit suggested
+			by the above &quot;Z vs. sMAPE&quot; error plots, around 38.55. And the y coordinate that approximately
+			separates the &quot;no transition&quot; dots (blue) from the &quot;lobe transition&quot; dots (orange), also
+			corresponds almost perfectly with this value. In other words, the most difficult trajectories
+			for our models to predict are the ones that a) achieve the near-maximum possible Z coordinate
+			(approximately 48) after passing by the origin, and b) straddle the line between transitioning
+			from one lobe to the other or remaining on the current lobe for at least another orbital
+			cycle.</p> <figure class="my-2 self-center max-w-2xl"><img class="object-contain" src="../Lorenz_map.png" alt="Lorenz Map"> <figcaption class="text-center text-xs mt-2">The Lorenz Map for the test set used with Model 3.2. It plots the nth local Z
+				maximum coordinate against the (n+1)th. The orange points correspond with maxes that
+				preceed transitions between the two lobes of the Lorenz Attractor.</figcaption></figure> <p class="my-2 indent-8 ">What can we say about this? It would seem in one sense that the entire predictive
+			complexity of the Lorenz Attractor is converging towards this Z value around 38.55. As
+			long as the local maximum Z coordinate of a trajectory in orbit around one of the two
+			non-origin fixed points does not pass through a narrow interval around this value, we
+			can be certain (according to the statistics of all of the test sets in this study) that
+			the model will forecast the trajectory with a sMAPE error less than 5. If a trajectory&#39;s
+			peak Z coordinate does pass through this interval, then the model has a roughly 60%
+			chance of exhibiting a sMAPE error greater than 5 in the period immediately following
+			the peak, until the next peak Z coordinate is reached. An obvious next question to ask
+			is, how do we exploit this observation to improve predictability? If the system were
+			augmented with a control input of some sort, then the target for that control could be
+			to perturb the trajectories so that they avoid passing through this critical region
+			around Z $\approx$ 38.55. The results of this study suggest that this alone might make
+			the Lorenz Attractor dynamics entirely predictable.</p> <p class="my-2 indent-8 ">The fact that over-representing such trajectories in the training set by a factor of 10
 			did not significantly improve the model&#39;s performance on these predictions suggests to
 			me that their difficulty stems not from their low occurence in the training set but from
 			an asymptotic increase in the sensitivity of the system near the origin. Consider an
@@ -469,7 +482,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_8itmtw = {
+					__sveltekit_1yg1l99 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -479,8 +492,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DA9hWxyE.js"),
-						import("../_app/immutable/entry/app.BKQEk3Il.js")
+						import("../_app/immutable/entry/start.DMH2lXzn.js"),
+						import("../_app/immutable/entry/app.MODmbJob.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
