@@ -52,8 +52,11 @@
 			</li>
 			<li>
 				In 100% of test cases, trajectories that exhibit high prediction errors also have a
-				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}. Trajectories
-				that meet this criteria have a roughly 60% chance of exhibiting a <Link
+				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}, corresponding
+				with the approxiamte value of x coordinate of the maximum point on the <Link
+					href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
+					>Lorenz Map</Link
+				>. Trajectories that meet this criteria have a roughly 60% chance of exhibiting a <Link
 					href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error"
 					>sMAPE</Link
 				> prediction error greater than 5; otherwise the sMAPE error is guaranteed to remain
@@ -867,20 +870,45 @@
 			</FigCap>
 		</figure>
 		<P
+			>Lorenz himself also noticed peculiar patterns involving to the local maximum Z
+			coordinate. He used the <Link
+				href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
+				>Lorenz Map</Link
+			> to study the patterns; among other things, it helps to identify the local Z maximum that
+			corresponds with an unstable periodic orbit on the attractor (when {`$Z_{n} = Z_{n+1}$`}).
+			In the map (shown below for Model 3.2's test set), the x coordinate at the transition
+			point, <i>i.e.</i> the peak of the tent, corresponds almost perfectly with the limit suggested
+			by the above "Z vs. sMAPE" error plots, around 38.55. And the y coordinate that approximately
+			separates the "no transition" dots (blue) from the "lobe transition" dots (orange), also
+			corresponds almost perfectly with this value. In other words, the most difficult trajectories
+			for our models to predict are the ones that a) achieve the near-maximum possible Z coordinate
+			(approximately 48) after passing by the origin, and b) straddle the line between transitioning
+			from one lobe to the other or remaining on the current lobe for at least another orbital
+			cycle.
+		</P>
+		<figure class="my-2 self-center max-w-2xl">
+			<img class="object-contain" src={`${base}/Lorenz_map.png`} alt="Lorenz Map" />
+			<FigCap
+				>The Lorenz Map for the test set used with Model 3.2. It plots the nth local Z
+				maximum coordinate against the (n+1)th. The orange points correspond with maxes that
+				preceed transitions between the two lobes of the Lorenz Attractor.</FigCap
+			>
+		</figure>
+		<P
 			>What can we say about this? It would seem in one sense that the entire predictive
-			complexity of the Lorenz Attractor is somehow associated with a single scalar value on
-			the Z axis, near 38.55. As long as the local maximum Z coordinate of a trajectory in
-			orbit around one of the two non-origin fixed points does not pass through a narrow
-			interval around this value, we can be certain (according to the statistics of all of the
-			test sets in this study) that the model will forecast the trajectory with a sMAPE error
-			less than 5 <i>indefinitely</i>. If a trajectory's peak Z coordinate does pass through
-			this interval, then the model has a roughly 60% chance of exhibiting a sMAPE error
-			greater than 5 in the period immediately following the peak, until the next peak Z
-			coordinate is reached. An obvious next question to ask is, how do we exploit this
-			observation to improve predictability? If the system were augmented with a control input
-			of some sort, then the target for that control could be to perturb the trajectories so
-			that they avoid passing through this critical region around Z {`$\\approx$`} 38.55. The results
-			of this study suggest that this alone might make the Lorenz Attractor dynamics entirely predictable.
+			complexity of the Lorenz Attractor is converging towards this Z value around 38.55. As
+			long as the local maximum Z coordinate of a trajectory in orbit around one of the two
+			non-origin fixed points does not pass through a narrow interval around this value, we
+			can be certain (according to the statistics of all of the test sets in this study) that
+			the model will forecast the trajectory with a sMAPE error less than 5. If a trajectory's
+			peak Z coordinate does pass through this interval, then the model has a roughly 60%
+			chance of exhibiting a sMAPE error greater than 5 in the period immediately following
+			the peak, until the next peak Z coordinate is reached. An obvious next question to ask
+			is, how do we exploit this observation to improve predictability? If the system were
+			augmented with a control input of some sort, then the target for that control could be
+			to perturb the trajectories so that they avoid passing through this critical region
+			around Z {`$\\approx$`} 38.55. The results of this study suggest that this alone might make
+			the Lorenz Attractor dynamics entirely predictable.
 		</P>
 		<P
 			>The fact that over-representing such trajectories in the training set by a factor of 10
