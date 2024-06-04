@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/0.rnUyufxM.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BIvPR3Na.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.CaFj4jzu.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DExlRsHP.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.T3i0wBIi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.DvWT2osL.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.Ceqz92YN.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.BxA-jZLD.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.ZgBLEFp5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BmRq3wWf.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.CYYf_IPt.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.CyfHo0RO.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.DKvbtDW0.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"> <aside class="max-sm:hidden" data-svelte-h="svelte-u7i093"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center">Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-md text-center" data-svelte-h="svelte-1tlj87z">Michael Horgan</div> <div class="mt-2 text-xs text-center font-serif" data-svelte-h="svelte-xnmp4g">michaelghorgan at gmail</div> <br> <div class="text-sm text-center font-serif mb-4">All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a></div> <div id="tldr" class="text-xl font-medium text-left mt-8 mb-4"><i class="font-serif" data-svelte-h="svelte-ixj9gt">tl;dr</i></div> <ul class="list-disc ms-16 text-sm"><li>This project explores the use of the NHiTS [<a href="https://arxiv.org/abs/2201.12886" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">5</a>] neural network to forecast
@@ -333,7 +333,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			solutions:</p>
 \begin{align}
 \operatorname{J}(z) := exp(-\frac{z^2}{2}) \\
-\end{align} <p>Here&#39;s the distribution of this statistic for Model 3.2&#39;s autoregressive outputs and the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau</a> solver&#39;s outputs:</p> <figure class="mb-2 self-center max-w-3xl"><img class="object-contain" src="../ar_z_stat.png" alt="Z Statistic for Reference vs. Autoregressive Trajectories"><figcaption class="text-center text-xs mt-2">Comparing the distribution of an expential function of the z coordinate for the
+\end{align} <p>Here&#39;s the distribution of this statistic for Model 3.2&#39;s autoregressive outputs and the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.Radau.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">Radau</a> solver&#39;s outputs:</p> <figure class="mb-2 self-center max-w-3xl"><img class="object-contain" src="../ar_z_stat.png" alt="Z Statistic for Reference vs. Autoregressive Trajectories"><figcaption class="text-center text-xs mt-2">Comparing the distribution of an exponential function of the z coordinate for the
 				trajectories generated by Model 3.2 and by the Radau solver.</figcaption></figure> <p>The general shape of the distributions is consistent, but clearly the solver outputs
 			spend more time at Z coordinates very close to the origin as well as getting closer to
 			the origin (minimum coordinate of $z \approx 0.4$ for the solver compared to $z \approx 1.35$
@@ -501,7 +501,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_1b2ueae = {
+					__sveltekit_fjyhh3 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -511,8 +511,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BIvPR3Na.js"),
-						import("../_app/immutable/entry/app.Ceqz92YN.js")
+						import("../_app/immutable/entry/start.DExlRsHP.js"),
+						import("../_app/immutable/entry/app.ZgBLEFp5.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
