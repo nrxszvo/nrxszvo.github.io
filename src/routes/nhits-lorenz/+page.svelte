@@ -52,9 +52,10 @@
 			</li>
 			<li>
 				In 100% of test cases, trajectories that exhibit high prediction errors also have a
-				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}, corresponding
-				with the approximate value of the x coordinate of the maximum point on the <Link
-					href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
+				local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}. As temporal
+				resolution of the model is increased, this value converges to approximately {`$38.55$`},
+				which is in near perfect agreement with certain limits implied by the
+				<Link href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
 					>Lorenz Map</Link
 				>. Trajectories that meet this criteria have a roughly 60% chance of exhibiting a <Link
 					href="https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error"
@@ -820,15 +821,14 @@
 			well established, is that the predictability of the Lorenz Attractor largely depends on
 			the trajectory's proximity to the origin. Trajectories on the attractor that remain
 			sufficiently far from the origin are easily forecast by the model with high
-			accuracy&mdash;including the transitions between the orbits around each of the two
-			non-origin fixed points. But as trajectories approach the origin, and their velocities
-			approach zero, they become asymptotically less predictable in the time period
-			immediately before and after their transit past the origin (as the minimum distance to
-			the origin decreases, this time period also increases). Fortunately, such trajectories
-			appear to occur quite rarely on the attractor; in my experiments, when initial
-			conditions are selected randomly from a point within the attractor volume, the
-			trajectory has about a 1% chance of passing within a Euclidean distance of 3 or less
-			from the origin within its first 150 seconds.
+			accuracy&mdash;including the transitions between each of the two lobes. But as
+			trajectories approach the origin, and their velocities approach zero, they become
+			asymptotically less predictable in the time period immediately before and after their
+			transit past the origin (as the minimum distance to the origin decreases, this time
+			period also increases). Fortunately, such trajectories appear to occur quite rarely on
+			the attractor; in my experiments, when initial conditions are selected randomly from a
+			point within the attractor volume, the trajectory has about a 1% chance of passing
+			within a Euclidean distance of 3 or less from the origin within its first 150 seconds.
 		</P><P
 			>Trajectories that manage to pass so closely to the origin share other characteristics
 			in common; for example, they are always nearly aligned with the Z axis as they approach
@@ -837,14 +837,10 @@
 			among all trajectories with non-trivial sMAPE errors: the local maximum of the Z
 			coordinate in the region of the trajectory just prior to approaching the origin
 			converges to a value of approximately {`$38.55$`}. As the model's temporal resolution is
-			increased, the bounds on this value become tighter. Remarkably, for Models 2 and 3,
-			<i
-				>a trajectory having a local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}
-				is a necessary condition for the model's sMAPE error to exceed 5</i
-			>
-			in the time period immediately following its transit past the origin<sup
-				><a href="#outliers">1</a></sup
-			>.
+			increased, the bounds on this value become tighter. For Models 2 and 3, a trajectory
+			having a local maximum Z coordinate in the range of {`$38.45$`} to {`$38.6$`}
+			is a necessary condition for the model's sMAPE error to exceed 5 in the time period immediately
+			following its transit past the origin<sup><a href="#outliers">1</a></sup>.
 		</P>
 		<figure class="mb-6 self-center">
 			<div class="flex flex-wrap justify-center">
@@ -864,67 +860,102 @@
 				region shortly after passing through the Z coordinate. A local maximum coordinate is
 				defined as a coordinate that is larger than both of its immediate neighbors. The
 				search region for the largest sMAPE error associated with the local maximum Z
-				coordinate is all of the prediction windows that include the local <i>minimum</i>
-				point, as defined previously, that immediately follows the local maximum Z coordinate.
-				The first graph shows the entire range of local maximum Z coordinates for Models 2, 3.1,
-				and 3.2. The second graph zooms in on the bounds of {`$38.45$`} to {`$38.6$`}.
+				coordinate is all of the prediction windows that include the next local <i
+					>minimum</i
+				>
+				point, as defined previously, that follows the local maximum Z coordinate. The first
+				graph shows the entire range of local maximum Z coordinates for Models 2, 3.1, and 3.2.
+				The second graph zooms in on the bounds of {`$38.45$`} to {`$38.6$`}.
 			</FigCap>
 		</figure>
 		<P
-			>Lorenz himself also noticed peculiar patterns involving to the local maximum Z
-			coordinate. He used the <Link
+			>Lorenz himself also noticed peculiar patterns involving the local maximum Z coordinate
+			and formulated the <Link
 				href="https://en.wikipedia.org/wiki/Lorenz_system#Connection_to_tent_map"
 				>Lorenz Map</Link
-			> to study the patterns; among other things, it helps to identify the local Z maximum that
-			corresponds with an unstable periodic orbit on the attractor (when {`$Z_{n} = Z_{n+1}$`}).
-			In the map (shown below for Model 3.2's test set), the x coordinate at the transition
-			point, <i>i.e.</i> the peak of the tent, corresponds almost perfectly with the limit
-			suggested by the above "Z vs. sMAPE" error plots, around {`$38.55$`}. And the y
-			coordinate that approximately separates the "no transition" dots (blue) from the "lobe
-			transition" dots (orange), also corresponds almost perfectly with this value. In other
-			words, the most difficult trajectories for our models to predict are the ones that a)
-			achieve the near-maximum possible Z coordinate (approximately 48) after passing by the
-			origin, and b) straddle the line between transitioning from one lobe to the other or
-			remaining on the current lobe for at least another orbital cycle.
+			> to study the patterns. The map is shown below for Model 3.2's test set. The x coordinate
+			at the transition point of the map (vertical dotted red line) corresponds almost perfectly
+			with the limit suggested by the above error plots, about {`$38.55$`}. And the y
+			coordinate that gives the best fit (minimum classification error) for separating
+			trajectories that switch lobes at the end of the current orbital cycle from those that
+			remain on the same lobe for at least another orbital cycle (horizontal dotted red line)
+			also corresponds almost perfectly with this value. In other words, the most difficult
+			trajectories for our models to predict are the ones that a) achieve the near-maximum
+			observed Z coordinate (approximately 48) after passing by the origin, and b) straddle
+			the threshold between transitioning from one lobe to the other or remaining on the
+			current lobe for at least another orbital cycle.
 		</P>
-		<figure class="my-2 self-center max-w-2xl">
+		<figure class="mb-4 self-center max-w-2xl">
 			<img class="object-contain" src={`${base}/Lorenz_map.png`} alt="Lorenz Map" />
 			<FigCap
-				>The Lorenz Map for the test set used with Model 3.2. It plots the nth local Z
-				maximum coordinate against the (n+1)th. The orange points correspond with maxes that
-				preceed transitions between the two lobes of the Lorenz Attractor.</FigCap
+				>The Lorenz Map computed from the test set used with Model 3.2. It plots the {`$n$`}th
+				local Z maximum coordinate against the {`$n+1$`}th. The horizontal red line
+				separates the trajectories that switch lobes shortly after passing through {`$Z_{n+1}$`}
+				and those that remain on the same lobe for at least one more orbital cycle. The vertical
+				red line marks the estimated point at which the map's derivative switches from positive
+				to negative. For both lines, the computed value is approximately {`$38.55$`}, in
+				near perfect agreement with the statistic for predicting large sMAPE errors.</FigCap
 			>
 		</figure>
+		<p>
+			This makes perfect sense. The trajectories that are the most difficult for the model to
+			predict are the ones for which the tiniest perturbation can determine whether it
+			transitions to the other lobe or remains on the current lobe. Finally, we have a concise
+			way to describe the complexity of this prediction task. For the vast majority of
+			trajectories, their transition probability is deterministic, either 100% or 0%, based
+			solely on their Z coordinate local maximum. But there is a very narrow region of Z
+			coordinates where the transition probability suddenly shifts to closer to 50%.
+		</p>
+		<figure class="my-2 self-center max-w-2xl">
+			<img
+				class="object-contain"
+				src={`${base}/Lorenz_map_transition.png`}
+				alt="Lorenz Map transitions"
+			/>
+			<FigCap
+				>A close-up of the threshold region between trajectories that switch lobes (orange)
+				and those that do not (blue). The groups are not linearly separable by the Z
+				coordinate local maximum.
+			</FigCap>
+		</figure>
 		<P
-			>What can we say about this? It would seem in one sense that the entire predictive
-			complexity of the Lorenz Attractor is converging towards this Z value around {`$38.55$`}.
-			As long as the local maximum Z coordinate of a trajectory in orbit around one of the two
-			non-origin fixed points does not pass through a narrow interval around this value, we
-			can be certain (according to the statistics of all of the test sets in this study) that
-			the model will forecast the trajectory with a sMAPE error less than 5. If a trajectory's
-			peak Z coordinate does pass through this interval, then the model has a roughly 60%
-			chance of exhibiting a sMAPE error greater than 5 in the period immediately following
-			the peak, until the next peak Z coordinate is reached. An obvious next question to ask
-			is, how do we exploit this observation to improve predictability? If the system were
-			augmented with a control input of some sort, then the target for that control could be
-			to perturb the trajectories so that they avoid passing through this critical region
-			around Z {`$\\approx 38.55$`}. The results of this study suggest that this alone might
-			make the Lorenz Attractor dynamics entirely predictable.
+			>It would seem in one sense that the entire predictive complexity of the Lorenz
+			Attractor is converging towards this Z value around {`$38.55$`}. As long as the local
+			maximum Z coordinate of the trajectory does not pass through a narrow interval around
+			this value, we can be certain (according to the statistics of all of the test sets in
+			this study) that the model will continue to forecast the trajectory with a sMAPE error
+			less than 5. If a trajectory does pass through this interval, then the model has a
+			roughly 60% chance of exhibiting a sMAPE error greater than 5 in the period immediately
+			following the peak, until the next local maximum Z coordinate is reached. How might we
+			exploit this observation to improve predictability? If the system were augmented with a
+			control input of some sort, then the target for that control could be to perturb the
+			trajectories so that they avoid passing through this critical region around Z {`$\\approx 38.55$`}.
+			The results of this study suggest that this alone might make the Lorenz Attractor
+			dynamics entirely predictable.
 		</P>
 		<P
-			>The fact that over-representing such trajectories in the training set by a factor of 10
-			did not significantly improve the model's performance on these predictions suggests to
-			me that their difficulty stems not from their low occurence in the training set but from
-			an asymptotic increase in the sensitivity of the system near the origin. Consider an
-			analogy in which all possible trajectories are represented by grooves on a wooden table
-			along which a marble can roll, and the origin is a region where all of the grooves
-			appear to coalesce so densely that the model lacks the resolution to distinguish among
-			them. As the marble proceeds down one groove, it is easily bumped over to another groove
-			by the numerical rounding error of the IVP solver, adding an element of pseudo-randomn
-			noise to the trajectory.
+			>Is this subtle inconsistency, in which the local Z maximum determines whether a
+			transition will occur for all but a tiny range of values, an inherent property of the
+			Lorenz Attractor, or could it somehow be a byproduct of the rounding error in the IVP
+			solver? I don't know (please let me know if you do!) If it's the former, then I would
+			argue that this imparts a stochastic quality that seems incongruous with what we know to
+			otherwise be a deterministic system. If it's the latter, then how might the model
+			perform on a dataset for which the local Z maximum <i>is</i> linearly separable between these
+			two groups, assuming it's possible to generate one? For such a dataset, we should expect
+			that the model's predictions, although they may still have non-zero error, should not waiver
+			between the two lobes, as the models trained here do in the toughest test cases, but should
+			instead commit to the correct lobe in 100% of test cases.
 		</P>
 		<P
-			>In closing, I will return to the implications of the <Link
+			>(Upon discovering this apparent stochastic quality in the trajectories, I ran some
+			follow-up experiments to see if I could generate such a dataset by using a smaller {`$dt$`}
+			parameter in the IVP solver. I tried {`$dt$`}s in the range {`$[1.8\\mathrm{e}{-4}, 1.8\\mathrm{e}{-5}]$`}.
+			In all cases, the IVP solver eventually produced a trajectory that violated the linear
+			separability requirement for the local Z maximum, and at {`$1.8\\mathrm{e}{-5}$`}, the
+			numerical stability of the solver appeared to break down.)</P
+		>
+		<P
+			>In closing, I will touch again on the implications of the <Link
 				href="https://en.wikipedia.org/wiki/Shadowing_lemma">shadowing lemma</Link
 			> and research such as <Ref id="chandramoorthy" /> for the feasibility of training models
 			like these to predict real-world chaotic systems. It is well understood, and has been clearly
