@@ -13,3 +13,66 @@
 		@apply py-2 px-2 sm:px-8;
 	}
 }
+
+@layer base {
+	body {
+		@apply bg-gray-50;
+		@apply font-lato;
+		@apply font-normal;
+		@apply pb-12;
+		@apply leading-relaxed;
+		@apply text-sm;
+		@apply text-slate-800;
+	}
+	.section {
+		@apply mb-10;
+	}
+	.section__title {
+		@apply tracking-widest;
+		@apply font-bold;
+		@apply mb-2.5;
+		@apply uppercase;
+	}
+	.section__list {
+		@apply ms-4;
+	}
+	.section__list-item {
+		@apply mb-2;
+	}
+	.section__list-item:last-of-type {
+		@apply mb-10;
+	}
+	a {
+		@apply font-medium;
+		@apply text-blue-600;
+		@apply hover:underline;
+	}
+	.left {
+		@apply align-top;
+		@apply inline-block;
+		@apply w-[80%];
+		@apply me-2;
+	}
+	.right {
+		@apply align-top;
+		@apply inline-block;
+		@apply w-[19%];
+	}
+	.company {
+		@apply font-bold;
+	}
+	.position__list {
+		@apply mt-2;
+	}
+	.position {
+		@apply mt-2;
+		@apply ms-8;
+	}
+	.position__items > li {
+		@apply ms-12;
+	}
+	.publication {
+		@apply ms-4;
+		@apply my-2;
+	}
+}
