@@ -5,15 +5,15 @@
 		<link rel="icon" href="../favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="../_app/immutable/assets/0.B80xxk9L.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CgCTmDpa.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.CFsdrK-1.js">
+		<link href="../_app/immutable/assets/0.D-U1FtOc.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CHRrXvmz.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Dvvl68Im.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/paths.B8V_6_hU.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DsiRClkA.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/paths.BS7u2_OQ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.lMRaX1YX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BmRq3wWf.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.CP2DCv15.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/3.BcheW9Tr.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.rS-Xr0Pu.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.Dxx-1T2j.js"><title>Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</title><!-- HEAD_svelte-xp42rc_START --><meta name="description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:type" content="article"><meta property="og:url" content="https://nrxszvo.github.io/nhits-lorenz"><meta property="og:description" content="Experiments using the NHiTS neural forecasting architecture to model the Lorenz Attractor; analysis of Z coordinate local maximum converging to 38.5"><meta property="og:image" content="https://nrxszvo.github.io/thumbnail.png"><meta property="og:title" content="Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor"><!-- HEAD_svelte-xp42rc_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">    <div class="grid grid-flow-col auto-cols-auto"> <aside class="max-sm:hidden" data-svelte-h="svelte-u7i093"><nav class="border-r-2 sticky top-12"><div><section><ul class="menu"><li><a href="#intro">Intro</a></li> <li><a href="#lorenz">Lorenz Attractor</a></li> <li><a href="#nhits">Neural Architecture</a></li> <li><a href="#experiments">Experiments</a></li> <ul class="text-sm submenu"><li><a href="#datagen">Data Generation</a></li> <li><a href="#model-1">Model 1</a></li> <li><a href="#model-2">Model 2</a></li> <li><a href="#model-3">Model 3</a></li> <li><a href="#arpred">Autoregressive Prediction</a></li></ul> <li><a href="#discussion">Discussion</a></li> <li><a href="#references">References</a></li></ul></section></div></nav></aside> <div class="flex flex-col mx-4 sm:mx-16"><div id="intro" class="mt-8 text-2xl text-center">Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor</div> <div class="mt-2 text-md text-center" data-svelte-h="svelte-1tlj87z">Michael Horgan</div> <div class="mt-2 text-xs text-center font-serif" data-svelte-h="svelte-xnmp4g">michaelghorgan at gmail</div> <br> <div class="text-sm text-center font-serif mb-4">All code used in this project is available in the github repo: <a href="https://github.com/nrxszvo/mochaNN" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">mochaNN</a></div> <div id="tldr" class="text-xl font-medium text-left mt-8 mb-4"><i class="font-serif" data-svelte-h="svelte-ixj9gt">tl;dr</i></div> <ul class="list-disc ms-16 text-sm"><li>This project explores the use of the NHiTS [<a href="https://arxiv.org/abs/2201.12886" class="font-medium text-blue-600 dark:text-blue-500 hover:underline " target="_blank" rel="noopener noreferrer">5</a>] neural network to forecast
@@ -502,7 +502,7 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 			
 			<script>
 				{
-					__sveltekit_jol48q = {
+					__sveltekit_uii84a = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/nrxszvo.github.io"
 					};
@@ -512,8 +512,8 @@ H = 100 \text{ points} &amp; \approx 1.34\lambda_{max}^{-1} \\
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CgCTmDpa.js"),
-						import("../_app/immutable/entry/app.DsiRClkA.js")
+						import("../_app/immutable/entry/start.CHRrXvmz.js"),
+						import("../_app/immutable/entry/app.lMRaX1YX.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
