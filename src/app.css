@@ -66,13 +66,20 @@
 	}
 	.position {
 		@apply mt-2;
+		@apply mb-1;
 		@apply ms-8;
+		@apply italic;
 	}
 	.position__items > li {
 		@apply ms-12;
+		@apply me-8;
+		@apply list-disc;
 	}
 	.publication {
 		@apply ms-4;
 		@apply my-2;
+	}
+	.desc {
+		@apply mx-8;
 	}
 }

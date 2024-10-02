@@ -20,6 +20,11 @@
 			></span>
 			<span class="phone font-light text-gray-500">phone:</span>
 			<span class="phone-val">650-804-2651</span>
+			<span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"
+			></span>
+			<span class="linkedin"
+				><a href="https://www.linkedin.com/in/michael-horgan-8577a2a5">Linkedin</a></span
+			>
 		</div>
 		<div class="about">
 			<span class="font-bold inline-block me-2.5"
@@ -38,12 +43,14 @@
 							>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
 							Lorenz Attractor</a
 						>
-						<div class="desc ms-8">
+						<div class="desc">
 							I investigated the ability of a common neural forecasting architecture (<a
 								href="https://nixtlaverse.nixtla.io/neuralforecast/models.nhits.html"
 								>NHITS</a
 							>) to model a chaotic dynamical system (the Lorenz Attractor). I trained
-							the model on a PaperSpace VM using Pytorch and two RTX-5000 GPUs.
+							the model on a PaperSpace VM using Pytorch and two RTX-5000 GPUs. (<a
+								href="https://github.com/nrxszvo/mochaNN">Github repo</a
+							>)
 						</div>
 					</div>
 					<div class="right"><div class="duration">Jan - Apr 2024</div></div>
@@ -53,9 +60,11 @@
 						<a href="https://app.freedivesuperhome.com"
 							>A Scheduling Web App for Freedive SuperHome</a
 						>
-						<div class="desc ms-8">
+						<div class="desc">
 							I taught myself web programming and created a scheduling application pro
-							bono for my favorite freediving school in the Philippines.
+							bono for my favorite freediving school in the Philippines (<a
+								href="https://github.com/nrxszvo/superhome-scheduler">Github repo</a
+							>)
 						</div>
 					</div>
 					<div class="right"><div class="duration">Jan - June 2023</div></div>
@@ -63,7 +72,7 @@
 				<div class="section__list-item">
 					<div class="left">
 						Competitive Freediving National Record
-						<div class="desc ms-8">
+						<div class="desc">
 							After dedicated daily training for approximately one year, I set a US
 							national record in the "Dynamic No Fins" (DNF) freediving &#8211 pool
 							discipline. (See my <a
@@ -88,12 +97,13 @@
 							<ul class="position__items">
 								<li>
 									research and develop deep neural networks for noise reduction,
-									speech separation, and speech synthesis, written in Pytorch
+									speech separation, and speech synthesis, written in Pytorch and
+									trained on NVIDIA GPU clusters
 								</li>
 								<li>
-									developed an original DNN-based speech separation network with
-									two other researchers from the ground up; currently being used
-									by BlueJeans Video Conferencing for noise suppression
+									one of three research engineers who developed an original
+									DNN-based speech separation network from the ground up; used by
+									BlueJeans Video Conferencing for noise suppression
 								</li>
 							</ul>
 						</div>
@@ -150,7 +160,6 @@
 									circuit developers implementing Dolby’s IP on proprietary
 									architectures
 								</li>
-								<li></li>
 								<li>
 									validate and issue design approvals of licensees’ core designs,
 									IC implementations, and professional audio/video processing
@@ -207,7 +216,7 @@
 				<div class="section__list-item">
 					<div class="left">
 						<b>Stanford University</b>
-						<div class="desc ms-8">
+						<div class="desc">
 							<i>Master of Arts in Music, Science, and Technology</i>
 						</div>
 					</div>
@@ -216,7 +225,7 @@
 				<div class="section__list-item">
 					<div class="left">
 						<b>Stanford University</b>
-						<div class="desc ms-8">
+						<div class="desc">
 							<i>Bachelor of Arts in Music, Science, and Technology</i>
 						</div>
 					</div>
