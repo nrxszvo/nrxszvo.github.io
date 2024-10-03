@@ -23,7 +23,11 @@
 			<span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"
 			></span>
 			<span class="linkedin"
-				><a href="https://www.linkedin.com/in/michael-horgan-8577a2a5">Linkedin</a></span
+				><a
+					target="_blank"
+					rel="noopener noreferrer"
+					href="https://www.linkedin.com/in/michael-horgan-8577a2a5">Linkedin</a
+				></span
 			>
 		</div>
 		<div class="about">
@@ -39,16 +43,20 @@
 			<div class="section__list">
 				<div class="section__list-item">
 					<div class="left">
-						<a href="{base}/nhits-lorenz"
+						<a target="_blank" rel="noopener noreferrer" href="{base}/nhits-lorenz"
 							>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
 							Lorenz Attractor</a
 						>
 						<div class="desc">
 							I investigated the ability of a common neural forecasting architecture (<a
+								target="_blank"
+								rel="noopener noreferrer"
 								href="https://nixtlaverse.nixtla.io/neuralforecast/models.nhits.html"
 								>NHITS</a
 							>) to model a chaotic dynamical system (the Lorenz Attractor). I trained
 							the model on a PaperSpace VM using Pytorch and two RTX-5000 GPUs. (<a
+								target="_blank"
+								rel="noopener noreferrer"
 								href="https://github.com/nrxszvo/mochaNN">Github repo</a
 							>)
 						</div>
@@ -57,12 +65,17 @@
 				</div>
 				<div class="section__list-item">
 					<div class="left">
-						<a href="https://app.freedivesuperhome.com"
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://app.freedivesuperhome.com"
 							>A Scheduling Web App for Freedive SuperHome</a
 						>
 						<div class="desc">
 							I taught myself web programming and created a scheduling application pro
 							bono for my favorite freediving school in the Philippines (<a
+								target="_blank"
+								rel="noopener noreferrer"
 								href="https://github.com/nrxszvo/superhome-scheduler">Github repo</a
 							>)
 						</div>
@@ -76,6 +89,8 @@
 							After dedicated daily training for approximately one year, I set a US
 							national record in the "Dynamic No Fins" (DNF) freediving &#8211 pool
 							discipline. (See my <a
+								target="_blank"
+								rel="noopener noreferrer"
 								href="https://www.aidainternational.org/Athletes/Profile-dc4d56fa-a6ee-4b5f-a81b-5e739ddd5508"
 								>AIDA profile</a
 							>)
@@ -126,7 +141,7 @@
 								</li>
 								<li>
 									research and develop deep neural networks for speech synthesis,
-									written in Pytorch
+									written in Pytorch and trained on NVIDIA GPU clusters
 								</li>
 							</ul>
 						</div>
@@ -140,10 +155,6 @@
 									design, implement, and test software libraries for spatial audio
 									processing, perceptual audio coding, and loudness management,
 									written in C/C++ for Intel, ARM, and Texas Instruments platforms
-								</li>
-								<li>
-									diagnose and fix bugs in perceptual audio codec libraries
-									written in C for Intel, ARM, and Texas Instruments platforms
 								</li>
 							</ul>
 						</div>
@@ -178,12 +189,16 @@
 				<div class="section__list-item">
 					B. Kadioglu, M. Horgan, X. Liu, J. Pons, D. Darcy, V. Kumar, "An Empirical Study
 					of Conv-TasNet" <i>ICASSP 2020</i>, arXiv:<a
+						target="_blank"
+						rel="noopener noreferrer"
 						href="https://arxiv.org/abs/2002.08688">2002.08688</a
 					>
 				</div>
 				<div class="section__list-item">
 					C. Zhou, M. Horgan, V. Kumar, C. Vasco, D. Darcy, “Voice Conversion with
 					Conditional SampleRNN” <i>Interspeech 2018</i>, arXiv:<a
+						target="_blank"
+						rel="noopener noreferrer"
 						href="https://arxiv.org/abs/1808.08311">1808.08311</a
 					>
 				</div>
