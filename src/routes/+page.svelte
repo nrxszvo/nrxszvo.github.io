@@ -152,9 +152,10 @@
 							</div>
 							<ul class="position__items">
 								<li>
-									design, implement, and test software libraries for spatial audio
-									processing, perceptual audio coding, and loudness management,
-									written in C/C++ for Intel, ARM, and Texas Instruments platforms
+									design, implement, and test software libraries for real-time
+									spatial audio processing, perceptual audio coding, and loudness
+									management, written in C/C++ for Intel, ARM, and Texas
+									Instruments platforms
 								</li>
 							</ul>
 						</div>
