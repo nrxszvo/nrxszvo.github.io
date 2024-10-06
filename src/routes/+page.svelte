@@ -7,7 +7,7 @@
 	rel="stylesheet"
 	type="text/css"
 />
-<div class="container bg-white mx-auto shadow-sm shadow-gray-300 rounded-sm p-10 mt-12">
+<div class="container bg-white mx-auto shadow-sm shadow-gray-300 rounded-sm p-2 sm:p-10 mt-12">
 	<div class="header mb-8">
 		<div class="full-name text-4xl uppercase mb-1.5">
 			<span class="first-name font-bold">Michael</span>

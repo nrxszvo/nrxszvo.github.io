@@ -51,7 +51,6 @@
 		@apply align-top;
 		@apply inline-block;
 		@apply w-[80%];
-		@apply me-2;
 	}
 	.right {
 		@apply align-top;
