@@ -78,7 +78,7 @@
 				<input
 					autocomplete="off"
 					id="item-input"
-					class="w-0 min-w-fit flex-grow border-b-1 p-2 text-center text-blue-500 caret-blue-500 placeholder:italic enabled:hover:cursor-pointer"
+					class="w-0 min-w-fit grow border-b-1 p-2 text-center text-blue-500 caret-blue-500 placeholder:italic enabled:hover:cursor-pointer"
 					class:bg-gray-300={clicked}
 					class:outline-none={clicked}
 					placeholder="select a bot"

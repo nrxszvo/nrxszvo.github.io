@@ -5,7 +5,7 @@
 <button
 	id="dropdownDefaultButton"
 	data-dropdown-toggle="dropdown"
-	class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+	class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-hidden dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 	type="button"
 	>Dropdown button <svg
 		class="ms-3 h-2.5 w-2.5"
@@ -27,7 +27,7 @@
 <!-- Dropdown menu -->
 <div
 	id="dropdown"
-	class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:bg-gray-700"
+	class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-xs dark:bg-gray-700"
 >
 	<ul
 		class="py-2 text-sm text-gray-700 dark:text-gray-200"

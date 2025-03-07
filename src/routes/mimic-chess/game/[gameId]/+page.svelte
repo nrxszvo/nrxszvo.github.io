@@ -18,7 +18,7 @@
 	let chessground: Chessground | null = $state(null);
 
 	if (!Object.hasOwn($ongoing.games, data.gameId)) {
-		goto('/');
+		goto('/mimic-chess');
 	} else {
 		$effect(() => {
 			chessground?.set(ctrl?.chessgroundConfig());

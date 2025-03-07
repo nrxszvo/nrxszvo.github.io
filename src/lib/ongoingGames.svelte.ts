@@ -36,7 +36,7 @@ export default class OngoingGames {
 				this.games[game.gameId] = game;
 				if (!this.autoStart.has(game.id)) {
 					if (!game.hasMoved) {
-						goto(`/game/${game.gameId}`);
+						goto(`/mimic-chess/game/${game.gameId}`);
 					}
 				}
 				this.autoStart.add(game.id);

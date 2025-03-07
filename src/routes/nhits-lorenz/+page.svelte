@@ -640,7 +640,7 @@
 		>
 		<P>The new hyperparameters for Model 3.2 are:</P>
 		<HP hps={Constants.modelThreeHPs} />
-		<p class="my-4 text-sm font-serif bg-gray-100 rounded border ring-1 ring-black p-2">
+		<p class="my-4 text-sm font-serif bg-gray-100 rounded-sm border ring-1 ring-black p-2">
 			<b>A sidenote on the practicality of training this model:</b>
 			By increasing the input size and horizon length, we have significantly increased the memory
 			requirement for training this model. Now in order to fit the model onto two GPUs with 16
@@ -946,7 +946,7 @@
 			not waiver indecisively between the two lobes, as they do now, but would instead commit to
 			the correct lobe 100% of the time.
 		</P>
-		<p class="my-4 text-sm font-serif bg-gray-100 rounded border ring-1 ring-black p-2">
+		<p class="my-4 text-sm font-serif bg-gray-100 rounded-sm border ring-1 ring-black p-2">
 			<b>Sidenote:</b> Upon discovering this apparent stochastic quality in the trajectories,
 			I ran some follow-up experiments to see if I could generate such a dataset by using a
 			smaller {`$dt$`}

@@ -15,7 +15,7 @@
 		'references'
 	];
 
-	const highlightStyle = ['bg-rose-100', 'rounded'];
+	const highlightStyle = ['bg-rose-100', 'rounded-sm'];
 	let active = sections[0];
 
 	const getHref = (href) => {
