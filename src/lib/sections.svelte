@@ -52,7 +52,7 @@
 	});
 </script>
 
-<svelte:window on:scroll={handleScroll} />
+<svelte:window onscroll={handleScroll} />
 
 <aside class="max-sm:hidden">
 	<nav class="border-r-2 sticky top-12">

@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let hps = [];
+	let { hps = [] } = $props();
 </script>
 
 <section class="relative block my-4">

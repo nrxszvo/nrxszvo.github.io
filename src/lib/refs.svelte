@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export const getRef = (id) => {
 		for (let i = 0; i < refs.length; i++) {
 			if (refs[i].id == id) {

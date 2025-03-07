@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let id;
+	let { id, children } = $props();
 </script>
 
-<div {id} class="text-2xl font-bold text-center my-8"><slot /></div>
+<div {id} class="text-2xl font-bold text-center my-8">{@render children?.()}</div>

@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 	export const title =
 		'Generic Deep Learning for Chaotic Dynamics: A Case Study on the Lorenz Attractor';
 	export const description =
