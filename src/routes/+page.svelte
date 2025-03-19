@@ -7,7 +7,7 @@
 	rel="stylesheet"
 	type="text/css"
 />
-<div class="container bg-white mx-auto shadow-sm shadow-gray-300 rounded-sm p-2 sm:p-10 mt-12">
+<div class="container bg-white mx-auto shadow-xs shadow-gray-300 rounded-xs p-2 sm:p-10 mt-12">
 	<div class="header mb-8">
 		<div class="full-name text-4xl uppercase mb-1.5">
 			<span class="first-name font-bold">Michael</span>
@@ -43,6 +43,20 @@
 			<div class="section__list">
 				<div class="section__list-item">
 					<div class="left">
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://chessbot.michaelhorgan.me"
+							>An LLM-inspired ChessBot trained on human chess games</a
+						>
+						<div class="desc">
+							I trained a transformer neural network on human chess games from the <a
+								href="https://database.lichess.org"
+								target="_blank"
+								rel="noopener noreferrer">Lichess database</a
+							> to play chess in the style of a human player. The training procedure mirrors
+							that of the "pre-training" phase for a Large Language Model.
+						</div>
 						<a target="_blank" rel="noopener noreferrer" href="{base}/nhits-lorenz"
 							>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
 							Lorenz Attractor</a
