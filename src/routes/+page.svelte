@@ -43,31 +43,29 @@
 			<div class="section__list">
 				<div class="section__list-item">
 					<div class="left">
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://chessbot.michaelhorgan.me"
+							>An LLM-inspired ChessBot trained on human chess games</a
+						>
 						<div class="desc">
-							<a
+							I trained a transformer neural network on human chess games from the <a
+								href="https://database.lichess.org"
 								target="_blank"
-								rel="noopener noreferrer"
-								href="https://chessbot.michaelhorgan.me"
-								>An LLM-inspired ChessBot trained on human chess games</a
-							>
-							<div class="desc">
-								I trained a transformer neural network on human chess games from the <a
-									href="https://database.lichess.org"
-									target="_blank"
-									rel="noopener noreferrer">Lichess database</a
-								> to play chess in the style of a human player. The training procedure
-								mirrors that of the "pre-training" phase for a Large Language Model.
-							</div>
-							<a target="_blank" rel="noopener noreferrer" href="{base}/nhits-lorenz"
-								>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
-								Lorenz Attractor</a
-							>
+								rel="noopener noreferrer">Lichess database</a
+							> to play chess in the style of a human player. The training procedure mirrors
+							that of the "pre-training" phase for a Large Language Model.
 						</div>
 					</div>
 					<div class="right"><div class="duration">Oct 2024 - Feb 2025</div></div>
 				</div>
 				<div class="section__list-item">
 					<div class="left">
+						<a target="_blank" rel="noopener noreferrer" href="{base}/nhits-lorenz"
+							>Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
+							Lorenz Attractor</a
+						>
 						<div class="desc">
 							I investigated the ability of a common neural forecasting architecture (<a
 								target="_blank"
