@@ -4,7 +4,7 @@
 
 <section class="relative block my-4">
 	<ul
-		class="flex flex-col m-auto ps-2 rounded gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"
+		class="flex flex-col m-auto ps-2 rounded-sm gap-0.5 bg-gray-100 divide-y divide-gray-200 w-fit"
 	>
 		{#each hps as hp}
 			<li class="flex items-center justify-left">
