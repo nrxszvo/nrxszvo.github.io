@@ -264,7 +264,7 @@
 							<i>B.A. in Music, Science, and Technology</i>
 						</div>
 					</div>
-					<div class="right">Jun 2008</div>
+					<div class="right">2008</div>
 				</div>
 			</div>
 		</div>
