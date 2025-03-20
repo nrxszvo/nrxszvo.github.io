@@ -1,24 +1,6 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="./favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<link href="./_app/immutable/assets/0.CdvcojfJ.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.DnmBpdV-.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.ylIBq0Ss.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.BeaK0CkN.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.BT7qAWlY.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.BPP3uSzS.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.BmRq3wWf.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.DQuGEuVD.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.BKk1FdMd.js">
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">  <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet" type="text/css"> <div class="container bg-white mx-auto shadow-2xs shadow-gray-300 rounded-xs p-2 sm:p-10 mt-12" data-svelte-h="svelte-1pe2s66"><div class="header mb-8"><div class="full-name text-4xl uppercase mb-1.5"><span class="first-name font-bold">Michael</span> <span class="last-name font-light">Horgan</span></div> <div class="contact-info mb-4"><span class="email font-light text-gray-500">email:</span> <span class="email-val">michaelghorgan@gmail.com</span> <span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"></span> <span class="phone font-light text-gray-500">phone:</span> <span class="phone-val">650-804-2651</span> <span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"></span> <span class="linkedin"><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/michael-horgan-8577a2a5">Linkedin</a></span></div> <div class="about"><span class="font-bold inline-block me-2.5">Software Development — Machine Learning Research and Development —
+import{s as h,n as r}from"../chunks/scheduler.BeaK0CkN.js";import{S as m,i as u,e as c,s as g,c as v,a as f,g as _,b as t,d as o,f as l}from"../chunks/index.BmRq3wWf.js";import{b}from"../chunks/paths.BT7qAWlY.js";function y(p){let e,a,s,d=`<div class="header mb-8"><div class="full-name text-4xl uppercase mb-1.5"><span class="first-name font-bold">Michael</span> <span class="last-name font-light">Horgan</span></div> <div class="contact-info mb-4"><span class="email font-light text-gray-500">email:</span> <span class="email-val">michaelghorgan@gmail.com</span> <span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"></span> <span class="phone font-light text-gray-500">phone:</span> <span class="phone-val">650-804-2651</span> <span class="separator h-2.5 inline-block border-s-2 border-gray-500 divide-solid mx-2"></span> <span class="linkedin"><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/michael-horgan-8577a2a5">Linkedin</a></span></div> <div class="about"><span class="font-bold inline-block me-2.5">Software Development — Machine Learning Research and Development —
 				Real-time Signal Processing</span></div></div> <div class="details leading-5"><div class="section"><div class="section__title">Personal Projects</div> <div class="section__list"><div class="section__list-item"><div class="left"><a target="_blank" rel="noopener noreferrer" href="https://chessbot.michaelhorgan.me">An LLM-inspired ChessBot Trained on Human Chess Games</a> <div class="desc">I trained a transformer neural network on human chess games from the <a href="https://database.lichess.org" target="_blank" rel="noopener noreferrer">Lichess database</a> to play chess in the style of a human player. The training procedure mirrors
-							that of the &quot;pre-training&quot; phase for a Large Language Model.</div></div> <div class="right"><div class="duration">2025</div></div></div> <div class="section__list-item"><div class="left"><a target="_blank" rel="noopener noreferrer" href="./nhits-lorenz">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
+							that of the &quot;pre-training&quot; phase for a Large Language Model.</div></div> <div class="right"><div class="duration">2025</div></div></div> <div class="section__list-item"><div class="left"><a target="_blank" rel="noopener noreferrer" href="${b}/nhits-lorenz">Modeling Chaotic Dynamics with Deep Learning: A Case Study on the
 							Lorenz Attractor</a> <div class="desc">I investigated the ability of a common neural forecasting architecture (<a target="_blank" rel="noopener noreferrer" href="https://nixtlaverse.nixtla.io/neuralforecast/models.nhits.html">NHITS</a>) to model a chaotic dynamical system (the Lorenz Attractor). I trained
 							the model on a PaperSpace VM using Pytorch and two RTX-5000 GPUs. (<a target="_blank" rel="noopener noreferrer" href="https://github.com/nrxszvo/mochaNN">Github repo</a>)</div></div> <div class="right"><div class="duration">2024</div></div></div> <div class="section__list-item"><div class="left"><a target="_blank" rel="noopener noreferrer" href="https://app.freedivesuperhome.com">A Scheduling Web App for Freedive SuperHome</a> <div class="desc">I taught myself web programming and created a scheduling application pro
 							bono for my favorite freediving school in the Philippines (<a target="_blank" rel="noopener noreferrer" href="https://github.com/nrxszvo/superhome-scheduler">Github repo</a>)</div></div> <div class="right"><div class="duration">2023</div></div></div> <div class="section__list-item"><div class="left">Competitive Freediving National Record
@@ -46,32 +28,4 @@
 					11,538,455 B2</div> <div class="section__list-item">C. Zhou, X. Liu, M. Horgan, V. Kumar. Systems and Methods for Adapting Human
 					Speaker Embeddings in Speech Synthesis. US 2022/0335925 A1</div> <div class="section__list-item">X. Li, G. Cengarle, Q. Bin, M. Horgan. Generating Channel and Object-based Audio
 					from Channel-based Audio. WO 2023/076039 A1</div> <div class="section__list-item">B. Kadioglu, M. Horgan, J. Pons Puig, X. Liu. Deep Source Separation
-					Architecture. WO 2021/081002 A1</div></div> <div class="section__title">Education</div> <div class="section__list"><div class="section__list-item"><div class="left"><b>Stanford University</b> <div class="desc"><i>M.A. in Music, Science, and Technology</i></div></div> <div class="right">2008</div></div> <div class="section__list-item"><div class="left"><b>Stanford University</b> <div class="desc"><i>B.A. in Music, Science, and Technology</i></div></div> <div class="right">Jun 2008</div></div></div></div></div></div> 
-			
-			<script>
-				{
-					__sveltekit_pbm2os = {
-						base: new URL(".", location).pathname.slice(0, -1),
-						assets: "/nrxszvo.github.io"
-					};
-
-					const element = document.currentScript.parentElement;
-
-					const data = [null,null];
-
-					Promise.all([
-						import("./_app/immutable/entry/start.DnmBpdV-.js"),
-						import("./_app/immutable/entry/app.BPP3uSzS.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element, {
-							node_ids: [0, 2],
-							data,
-							form: null,
-							error: null
-						});
-					});
-				}
-			</script>
-		</div>
-	</body>
-</html>
+					Architecture. WO 2021/081002 A1</div></div> <div class="section__title">Education</div> <div class="section__list"><div class="section__list-item"><div class="left"><b>Stanford University</b> <div class="desc"><i>M.A. in Music, Science, and Technology</i></div></div> <div class="right">2008</div></div> <div class="section__list-item"><div class="left"><b>Stanford University</b> <div class="desc"><i>B.A. in Music, Science, and Technology</i></div></div> <div class="right">Jun 2008</div></div></div></div></div>`;return{c(){e=c("link"),a=g(),s=c("div"),s.innerHTML=d,this.h()},l(i){e=v(i,"LINK",{href:!0,rel:!0,type:!0}),a=f(i),s=v(i,"DIV",{class:!0,"data-svelte-h":!0}),_(s)!=="svelte-1pe2s66"&&(s.innerHTML=d),this.h()},h(){t(e,"href","https://fonts.googleapis.com/css?family=Lato:400,300,700"),t(e,"rel","stylesheet"),t(e,"type","text/css"),t(s,"class","container bg-white mx-auto shadow-2xs shadow-gray-300 rounded-xs p-2 sm:p-10 mt-12")},m(i,n){o(i,e,n),o(i,a,n),o(i,s,n)},p:r,i:r,o:r,d(i){i&&(l(e),l(a),l(s))}}}class C extends m{constructor(e){super(),u(this,e,null,y,h,{})}}export{C as component};
