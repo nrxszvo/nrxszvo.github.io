@@ -47,7 +47,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							href="https://chessbot.michaelhorgan.me"
-							>An LLM-inspired ChessBot trained on human chess games</a
+							>An LLM-inspired ChessBot Trained on Human Chess Games</a
 						>
 						<div class="desc">
 							I trained a transformer neural network on human chess games from the <a
@@ -58,7 +58,7 @@
 							that of the "pre-training" phase for a Large Language Model.
 						</div>
 					</div>
-					<div class="right"><div class="duration">Oct 2024 - Feb 2025</div></div>
+					<div class="right"><div class="duration">2025</div></div>
 				</div>
 				<div class="section__list-item">
 					<div class="left">
@@ -80,7 +80,7 @@
 							>)
 						</div>
 					</div>
-					<div class="right"><div class="duration">Jan - Apr 2024</div></div>
+					<div class="right"><div class="duration">2024</div></div>
 				</div>
 				<div class="section__list-item">
 					<div class="left">
@@ -99,7 +99,7 @@
 							>)
 						</div>
 					</div>
-					<div class="right"><div class="duration">Jan - June 2023</div></div>
+					<div class="right"><div class="duration">2023</div></div>
 				</div>
 				<div class="section__list-item">
 					<div class="left">
@@ -115,7 +115,7 @@
 							>)
 						</div>
 					</div>
-					<div class="right"><div class="duration">April 2023</div></div>
+					<div class="right"><div class="duration">2023</div></div>
 				</div>
 			</div>
 
@@ -142,7 +142,7 @@
 							</ul>
 						</div>
 						<div class="right">
-							<div class="duration">Jul 2018 - Jul 2021</div>
+							<div class="duration">2018 - 2021</div>
 						</div>
 						<div class="left">
 							<div class="position">
@@ -164,7 +164,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="right"><div class="duration">Aug 2015 - Jul 2018</div></div>
+						<div class="right"><div class="duration">2015 - 2018</div></div>
 						<div class="left">
 							<div class="position">
 								Senior Software Engineer, Advanced Technology Group
@@ -179,7 +179,7 @@
 							</ul>
 						</div>
 						<div class="right">
-							<div class="duration">Oct 2011 - Aug 2015</div>
+							<div class="duration">2011 - 2015</div>
 						</div>
 						<div class="left">
 							<div class="position">
@@ -199,7 +199,7 @@
 							</ul>
 						</div>
 						<div class="right">
-							<div class="duration">Oct 2008 - Oct 2011</div>
+							<div class="duration">2008 - 2011</div>
 						</div>
 					</div>
 				</div>
@@ -252,16 +252,16 @@
 					<div class="left">
 						<b>Stanford University</b>
 						<div class="desc">
-							<i>Master of Arts in Music, Science, and Technology</i>
+							<i>M.A. in Music, Science, and Technology</i>
 						</div>
 					</div>
-					<div class="right">Jun 2008</div>
+					<div class="right">2008</div>
 				</div>
 				<div class="section__list-item">
 					<div class="left">
 						<b>Stanford University</b>
 						<div class="desc">
-							<i>Bachelor of Arts in Music, Science, and Technology</i>
+							<i>B.A. in Music, Science, and Technology</i>
 						</div>
 					</div>
 					<div class="right">Jun 2008</div>
